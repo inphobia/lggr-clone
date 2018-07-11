@@ -19,9 +19,9 @@ if (isset($_SESSION[LggrState::SESSIONNAME])) {
 } // if
 
 $aColors = array(
-    'emerg' => COLORALERT,
-    'crit' => COLORALERT,
-    'err' => COLORALERT,
+    'emerg' => '#'.COLORALERT,
+    'crit' => '#'.COLORALERT,
+    'err' => '#'.COLORALERT,
     'warning' => '#f0ad4e',
     'notice' => '#337ab7',
     'info' => '#5cb85c'
@@ -87,8 +87,16 @@ var dataLevels = {
 <?php
 foreach ($aLevels as $level) {
     $newVal = round(log($level->c));
-    // $newCol = $aColors[$level->level];
+    $newCol = $aColors[$level->level];
     echo "{$newVal}, ";
+} // foreach
+?>
+        ],
+        backgroundColor: [
+<?php
+foreach ($aLevels as $level) {
+    $newCol = $aColors[$level->level];
+    echo "'{$newCol}', ";
 } // foreach
 ?>
         ]
