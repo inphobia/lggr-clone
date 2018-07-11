@@ -81,41 +81,45 @@ var dataServers = {
 	} ]
 };
 
-var dataLevels = [
+var dataLevels = {
+    datasets: [{
+        data: [
 <?php
 foreach ($aLevels as $level) {
     $newVal = round(log($level->c));
-    $newCol = $aColors[$level->level];
-    echo <<<EOL
-    {
-        value: $newVal,
-        color: "$newCol",
-        label: "{$level->level}",
-    },
-
-EOL;
+    // $newCol = $aColors[$level->level];
+    echo "{$newVal}, ";
 } // foreach
 ?>
-];
+        ]
+    }],
+    labels: [
+<?php
+foreach ($aLevels as $level) {
+    echo "'{$level->level}', ";
+} // foreach
+?>
+    ]
+};
 
-var dataServersPie = [
+var dataServersPie = {
+    datasets: [{
+        data: [
 <?php
 foreach ($aServers as $server) {
-    $sHash = md5($server->host);
-    $cHash = $sHash[0] . '0' . $sHash[1] . '0' . $sHash[2] . '0';
-    $cHashHigh = $sHash[0] . 'f' . $sHash[1] . 'f' . $sHash[2] . 'f';
-    echo <<<EOL
-    {
-        value: {$server->c},
-        color: "#$cHash",
-        highlight: "#$cHashHigh",
-        label: "{$server->host}"
-    },
-
-EOL;
+    echo $server->c . ",";
 } // foreach
 ?>
-];
+        ]
+    }],
+    labels: [
+<?php
+foreach ($aServers as $server) {
+    echo "'{$server->host}',";
+}
+?>
+    ]
+};
 
 
 var dataCloudWords = [
