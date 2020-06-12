@@ -27,7 +27,7 @@ if (isset($_SERVER['REMOTE_USER'])) {
 ?>
         <p class="debugfooter"><?=$pCount?> <?=_('queries in')?> <?=$pTime?> <?=_('seconds')?>. <?=_('Session')?>: <?=$dbgsession?> <?=_('by')?> <?=htmlentities($remoteUser)?></p>
         <p>
-            &copy; <a href="http://lggr.io" target="_blank">lggr.io</a>
+            &copy; <a href="http://lggr.io" target="_blank" rel="noopener noreferrer">lggr.io</a>
             2018
         </p>
     </footer>
