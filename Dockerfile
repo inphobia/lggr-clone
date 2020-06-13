@@ -9,7 +9,7 @@ RUN service apache2 restart
 
 EXPOSE 80
 
-CMD ["/bin/ping", "localhost"]
+CMD ["/bin/bash"]
 
 # docker build -t lggr/test .
 # docker run -p 4000:80 lggr/test
