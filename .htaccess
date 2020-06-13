@@ -6,7 +6,7 @@ Options -indexes
 
 <Files stats.php>
 # Chart.js uses some dynamic functions.
-Header always set Content-Security-Policy "default-src 'self' ; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; report-uri https://report-uri.io/report/e7e84fa898ae6e0d0e8d70e25cd237c7;"
+#Header always set Content-Security-Policy "default-src 'self' ; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; report-uri https://report-uri.io/report/e7e84fa898ae6e0d0e8d70e25cd237c7;"
 </Files>
 
 ExpiresActive	On
