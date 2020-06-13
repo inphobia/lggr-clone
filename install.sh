@@ -2,8 +2,8 @@
 
 export DB_NAME="lggr"
 
-systemctl start mysql.service
-systemctl start apache2.service
+/etc/init.d/mysql start
+/etc/init.d/apache2 start
 sleep 60
 
 mysqladmin create $DB_NAME
