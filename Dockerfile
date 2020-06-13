@@ -1,8 +1,8 @@
 FROM debian:stable
 MAINTAINER Kai Kretschmann
 
-#RUN apt-get update -y
-RUN apt-get install -y mysql-server apache2 php-mysql php-gd
+RUN apt-get update -y
+RUN apt-get install -y mariadb-server apache2 php-mysql php-gd
 RUN a2enmod rewrite
 RUN a2enmod headers
 RUN service apache2 restart
