@@ -1,14 +1,15 @@
 FROM debian:stable
 MAINTAINER Kai Kretschmann
 
-RUN apt-get update -y
-RUN apt-get install -y mariadb-server apache2 php-mysql php-gd
-RUN a2enmod rewrite
-RUN a2enmod headers
-RUN service apache2 restart
+RUN apt-get update && apt-get install -y \
+	mariadb-server \
+	apache2 \
+	php-mysql php-gd
+RUN a2enmod rewrite && a2enmod headers && service apache2 restart
 
 EXPOSE 80
 
+WORKDIR "/var/www/html"
 CMD ["/bin/bash"]
 
 # docker build -t lggr/test .
