@@ -40,20 +40,22 @@ dbsetup:
 websetup:
   stage: test
   before_script:
-  - apt-get update -yqq
-  script:
-  - apt-get install -yqq wget git libmcrypt-dev libpq-dev libcurl4-gnutls-dev libicu-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libpcre3-dev libtidy-dev
   - cp -a * /var/www/html/
+  - apt-get update -yqq
+  - apt-get install -yqq wget git libmcrypt-dev libpq-dev libcurl4-gnutls-dev libicu-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libpcre3-dev libtidy-dev
+  script:
+  - pwd
+  - ls -la
+  - cd /var/www/html
+  - ls -la
+  - cd /tmp
+  - wget -S -O - http://localhost/
 
 # Run our tests
 # If Xdebug was installed you can generate a coverage report and see code coverage metrics.
 test:
   stage: test
   script:
-  - pwd
-  - ls -la
-  - cd /var/www/html
-  - ls -la
   - cd /tmp
   - wget -S -O - http://localhost/
   - echo Some test to come
