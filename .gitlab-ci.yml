@@ -27,15 +27,11 @@ variables:
   MYSQL_DATABASE: $MYSQL_DB
   MYSQL_ROOT_PASSWORD: $MYSQL_PASS
 
-connect:
-  image: mysql
+# Run our tests
+# If Xdebug was installed you can generate a coverage report and see code coverage metrics.
+test:mysql:
   script:
   - echo GRANT ALL ON lggr.* TO lggr@'%' IDENTIFIED BY 'lggr'; FLUSH PRIVILEGES | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
-
-# Run our tests
-# If Xdebug was installed you can generate a coverage report and see code coverage metrics.
-test:
-  script:
   - echo Some test to come
 #    - vendor/bin/phpunit --configuration phpunit.xml --coverage-text --colors=never
