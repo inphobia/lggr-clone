@@ -13,8 +13,8 @@ before_script:
   # Install PHP extensions
   - docker-php-ext-install mbstring mcrypt pdo_mysql curl json intl gd xml zip bz2 opcache
   # Install and run Composer
-  - curl -sS https://getcomposer.org/installer | php
-  - php composer.phar install
+  # - curl -sS https://getcomposer.org/installer | php
+  # - php composer.phar install
 
 # Bring in any services we need http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
 # See http://docs.gitlab.com/ce/ci/services/README.html for examples.
@@ -31,4 +31,6 @@ variables:
 # If Xdebug was installed you can generate a coverage report and see code coverage metrics.
 test:
   script:
-    - vendor/bin/phpunit --configuration phpunit.xml --coverage-text --colors=never
+    - mysql -e "GRANT ALL ON lggr.* TO lggr@'%' IDENTIFIED BY 'lggr'; FLUSH PRIVILEGES" $MYSQL_DATABASE
+    - mysql $MYSQL_DATABASE <doc/db.sql
+#    - vendor/bin/phpunit --configuration phpunit.xml --coverage-text --colors=never
