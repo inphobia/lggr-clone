@@ -24,13 +24,17 @@ services:
 # Set any variables we need
 variables:
   # Configure mysql environment variables (https://hub.docker.com/r/_/mysql/)
-  MYSQL_DATABASE: lggr
-  MYSQL_ROOT_PASSWORD: masterpwd
+  MYSQL_DATABASE: $MYSQL_DB
+  MYSQL_ROOT_PASSWORD: $MYSQL_PASS
+
+connect:
+  image: mysql
+  script:
+  - echo GRANT ALL ON lggr.* TO lggr@'%' IDENTIFIED BY 'lggr'; FLUSH PRIVILEGES | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
+  - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
 
 # Run our tests
 # If Xdebug was installed you can generate a coverage report and see code coverage metrics.
 test:
   script:
-    - mysql -h mysql -u runner -p$MYSQL_ROOT_PASSWORD -e "GRANT ALL ON lggr.* TO lggr@'%' IDENTIFIED BY 'lggr'; FLUSH PRIVILEGES" $MYSQL_DATABASE
-    - mysql -h mysql -u runner -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE <doc/db.sql
 #    - vendor/bin/phpunit --configuration phpunit.xml --coverage-text --colors=never
