@@ -38,7 +38,7 @@ dbsetup:
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=database "$MYSQL_DATABASE"
 
 websetup:
-  stage: setup
+  stage: test
   before_script:
   - apt-get update -yqq
   script:
