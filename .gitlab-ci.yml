@@ -49,5 +49,7 @@ websetup:
 test:
   stage: test
   script:
+  - pwd
+  - ls -la
   - echo Some test to come
 #    - vendor/bin/phpunit --configuration phpunit.xml --coverage-text --colors=never
