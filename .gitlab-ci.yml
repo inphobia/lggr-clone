@@ -9,7 +9,7 @@ cache:
 
 before_script:
   - apt-get update -yqq
-  - apt-get install -yqq git libmcrypt-dev libpq-dev libcurl4-gnutls-dev libicu-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev
+  - apt-get install -yqq git mysql-client libmcrypt-dev libpq-dev libcurl4-gnutls-dev libicu-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libpcre3-dev libtidy-dev
   # Install PHP extensions
   - docker-php-ext-install mbstring mcrypt pdo_mysql curl json intl gd xml zip bz2 opcache
   # Install and run Composer
@@ -31,6 +31,6 @@ variables:
 # If Xdebug was installed you can generate a coverage report and see code coverage metrics.
 test:
   script:
-    - mysql -e "GRANT ALL ON lggr.* TO lggr@'%' IDENTIFIED BY 'lggr'; FLUSH PRIVILEGES" $MYSQL_DATABASE
-    - mysql $MYSQL_DATABASE <doc/db.sql
+    - mysql -h mysql -u runner -p$MYSQL_ROOT_PASSWORD -e "GRANT ALL ON lggr.* TO lggr@'%' IDENTIFIED BY 'lggr'; FLUSH PRIVILEGES" $MYSQL_DATABASE
+    - mysql -h mysql -u runner -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE <doc/db.sql
 #    - vendor/bin/phpunit --configuration phpunit.xml --coverage-text --colors=never
