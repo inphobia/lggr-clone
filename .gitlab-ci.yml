@@ -52,13 +52,13 @@ webtest:
   - php composer.phar install
   # copy our project stuff
   - cp -a * /var/www/html/
-  - apt-get update -yqq
-  - apt-get install -yqq libmcrypt-dev libpq-dev libcurl4-gnutls-dev libicu-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libpcre3-dev libtidy-dev
+  - service apache2 restart
+  - service apache2 status
   script:
   - pwd
   - ls -la
   - cd /var/www/html
   - ls -la
   - cd /tmp
-  - wget -S -O - http://localhost/
+  - wget -S -O - http://127.0.0.1/
 
