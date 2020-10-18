@@ -42,7 +42,7 @@ webtest:
   before_script:
   # Install image os needs
   - apt-get update -yqq
-  - apt-get install -yqq wget
+  - apt-get install -yqq wget git zip
   # Install composer dependencies
   - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
   - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
