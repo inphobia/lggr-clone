@@ -4,4 +4,6 @@ test/*
 test/
 doc/
 contrib/*
+vendor/*
+composer.lock
 *.bak
