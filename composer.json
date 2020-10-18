@@ -1,4 +1,16 @@
 {
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Kai KRETSCHMANN",
+			"email": "kai@kretschmann.consulting",
+			"homepage": "https://kai.kretschmann.consulting",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"email": "info@lggr.io"
+	},
 	"require": {
 		"twbs/bootstrap": "3.3.4",
 		"components/jquery": "1.11.*",
