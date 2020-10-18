@@ -52,6 +52,7 @@ webtest:
   - php composer.phar install
   # add php stuff
   - docker-php-ext-install gettext mysqli
+  - docker-php-ext-enable gettext mysqli
   # copy our project stuff
   - cp -a * /var/www/html/
   - service apache2 restart
