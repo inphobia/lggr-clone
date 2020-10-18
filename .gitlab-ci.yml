@@ -40,6 +40,9 @@ dbsetup:
 webtest:
   stage: test
   before_script:
+  # Install image os needs
+  - apt-get update -yqq
+  - apt-get install -yqq wget
   # Install composer dependencies
   - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
   - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -50,7 +53,7 @@ webtest:
   # copy our project stuff
   - cp -a * /var/www/html/
   - apt-get update -yqq
-  - apt-get install -yqq wget git libmcrypt-dev libpq-dev libcurl4-gnutls-dev libicu-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libpcre3-dev libtidy-dev
+  - apt-get install -yqq libmcrypt-dev libpq-dev libcurl4-gnutls-dev libicu-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libpcre3-dev libtidy-dev
   script:
   - pwd
   - ls -la
