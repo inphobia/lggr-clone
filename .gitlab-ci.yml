@@ -51,7 +51,7 @@ webtest:
   - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
   - php composer.phar install
   # add php stuff
-  - docker-php-ext-install gettext
+  - docker-php-ext-install gettext mysqli
   # copy our project stuff
   - cp -a * /var/www/html/
   - service apache2 restart
