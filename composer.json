@@ -15,6 +15,11 @@
 		"twbs/bootstrap": "3.3.4",
 		"components/jquery": "1.11.*",
 		"components/jqueryui": "1.11.*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Lggr\\": "inc/"
+		}
 	}
 }
 

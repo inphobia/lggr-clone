@@ -1,4 +1,5 @@
 <?php
+namespace Lggr;
 
 /**
  * Project specific exception class

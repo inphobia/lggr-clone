@@ -2,13 +2,11 @@
     <ul class="pagination">
 <?php
 
-define('TAG_ARIALABEL', '" aria-label="');
-
-$maxPages = ceil($state->getResultSize() / LggrState::PAGELEN); // maximum pages
+$maxPages = ceil($state->getResultSize() / \Lggr\LggrState::PAGELEN); // maximum pages
 
 if ($page > 9) {
     echo '<li><a class="" href="./do.php?a=paginate&page=' . ($page - 10) .
-    TAG_ARIALABEL . _('Ten left') .
+    \TAG_ARIALABEL . _('Ten left') .
          '"><span aria-hidden="true">&lArr;</span></a></li>';
 } else {
     echo '<li class="disabled"><a href="#" aria-label="' . _('Ten left') .
@@ -17,7 +15,7 @@ if ($page > 9) {
 
 if ($page > 0) {
     echo '<li><a class="pageleft" href="./do.php?a=paginate&page=' . ($page - 1) .
-    TAG_ARIALABEL . _('Previous') .
+    \TAG_ARIALABEL . _('Previous') .
          '"><span aria-hidden="true">&laquo;</span></a></li>';
 } else {
     echo '<li class="disabled"><a href="#" aria-label="' . _('Previous') .

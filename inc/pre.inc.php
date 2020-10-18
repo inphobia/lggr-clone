@@ -2,21 +2,14 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-spl_autoload_register(
-    function ($class) {
-        $class = strtolower($class);
-        $class = str_replace('\\', '/', $class);
-        include __DIR__ . '/' . $class . '_class.php';
-    });
-
-$config = new Config();
+$config = new \Lggr\Config();
 
 session_start();
 
-if (isset($_SESSION[LggrState::SESSIONNAME])) {
-    $state = $_SESSION[LggrState::SESSIONNAME];
+if (isset($_SESSION[\Lggr\LggrState::SESSIONNAME])) {
+    $state = $_SESSION[\Lggr\LggrState::SESSIONNAME];
 } else {
-    $state = new LggrState();
+    $state = new \Lggr\LggrState();
 }
 
 // if
@@ -47,3 +40,6 @@ if (! $rc) {
 bindtextdomain(MESSAGES, __DIR__ . '/../locale');
 bind_textdomain_codeset(MESSAGES, 'UTF-8');
 textdomain(MESSAGES);
+
+define('TAG_ARIALABEL', '" aria-label="');
+

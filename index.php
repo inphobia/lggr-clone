@@ -13,13 +13,13 @@ define('TAG_SPANBUTTON_CLOSE', '</span></button>');
 
 $l = null;
 try {
-    $l = new Lggr($state, $config);
+    $l = new \Lggr\Lggr($state, $config);
     
     $aLevels = $l->getLevels();
     $aServers = $l->getServers();
     $aAllServers = $l->getAllServers();
 }
-catch (LggrException $e) {
+catch (\Lggr\LggrException $e) {
     echo '<div class="container"><div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div></div>';
 
     require INC_FOOTER;
@@ -40,7 +40,7 @@ try {
     if ($state->isSearch()) {
         
         $aEvents = $l->getText($state->getSearch(), $state->getSearchProg(),
-            $page * LggrState::PAGELEN, LggrState::PAGELEN);
+            $page * \Lggr\LggrState::PAGELEN, \Lggr\LggrState::PAGELEN);
         $searchvalue = htmlentities($state->getSearch(),
             ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES);
         $searchvalueprog = htmlentities($state->getSearchProg(),
@@ -57,8 +57,8 @@ try {
         
         $host = $state->getHostName();
         
-        $aEvents = $l->getHostFromTo($page * LggrState::PAGELEN,
-            LggrState::PAGELEN);
+        $aEvents = $l->getHostFromTo($page * \Lggr\LggrState::PAGELEN,
+            \Lggr\LggrState::PAGELEN);
         
         $sFilter = _('Filter by time range between') . ' ' . TAG_STRONG_CLOSE .
              htmlentities($state->getFrom(),
@@ -77,8 +77,8 @@ try {
         $host = $state->getHostName();
         $level = $state->getLevel();
         
-        $aEvents = $l->getFiltered($host, $level, $page * LggrState::PAGELEN,
-            LggrState::PAGELEN);
+        $aEvents = $l->getFiltered($host, $level, $page * \Lggr\LggrState::PAGELEN,
+            \Lggr\LggrState::PAGELEN);
         $searchvalue = '';
         $searchvalueprog = '';
         $isSearch = false;
@@ -95,7 +95,7 @@ try {
         }
     } elseif ($state->isFromTo()) {
         
-        $aEvents = $l->getFromTo($page * LggrState::PAGELEN, LggrState::PAGELEN);
+        $aEvents = $l->getFromTo($page * \Lggr\LggrState::PAGELEN, \Lggr\LggrState::PAGELEN);
         $sFilter = _('Filter by time range between') . ' ' . TAG_STRONG_OPEN .
              htmlentities($state->getFrom(),
                  ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES) . TAG_STRONG_CLOSE . ' ' .
@@ -109,13 +109,13 @@ try {
         
         $sFilter = null;
         
-        $aEvents = $l->getLatest($page * LggrState::PAGELEN, LggrState::PAGELEN);
+        $aEvents = $l->getLatest($page * \Lggr\LggrState::PAGELEN, \Lggr\LggrState::PAGELEN);
         $searchvalue = '';
         $searchvalueprog = '';
         $isSearch = false;
     } // if search
 }
-catch (LggrException $e) {
+catch (\Lggr\LggrException $e) {
     echo '<div class="container"><div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div></div>';
 
     require INC_FOOTER;
@@ -150,7 +150,7 @@ require 'tpl/nav.inc.php';
                     <div class="row">
                         <div class="col-md-4 lggr-col-level">
                             <h2
-                                title="Levels of last up to <?= Lggr::LASTSTAT ?> entries">
+                                title="Levels of last up to <?= \Lggr\Lggr::LASTSTAT ?> entries">
                                 <span class="glyphicon glyphicon-tasks"
                                     aria-hidden="true"></span> <?= _('Levels') ?></h2>
                             <div class="progress">
@@ -160,18 +160,18 @@ foreach ($aLevels as $level) {
     $aLevelCount[$level->level] = $level->c;
     $level->f = round($level->f);
     switch ($level->level) {
-        case MessageLevel::EMERG:
-        case MessageLevel::CRIT:
-        case MessageLevel::ERR:
+        case \Lggr\MessageLevel::EMERG:
+        case \Lggr\MessageLevel::CRIT:
+        case \Lggr\MessageLevel::ERR:
             $label = 'progress-bar-danger';
             break;
-        case MessageLevel::WARNING:
+        case \Lggr\MessageLevel::WARNING:
             $label = 'progress-bar-warning';
             break;
-        case MessageLevel::NOTICE:
+        case \Lggr\MessageLevel::NOTICE:
             $label = 'progress-bar-primary';
             break;
-        case MessageLevel::INFO:
+        case \Lggr\MessageLevel::INFO:
             $label = 'progress-bar-success';
             break;
         default:
@@ -189,25 +189,25 @@ EOL;
                             <p><?= _('Distribution of selected event levels.') ?></p>
                             <p class="lggr-level-buttons">
 <?php
-if (isset($aLevelCount[MessageLevel::EMERG])) {
+if (isset($aLevelCount[\Lggr\MessageLevel::EMERG])) {
     echo '<button class="btn btn-sm btn-danger" type="button">Emergency <span class="badge">' .
-        $aLevelCount[MessageLevel::EMERG] . TAG_SPANBUTTON_CLOSE . ' ';
+        $aLevelCount[\Lggr\MessageLevel::EMERG] . TAG_SPANBUTTON_CLOSE . ' ';
 }
-if (isset($aLevelCount[MessageLevel::CRIT])) {
+if (isset($aLevelCount[\Lggr\MessageLevel::CRIT])) {
     echo '<button class="btn btn-sm btn-danger" type="button">Critical <span class="badge">' .
-        $aLevelCount[MessageLevel::CRIT] . TAG_SPANBUTTON_CLOSE . ' ';
+        $aLevelCount[\Lggr\MessageLevel::CRIT] . TAG_SPANBUTTON_CLOSE . ' ';
 }
-if (isset($aLevelCount[MessageLevel::ERR])) {
+if (isset($aLevelCount[\Lggr\MessageLevel::ERR])) {
     echo '<button class="btn btn-sm btn-danger" type="button">Error <span class="badge">' .
-        $aLevelCount[MessageLevel::ERR] . TAG_SPANBUTTON_CLOSE . ' ';
+        $aLevelCount[\Lggr\MessageLevel::ERR] . TAG_SPANBUTTON_CLOSE . ' ';
 }
-if (isset($aLevelCount[MessageLevel::WARNING])) {
+if (isset($aLevelCount[\Lggr\MessageLevel::WARNING])) {
     echo '<button class="btn btn-sm btn-warning" type="button">Warning <span class="badge">' .
-        $aLevelCount[MessageLevel::WARNING] . TAG_SPANBUTTON_CLOSE . ' ';
+        $aLevelCount[\Lggr\MessageLevel::WARNING] . TAG_SPANBUTTON_CLOSE . ' ';
 }
-if (isset($aLevelCount[MessageLevel::NOTICE])) {
+if (isset($aLevelCount[\Lggr\MessageLevel::NOTICE])) {
     echo '<button class="btn btn-sm btn-primary" type="button">Notice <span class="badge">' .
-        $aLevelCount[MessageLevel::NOTICE] . TAG_SPANBUTTON_CLOSE . ' ';
+        $aLevelCount[\Lggr\MessageLevel::NOTICE] . TAG_SPANBUTTON_CLOSE . ' ';
 }
 ?>
     </p>
@@ -215,7 +215,7 @@ if (isset($aLevelCount[MessageLevel::NOTICE])) {
 
                         <div class="col-md-4 lggr-col-server">
                             <h2
-                                title="Reporting servers of last up to <?= Lggr::LASTSTAT ?> entries">
+                                title="Reporting servers of last up to <?= \Lggr\Lggr::LASTSTAT ?> entries">
                                 <span
                                     class="glyphicon glyphicon-align-left"
                                     aria-hidden="true"></span> <?= _('Servers') ?></h2>

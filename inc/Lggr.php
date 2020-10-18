@@ -1,4 +1,5 @@
 <?php
+namespace Lggr;
 
 class Lggr {
 
@@ -28,7 +29,7 @@ class Lggr {
             $this->checkSecurity();
         }
         
-        $this->db = new mysqli('localhost', $this->config->getDbUSer(),
+        $this->db = new \mysqli('localhost', $this->config->getDbUSer(),
             $this->config->getDbPwd(), $this->config->getDbName());
         $this->db->set_charset('utf8');
     }

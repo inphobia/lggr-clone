@@ -1,4 +1,6 @@
 <?php
+namespace Lggr;
+
 abstract class MessageLevel {
     const EMERG = 'emerg';
     const CRIT = 'crit';

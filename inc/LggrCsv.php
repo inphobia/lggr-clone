@@ -1,4 +1,5 @@
 <?php
+namespace Lggr;
 
 /* speichern als UTF8 ohne BOM */
 class LggrCsv {

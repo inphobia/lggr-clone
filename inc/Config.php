@@ -1,4 +1,5 @@
 <?php
+namespace Lggr;
 
 class Config extends AbstractConfig {
 
