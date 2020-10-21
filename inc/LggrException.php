@@ -4,7 +4,7 @@ namespace Lggr;
 /**
  * Project specific exception class
  */
-class LggrException extends Exception {
+class LggrException extends \Exception {
 
     // Die Exception neu definieren, damit die Mitteilung nicht optional ist
     public function __construct($message, $code = 0, Exception $previous = null) {
