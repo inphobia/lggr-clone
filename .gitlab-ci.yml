@@ -57,6 +57,7 @@ webtest:
   - cp -a * /var/www/html/
   - service apache2 restart
   - service apache2 status
+  - php /var/www/html/admin/db_prefill.php
   script:
   - pwd
   - ls -la
