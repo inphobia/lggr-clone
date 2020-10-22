@@ -9,6 +9,8 @@ abstract class AbstractConfig {
 
     protected $DBNAME;
 
+    protected $DBHOST;
+
     protected $URLBOOTSTRAP;
 
     protected $URLJQUERY;
@@ -33,6 +35,10 @@ abstract class AbstractConfig {
 
     final public function getDbName() {
         return $this->DBNAME;
+    }
+
+    final public function getDbHost() {
+	return $this->DBHOST;
     }
 
     final public function getUrlBootstrap() {
@@ -73,6 +79,10 @@ abstract class AbstractConfig {
 
     protected function setDbname($s) {
         $this->DBNAME = $s;
+    }
+
+    protected function setDbHost($s) {
+	$this->DBHOST = $s;
     }
 
     protected function setUrlBootstrap($s) {
