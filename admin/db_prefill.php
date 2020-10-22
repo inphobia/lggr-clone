@@ -23,7 +23,7 @@ try {
 	trimAll($db);
 
 	$arrayServers = makeServers($faker, $db, 5);
-	makeEntries($faker, $db, 200);
+	makeEntries($faker, $db, 10000);
 }
 catch (LggrException $e) {
   die($e->getMessage());
@@ -66,7 +66,7 @@ function makeEntries($faker, $db, $count=1000) {
 	}
 
 	for($i=0; $i<$count; $i++) {
-		$dDate = $faker->dateTime('2020-12-24 11:22:33')->format('Y-m-d H:i:s');
+		$dDate = $faker->dateTimeBetween($startDate = '-10 days', $endDate = 'now')->format('Y-m-d H:i:s');
 		$dFacility = array_rand($arrayFacilities);
 		$dLevel = array_rand($arrayLevels);
 		$dProgram = $faker->domainWord;
