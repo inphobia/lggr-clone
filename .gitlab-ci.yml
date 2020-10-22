@@ -53,6 +53,7 @@ webtest:
   # add php stuff
   - docker-php-ext-install gettext mysqli
   - docker-php-ext-enable gettext mysqli
+  - php -m
   # copy our project stuff
   - cp -a * /var/www/html/
   - cd /var/www/html
