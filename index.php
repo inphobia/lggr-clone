@@ -123,9 +123,9 @@ catch (\Lggr\LggrException $e) {
     exit();
 }
 
-if (version_compare(phpversion(), '5.4', '<')) {
+if (version_compare(phpversion(), '7.0', '<')) {
     echo '<div class="container"><div class="alert alert-danger" role="alert">Your PHP version ' .
-         phpversion() . ' might be too old, expecting at least 5.4</div></div>';
+         phpversion() . ' might be too old, expecting at least 7.0</div></div>';
 } // if
 
 require 'tpl/nav.inc.php';
