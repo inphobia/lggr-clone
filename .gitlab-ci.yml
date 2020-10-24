@@ -34,6 +34,7 @@ dbsetup:
   before_script:
   - apt-get update -yqq
   - apt-get install -yqq git mysql-client
+  - sleep 60
   script:
   - echo "GRANT ALL ON lggr.* TO lggr@'%' IDENTIFIED BY 'lggr'; FLUSH PRIVILEGES" | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=database "$MYSQL_DATABASE"
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=database "$MYSQL_DATABASE"
