@@ -12,6 +12,9 @@ stages:
 variables:
   MYSQL_DATABASE: $MYSQL_DB
   MYSQL_ROOT_PASSWORD: $MYSQL_PASS
+  MYSQL_USER: lggr
+  MYSQL_PASSWORD: lggr
+  DB_CONNECTION: mysql
 
 # Bring in any services we need http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
 # See http://docs.gitlab.com/ce/ci/services/README.html for examples.
@@ -27,6 +30,7 @@ dbsetup:
   - apt-get install -yqq git mysql-client
   - sleep 60
   script:
+  - ping -n 2 database
   - echo "GRANT ALL ON lggr.* TO lggr@'%' IDENTIFIED BY 'lggr'; FLUSH PRIVILEGES" | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=database "$MYSQL_DATABASE"
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=database "$MYSQL_DATABASE"
 
