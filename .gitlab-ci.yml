@@ -25,13 +25,9 @@ services:
 
 dbsetup:
   stage: setupdb
-  before_script:
-  - apt-get update -yqq
-  - apt-get install -yqq git mysql-client iputils-ping
-  - sleep 60
+  image: mysql
   script:
-  - ping -n 2 database
-  - echo "GRANT ALL ON lggr.* TO lggr@'%' IDENTIFIED BY 'lggr'; FLUSH PRIVILEGES" | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=database "$MYSQL_DATABASE"
+  - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=database
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=database "$MYSQL_DATABASE"
 
 websetup:
