@@ -12,15 +12,13 @@ stages:
 variables:
   MYSQL_DATABASE: $MYSQL_DB
   MYSQL_ROOT_PASSWORD: $MYSQL_PASS
-  MYSQL_USER: lggr
-  MYSQL_PASSWORD: lggr
-  DB_CONNECTION: mysql
 
 # Bring in any services we need http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
 # See http://docs.gitlab.com/ce/ci/services/README.html for examples.
+#  - name: mariadb:10.1
+#    alias: database
 services:
-  - name: mariadb:10.1
-    alias: database
+  - mysql
   - redis:latest
 
 dbsetup:
