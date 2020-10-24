@@ -25,8 +25,8 @@ dbsetup:
   stage: setupdb
   image: mysql
   script:
-  - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=database
-  - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=database "$MYSQL_DATABASE"
+  - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
+  - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
 
 websetup:
   stage: setupphp
