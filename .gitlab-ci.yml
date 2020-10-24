@@ -27,7 +27,7 @@ dbsetup:
   stage: setupdb
   before_script:
   - apt-get update -yqq
-  - apt-get install -yqq git mysql-client
+  - apt-get install -yqq git mysql-client iputils-ping
   - sleep 60
   script:
   - ping -n 2 database
