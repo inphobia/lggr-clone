@@ -22,6 +22,7 @@ cache:
 services:
   - name: mariadb:10.1
     alias: database
+  - redis:latest
 
 # Set any variables we need
 variables:
