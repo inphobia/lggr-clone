@@ -30,8 +30,6 @@ dbsetup:
 
 websetup:
   stage: setup
-  dependencies:
-  - dbsetup
   # Select what we should cache between builds (composer data)
   cache:
     paths:
@@ -56,8 +54,6 @@ websetup:
 
 dbprefill:
   stage: setup
-  dependencies:
-  - websetup
   # Select what we should cache between builds (composer data)
   cache:
     paths:
