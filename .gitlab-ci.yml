@@ -3,7 +3,9 @@
 image: php:7.0-apache
 
 stages:
-  - setup
+  - setupdb
+  - setupphp
+  - setupdata
   - test
 
 # Set any variables we need
@@ -19,7 +21,7 @@ services:
   - redis:latest
 
 dbsetup:
-  stage: setup
+  stage: setupdb
   before_script:
   - apt-get update -yqq
   - apt-get install -yqq git mysql-client
@@ -29,7 +31,7 @@ dbsetup:
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=database "$MYSQL_DATABASE"
 
 websetup:
-  stage: setup
+  stage: setupphp
   # Select what we should cache between builds (composer data)
   cache:
     paths:
@@ -48,12 +50,15 @@ websetup:
   - php composer.phar install
   # copy our project stuff
   - cp -a * /var/www/html/
-  - cd /var/www/html
-  - ls -la
+  - cd /var/www/html && pwd && ls -la
   - sed -i "s/localhost/database/" /var/www/html/inc/Config.php
+  - tar cz ~/webfolder.gz /var/www/html/
+  artifacts:
+    paths:
+    - webfolder.gz
 
 dbprefill:
-  stage: setup
+  stage: setupdata
   # Select what we should cache between builds (composer data)
   cache:
     paths:
