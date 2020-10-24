@@ -6,16 +6,10 @@ stages:
   - setup
   - test
 
-# Select what we should cache between builds (composer data)
-cache:
-  paths:
-    - vendor/
-
-  # Install PHP extensions
-  # - docker-php-ext-install mbstring mcrypt pdo_mysql curl json intl gd xml zip bz2 opcache
-  # Install and run Composer
-  # - curl -sS https://getcomposer.org/installer | php
-  # - php composer.phar install
+# Set any variables we need
+variables:
+  MYSQL_DATABASE: $MYSQL_DB
+  MYSQL_ROOT_PASSWORD: $MYSQL_PASS
 
 # Bring in any services we need http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
 # See http://docs.gitlab.com/ce/ci/services/README.html for examples.
@@ -23,11 +17,6 @@ services:
   - name: mariadb:10.1
     alias: database
   - redis:latest
-
-# Set any variables we need
-variables:
-  MYSQL_DATABASE: $MYSQL_DB
-  MYSQL_ROOT_PASSWORD: $MYSQL_PASS
 
 dbsetup:
   stage: setup
@@ -39,10 +28,17 @@ dbsetup:
   - echo "GRANT ALL ON lggr.* TO lggr@'%' IDENTIFIED BY 'lggr'; FLUSH PRIVILEGES" | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=database "$MYSQL_DATABASE"
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=database "$MYSQL_DATABASE"
 
-webtest:
-  stage: test
-  before_script:
-  # Install image os needs
+websetup:
+  stage: setup
+  dependencies:
+  - dbsetup
+  # Select what we should cache between builds (composer data)
+  cache:
+    paths:
+    - vendor/
+    - /var/www/html/
+    key: ${CI_BUILD_REF_NAME}
+  script:
   - apt-get update -yqq
   - apt-get install -yqq wget git zip
   # Install composer dependencies
@@ -52,18 +48,34 @@ webtest:
   - php composer-setup.php
   - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
   - php composer.phar install
-  # add php stuff
-  - docker-php-ext-install gettext mysqli
-  - docker-php-ext-enable gettext mysqli
-  - php -m
   # copy our project stuff
   - cp -a * /var/www/html/
   - cd /var/www/html
   - ls -la
   - sed -i "s/localhost/database/" /var/www/html/inc/Config.php
-  - service apache2 restart
-  - service apache2 status
+
+dbprefill:
+  stage: setup
+  dependencies:
+  - websetup
+  # Select what we should cache between builds (composer data)
+  cache:
+    paths:
+    - vendor/
+    - /var/www/html/
+    key: ${CI_BUILD_REF_NAME}
+    policy: pull
+  script:
   - php /var/www/html/admin/db_prefill.php
+
+webtest:
+  stage: test
+  cache:
+    paths:
+    - vendor/
+    - /var/www/html/
+    key: ${CI_BUILD_REF_NAME}
+    policy: pull
   script:
   - pwd
   - ls -la
