@@ -43,6 +43,9 @@ class Lggr {
 
     // destructor
     private function checkSecurity() {
+	// might be called by cli
+	if(!isset($_SERVER["REMOTE_ADDR"]))
+	    return;
         // local access allowed without login data
         if ($_SERVER["REMOTE_ADDR"] === "::1") {
             return;
