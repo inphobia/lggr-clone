@@ -29,6 +29,7 @@ websetup:
     - /var/www/html/
     key: ${CI_BUILD_REF_NAME}
   script:
+  - pwd
   - apt-get update -yqq
   - apt-get install -yqq wget git zip
   # Install composer dependencies
@@ -37,13 +38,13 @@ websetup:
   - php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
   - php composer-setup.php
   - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
-  - php composer.phar install
+  - php composer.phar --no-interaction --quiet install
   # copy our project stuff
   - cp -a * /var/www/html/
   - cd /var/www/html && pwd && ls -la
   - sed -i "s/localhost/database/" /var/www/html/inc/Config.php
   - cd
-  - tar cz webfolder.tar.gz /var/www/html/
+  - tar cfz webfolder.tar.gz /var/www/html/
   artifacts:
     paths:
     - webfolder.tar.gz
