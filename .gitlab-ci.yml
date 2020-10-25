@@ -3,9 +3,7 @@
 image: php:7.0-apache
 
 stages:
-  - setupdb
-  - setupphp
-  - setupdata
+  - setup
   - test
 
 # Set any variables we need
@@ -22,17 +20,8 @@ services:
     alias: mysql
   - redis:latest
 
-dbsetup:
-  stage: setupdb
-  image: mysql
-  before_script:
-  - sleep 300
-  script:
-  - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
-  - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
-
 websetup:
-  stage: setupphp
+  stage: setup
   # Select what we should cache between builds (composer data)
   cache:
     paths:
@@ -58,17 +47,6 @@ websetup:
     paths:
     - webfolder.gz
 
-dbprefill:
-  stage: setupdata
-  # Select what we should cache between builds (composer data)
-  cache:
-    paths:
-    - vendor/
-    - /var/www/html/
-    key: ${CI_BUILD_REF_NAME}
-    policy: pull
-  script:
-  - php /var/www/html/admin/db_prefill.php
 
 webtest:
   stage: test
@@ -78,6 +56,11 @@ webtest:
     - /var/www/html/
     key: ${CI_BUILD_REF_NAME}
     policy: pull
+  before_script:
+  - sleep 30
+  - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
+  - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
+  - php /var/www/html/admin/db_prefill.php
   script:
   - pwd
   - ls -la
