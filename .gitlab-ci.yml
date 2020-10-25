@@ -42,10 +42,11 @@ websetup:
   - cp -a * /var/www/html/
   - cd /var/www/html && pwd && ls -la
   - sed -i "s/localhost/database/" /var/www/html/inc/Config.php
-  - tar cz ~/webfolder.gz /var/www/html/
+  - cd
+  - tar cz webfolder.tar.gz /var/www/html/
   artifacts:
     paths:
-    - webfolder.gz
+    - webfolder.tar.gz
 
 
 webtest:
