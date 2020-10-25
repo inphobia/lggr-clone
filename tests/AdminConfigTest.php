@@ -4,13 +4,13 @@ use PHPUnit\Framework\TestCase;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-final class ConfigTest extends TestCase
+final class AdminConfigTest extends TestCase
 {
 	protected static $cfg;
 
 	public static function setUpBeforeClass()
 	{
-		self::$cfg = new \Lggr\Config();
+		self::$cfg = new \Lggr\AdminConfig();
 	}
 
 	public function testCreate()
@@ -23,7 +23,7 @@ final class ConfigTest extends TestCase
 	public function testDbUser()
 	{
 		$this->assertEquals(
-			'logviewer',
+			'loggeradmin',
 			self::$cfg->getDbUser()
 		);
 	}
