@@ -20,7 +20,6 @@ variables:
 services:
   - name: mariadb:10.1
     alias: mysql
-
   - redis:latest
 
 dbsetup:
