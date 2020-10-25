@@ -18,12 +18,16 @@ variables:
 #  - name: mariadb:10.1
 #    alias: database
 services:
-  - mysql
+  - name: mariadb:10.1
+    alias: mysql
+
   - redis:latest
 
 dbsetup:
   stage: setupdb
   image: mysql
+  before_script:
+  - sleep 300
   script:
   - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
