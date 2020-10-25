@@ -44,7 +44,7 @@ websetup:
   - cd /var/www/html && pwd && ls -la
   - sed -i "s/localhost/database/" /var/www/html/inc/Config.php
   - cd
-  - tar cfz webfolder.tar.gz /var/www/html/
+  - tar cfz webfolder.tar.gz /var/www/html
   artifacts:
     paths:
     - webfolder.tar.gz
@@ -59,6 +59,8 @@ webtest:
     key: ${CI_BUILD_REF_NAME}
     policy: pull
   before_script:
+  - apt-get update -yqq
+  - apt-get install -yqq wget git zip mysql
   - sleep 30
   - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
