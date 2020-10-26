@@ -43,7 +43,7 @@ websetup:
   - cp -a * /var/www/html/
   - cd /var/www/html && pwd && ls -la
   - sed -i "s/localhost/database/" /var/www/html/inc/Config.php
-  - tar cfz /tmp/webfolder.tar.gz /var/www/html
+  - tar cfz /tmp/webfolder.tar.gz /var/www/html && ls -l /tmp/
   artifacts:
     paths:
     - /tmp/webfolder.tar.gz
@@ -58,8 +58,8 @@ unittest:
   before_script:
   - apt-get update -yqq
   - apt-get install -yqq git mysql-client
-  - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
-  - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
+  - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
+  - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
   - php /var/www/html/admin/db_prefill.php
   script:
   - cd /var/www/html
@@ -75,8 +75,8 @@ webtest:
   before_script:
   - apt-get update -yqq
   - apt-get install -yqq git mysql-client
-  - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
-  - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
+  - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
+  - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
   - php /var/www/html/admin/db_prefill.php
   script:
   - pwd
