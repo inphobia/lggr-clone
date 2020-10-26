@@ -27,7 +27,7 @@ websetup:
     paths:
     - vendor/
     - /var/www/html/
-    key: ${CI_BUILD_REF_NAME}
+    key: "$CI_COMMIT_REF_SLUG"
   script:
   - pwd
   - apt-get update -yqq
@@ -54,7 +54,7 @@ unittest:
     paths:
     - vendor/
     - /var/www/html/
-    key: ${CI_BUILD_REF_NAME}
+    key: "$CI_COMMIT_REF_SLUG"
   before_script:
   - apt-get update -yqq
   - apt-get install -yqq git mysql-client
@@ -71,7 +71,7 @@ webtest:
     paths:
     - vendor/
     - /var/www/html/
-    key: ${CI_BUILD_REF_NAME}
+    key: "$CI_COMMIT_REF_SLUG"
   before_script:
   - apt-get update -yqq
   - apt-get install -yqq git mysql-client
