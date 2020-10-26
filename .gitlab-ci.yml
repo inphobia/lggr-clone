@@ -55,7 +55,12 @@ unittest:
     - vendor/
     - /var/www/html/
     key: ${CI_BUILD_REF_NAME}
-    policy: pull
+  before_script:
+  - apt-get update -yqq
+  - apt-get install -yqq git mysql-client
+  - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
+  - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
+  - php /var/www/html/admin/db_prefill.php
   script:
   - cd /var/www/html
   - php composer.phar test
@@ -67,11 +72,9 @@ webtest:
     - vendor/
     - /var/www/html/
     key: ${CI_BUILD_REF_NAME}
-    policy: pull
   before_script:
   - apt-get update -yqq
-  - apt-get install -yqq wget git zip mysql-client
-  - sleep 30
+  - apt-get install -yqq git mysql-client
   - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
   - php /var/www/html/admin/db_prefill.php
