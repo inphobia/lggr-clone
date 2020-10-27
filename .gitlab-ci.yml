@@ -14,8 +14,9 @@ variables:
 cache:
   paths:
   - vendor/
-  - /var/www/html/
-  key: "$CI_COMMIT_REF_SLUG"
+  - inc/
+  key: logger
+#  key: "$CI_COMMIT_REF_SLUG"
 
 # Bring in any services we need http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
 # See http://docs.gitlab.com/ce/ci/services/README.html for examples.
@@ -40,14 +41,9 @@ websetup:
   - php composer-setup.php
   - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
   - php composer.phar --no-interaction --quiet install
-  # copy our project stuff
-  - cp -a * /var/www/html/
-  - cd /var/www/html && pwd && ls -la
-  - sed -i "s/localhost/database/" /var/www/html/inc/Config.php
-  - cd; tar cfz webfolder.tar.gz /var/www/html; ls -l
-  artifacts:
-    paths:
-    - webfolder.tar.gz
+  # link our project stuff
+  - cd /var/www; mv html html_orig; ln -s ~ html; ls -l
+  - sed -i "s/localhost/database/" inc/Config.php
 
 unittest:
   stage: test
@@ -56,9 +52,8 @@ unittest:
   - apt-get install -yqq git mysql-client
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
-  - php /var/www/html/admin/db_prefill.php
+  - php admin/db_prefill.php
   script:
-  - cd /var/www/html
   - php composer.phar test
 
 webtest:
@@ -68,11 +63,9 @@ webtest:
   - apt-get install -yqq git mysql-client
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
-  - php /var/www/html/admin/db_prefill.php
+  - php admin/db_prefill.php
   script:
   - pwd
-  - ls -la
-  - cd /var/www/html
   - ls -la
   - cd /tmp
   - wget -S -O - http://127.0.0.1/
