@@ -11,6 +11,12 @@ variables:
   MYSQL_DATABASE: $MYSQL_DB
   MYSQL_ROOT_PASSWORD: $MYSQL_PASS
 
+cache:
+  paths:
+  - vendor/
+  - /var/www/html/
+  key: "$CI_COMMIT_REF_SLUG"
+
 # Bring in any services we need http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
 # See http://docs.gitlab.com/ce/ci/services/README.html for examples.
 #  - name: mariadb:10.1
@@ -23,11 +29,6 @@ services:
 websetup:
   stage: setup
   # Select what we should cache between builds (composer data)
-  cache:
-    paths:
-    - vendor/
-    - /var/www/html/
-    key: "$CI_COMMIT_REF_SLUG"
   script:
   - pwd
   - apt-get update -yqq
@@ -43,18 +44,13 @@ websetup:
   - cp -a * /var/www/html/
   - cd /var/www/html && pwd && ls -la
   - sed -i "s/localhost/database/" /var/www/html/inc/Config.php
-  - tar cfz /tmp/webfolder.tar.gz /var/www/html && ls -l /tmp/
+  - cd; tar cfz webfolder.tar.gz /var/www/html; ls -l
   artifacts:
     paths:
-    - /tmp/webfolder.tar.gz
+    - webfolder.tar.gz
 
 unittest:
   stage: test
-  cache:
-    paths:
-    - vendor/
-    - /var/www/html/
-    key: "$CI_COMMIT_REF_SLUG"
   before_script:
   - apt-get update -yqq
   - apt-get install -yqq git mysql-client
@@ -67,11 +63,6 @@ unittest:
 
 webtest:
   stage: test
-  cache:
-    paths:
-    - vendor/
-    - /var/www/html/
-    key: "$CI_COMMIT_REF_SLUG"
   before_script:
   - apt-get update -yqq
   - apt-get install -yqq git mysql-client
