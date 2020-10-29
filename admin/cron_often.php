@@ -30,4 +30,4 @@ foreach ($aPerf as $perf) {
 } // foreach
 
 ?>
-Purging updating <?= $iCountServers ?> servers with <?= $pCount ?> queries in <?= $pTime ?> seconds.
+Purging updating <?= $iCountServers ?> servers with <?= $pCount ?> queries in <?= number_format((float)$pTime, 2, '.', '') ?> seconds.

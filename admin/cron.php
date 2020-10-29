@@ -29,5 +29,5 @@ foreach ($aPerf as $perf) {
 } // foreach
 
 ?>
-Purging <?= $iCount ?> old messages with <?= $pCount ?> queries in <?= $pTime ?> seconds.
+Purging <?= $iCount ?> old messages with <?= $pCount ?> queries in <?= number_format((float)$pTime, 2, '.', '') ?> seconds.
 
