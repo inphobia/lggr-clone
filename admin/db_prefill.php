@@ -15,7 +15,7 @@ $arrayLevels = array(
 $arrayServers = array();
 
 try {
-	$config = new AdminConfig();
+	$config = new CiConfig();
 	$db = new \mysqli($config->getDbHost(), $config->getDbUser(),
 		$config->getDbPwd(), $config->getDbName());
 	if($db->connect_error) {

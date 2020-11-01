@@ -10,5 +10,8 @@ GRANT SELECT ON lggr.* TO logviewer@'%' IDENTIFIED BY 'xxx';
 GRANT SELECT,UPDATE,DELETE ON lggr.* TO loggeradmin@'%' IDENTIFIED BY 'xxx';
 GRANT SELECT,INSERT  ON TABLE `lggr`.`servers` TO 'loggeradmin'@'%';
 
+# used for CI
+GRANT ALL ON lggr.* TO loggerci@'%' IDENTIFIED BY 'xxx';
+
 # activate changes
 FLUSH PRIVILEGES;
