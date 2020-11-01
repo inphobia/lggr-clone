@@ -15,8 +15,7 @@ cache:
   paths:
   - vendor/
   - inc/
-  key: logger
-#  key: "$CI_COMMIT_REF_SLUG"
+  key: "$CI_COMMIT_SHORT_SHA"
 
 # Bring in any services we need http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
 # See http://docs.gitlab.com/ce/ci/services/README.html for examples.
@@ -29,8 +28,6 @@ services:
 
 websetup:
   stage: setup
-  cache:
-    policy: push
   script:
   - pwd
   - apt-get update -yqq
