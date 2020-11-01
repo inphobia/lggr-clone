@@ -5,7 +5,7 @@ class AdminConfig extends AbstractConfig {
 
     function __construct() {
         $this->setDbUser('loggeradmin');
-        $this->setDbPwd('lggr');
+        $this->setDbPwd('xxx');
         $this->setDbName('lggrdev');
     } // constructor
 } // class

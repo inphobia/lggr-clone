@@ -43,7 +43,7 @@ websetup:
   - php composer.phar --no-interaction --quiet install
   # link our project stuff
   - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
-  - cd /builds/kai/lggr; sed -i "s/localhost/database/" inc/Config.php
+  - cd /builds/kai/lggr; sed -i "s/localhost/mysql/" inc/Config.php
 
 unittest:
   stage: test
