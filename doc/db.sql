@@ -12,12 +12,12 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- Exportiere Datenbank Struktur für lggr
+-- Exportiere Datenbank Struktur fr lggr
 CREATE DATABASE IF NOT EXISTS `lggr` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `lggr`;
 
 -- Exportiere Struktur von View lggr.archived
--- Erstelle temporäre Tabelle um View Abhängigkeiten zuvorzukommen
+-- Erstelle temporre Tabelle um View Abhngigkeiten zuvorzukommen
 CREATE TABLE `archived` (
 	`id` BIGINT(20) NOT NULL,
 	`date` DATETIME NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE `archived` (
 ) ENGINE=MyISAM;
 
 -- Exportiere Struktur von View lggr.lasthour
--- Erstelle temporäre Tabelle um View Abhängigkeiten zuvorzukommen
+-- Erstelle temporre Tabelle um View Abhngigkeiten zuvorzukommen
 CREATE TABLE `lasthour` (
 	`id` BIGINT(20) NOT NULL,
 	`date` DATETIME NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `newlogs` (
   `level` enum('emerg','alert','crit','err','warning','notice','info','debug') NOT NULL,
   `host` varchar(50) NOT NULL,
   `program` varchar(50) NOT NULL,
-  `pid` int(10) unsigned NOT NULL,
+  `pid` varchar(16) NULL,
   `archived` enum('Y','N') NOT NULL DEFAULT 'N',
   `message` text NOT NULL,
   `idhost` int(11) DEFAULT NULL,
@@ -60,9 +60,9 @@ CREATE TABLE IF NOT EXISTS `newlogs` (
   KEY `level` (`level`) USING HASH,
   KEY `host` (`host`) USING HASH,
   KEY `program` (`program`(5))
-) ENGINE=Aria AUTO_INCREMENT=112111909 DEFAULT CHARSET=utf8 PAGE_CHECKSUM=1 TRANSACTIONAL=1 COMMENT='New logging table';
+) ENGINE=Aria AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 PAGE_CHECKSUM=1 TRANSACTIONAL=1 COMMENT='New logging table';
 
--- Daten Export vom Benutzer nicht ausgewählt
+-- Daten Export vom Benutzer nicht ausgewhlt
 -- Exportiere Struktur von Tabelle lggr.servers
 CREATE TABLE IF NOT EXISTS `servers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -71,9 +71,9 @@ CREATE TABLE IF NOT EXISTS `servers` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1 COMMENT='List of all servers we have referenced in newlogs';
 
--- Daten Export vom Benutzer nicht ausgewählt
+-- Daten Export vom Benutzer nicht ausgewhlt
 -- Exportiere Struktur von View lggr.today
--- Erstelle temporäre Tabelle um View Abhängigkeiten zuvorzukommen
+-- Erstelle temporre Tabelle um View Abhngigkeiten zuvorzukommen
 CREATE TABLE `today` (
 	`id` BIGINT(20) NOT NULL,
 	`date` DATETIME NOT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE `today` (
 ) ENGINE=MyISAM;
 
 -- Exportiere Struktur von View lggr.week
--- Erstelle temporäre Tabelle um View Abhängigkeiten zuvorzukommen
+-- Erstelle temporre Tabelle um View Abhngigkeiten zuvorzukommen
 CREATE TABLE `week` (
 	`id` BIGINT(20) NOT NULL,
 	`date` DATETIME NOT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE `week` (
 ) ENGINE=MyISAM;
 
 -- Exportiere Struktur von View lggr.year
--- Erstelle temporäre Tabelle um View Abhängigkeiten zuvorzukommen
+-- Erstelle temporre Tabelle um View Abhngigkeiten zuvorzukommen
 CREATE TABLE `year` (
 	`id` BIGINT(20) NOT NULL,
 	`date` DATETIME NOT NULL,
@@ -112,27 +112,27 @@ CREATE TABLE `year` (
 ) ENGINE=MyISAM;
 
 -- Exportiere Struktur von View lggr.archived
--- Entferne temporäre Tabelle und erstelle die eigentliche View
+-- Entferne temporre Tabelle und erstelle die eigentliche View
 DROP TABLE IF EXISTS `archived`;
 CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` VIEW `archived` AS select `newlogs`.`id` AS `id`,`newlogs`.`date` AS `date`,`newlogs`.`facility` AS `facility`,`newlogs`.`level` AS `level`,`newlogs`.`host` AS `host`,`newlogs`.`program` AS `program`,`newlogs`.`pid` AS `pid`,`newlogs`.`archived` AS `archived`,`newlogs`.`message` AS `message` from `newlogs` where (`newlogs`.`archived` = 'Y') ;
 
 -- Exportiere Struktur von View lggr.lasthour
--- Entferne temporäre Tabelle und erstelle die eigentliche View
+-- Entferne temporre Tabelle und erstelle die eigentliche View
 DROP TABLE IF EXISTS `lasthour`;
 CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` VIEW `lasthour` AS select `newlogs`.`id` AS `id`,`newlogs`.`date` AS `date`,`newlogs`.`facility` AS `facility`,`newlogs`.`level` AS `level`,`newlogs`.`host` AS `host`,`newlogs`.`program` AS `program`,`newlogs`.`archived` AS `archived`,`newlogs`.`message` AS `message` from `newlogs` where (`newlogs`.`date` >= (now() - interval 1 hour)) ;
 
 -- Exportiere Struktur von View lggr.today
--- Entferne temporäre Tabelle und erstelle die eigentliche View
+-- Entferne temporre Tabelle und erstelle die eigentliche View
 DROP TABLE IF EXISTS `today`;
 CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` VIEW `today` AS select `newlogs`.`id` AS `id`,`newlogs`.`date` AS `date`,`newlogs`.`facility` AS `facility`,`newlogs`.`level` AS `level`,`newlogs`.`host` AS `host`,`newlogs`.`program` AS `program`,`newlogs`.`archived` AS `archived`,`newlogs`.`message` AS `message` from `newlogs` where (cast(now() as date) = cast(`newlogs`.`date` as date)) ;
 
 -- Exportiere Struktur von View lggr.week
--- Entferne temporäre Tabelle und erstelle die eigentliche View
+-- Entferne temporre Tabelle und erstelle die eigentliche View
 DROP TABLE IF EXISTS `week`;
 CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` VIEW `week` AS select `newlogs`.`id` AS `id`,`newlogs`.`date` AS `date`,`newlogs`.`facility` AS `facility`,`newlogs`.`level` AS `level`,`newlogs`.`host` AS `host`,`newlogs`.`program` AS `program`,`newlogs`.`archived` AS `archived`,`newlogs`.`message` AS `message` from `newlogs` where (`newlogs`.`date` >= (now() - interval 168 hour)) ;
 
 -- Exportiere Struktur von View lggr.year
--- Entferne temporäre Tabelle und erstelle die eigentliche View
+-- Entferne temporre Tabelle und erstelle die eigentliche View
 DROP TABLE IF EXISTS `year`;
 CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` VIEW `year` AS select `newlogs`.`id` AS `id`,`newlogs`.`date` AS `date`,`newlogs`.`facility` AS `facility`,`newlogs`.`level` AS `level`,`newlogs`.`host` AS `host`,`newlogs`.`program` AS `program`,`newlogs`.`archived` AS `archived`,`newlogs`.`message` AS `message` from `newlogs` where (`newlogs`.`date` >= (now() - interval 1 year)) ;
 
