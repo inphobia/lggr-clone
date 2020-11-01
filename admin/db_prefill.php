@@ -16,7 +16,7 @@ $arrayServers = array();
 
 try {
 	$config = new Config();
-	$db = new \mysqli('localhost', $config->getDbUSer(),
+	$db = new \mysqli(config->getDbHost(), $config->getDbUSer(),
 		            $config->getDbPwd(), $config->getDbName());
 	$db->set_charset('utf8');
 

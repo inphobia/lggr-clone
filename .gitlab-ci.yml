@@ -50,7 +50,7 @@ unittest:
   before_script:
   - apt-get update -yqq
   - apt-get install -yqq git mysql-client
-  - docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+  - docker-php-ext-install mysqli
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
   - php admin/db_prefill.php
@@ -62,7 +62,7 @@ webtest:
   before_script:
   - apt-get update -yqq
   - apt-get install -yqq git mysql-client
-  - docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+  - docker-php-ext-install mysqli
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
   - php admin/db_prefill.php
