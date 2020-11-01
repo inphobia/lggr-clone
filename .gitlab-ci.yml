@@ -49,7 +49,7 @@ unittest:
   stage: test
   before_script:
   - apt-get update -yqq
-  - apt-get install -yqq git mysql-client
+  - apt-get install -yqq git mysql-client php-mysql
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
   - php admin/db_prefill.php
@@ -60,7 +60,7 @@ webtest:
   stage: test
   before_script:
   - apt-get update -yqq
-  - apt-get install -yqq git mysql-client
+  - apt-get install -yqq git mysql-client php-mysql
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
   - php admin/db_prefill.php
