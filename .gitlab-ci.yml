@@ -29,7 +29,8 @@ services:
 
 websetup:
   stage: setup
-  # Select what we should cache between builds (composer data)
+  cache:
+    policy: push
   script:
   - pwd
   - apt-get update -yqq
