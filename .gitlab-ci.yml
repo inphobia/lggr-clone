@@ -58,15 +58,13 @@ websetup:
 
 unittest:
   stage: test
-  before_script:
-    <<: *filldb
+  <<: *filldb
   script:
   - php composer.phar test
 
 webtest:
   stage: test
-  before_script:
-    <<: *filldb
+  <<: *filldb
   script:
   - pwd
   - ls -la
