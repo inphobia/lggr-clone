@@ -11,11 +11,12 @@ variables:
   MYSQL_DATABASE: $MYSQL_DB
   MYSQL_ROOT_PASSWORD: $MYSQL_PASS
 
-cache:
+cache: &global_cache
   paths:
   - vendor/
   - inc/
   key: "$CI_COMMIT_SHORT_SHA"
+  policy: pull-push
 
 # Bring in any services we need http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
 # See http://docs.gitlab.com/ce/ci/services/README.html for examples.
@@ -28,6 +29,9 @@ services:
 
 websetup:
   stage: setup
+  cache:
+    <<: *global_cache
+    policy: push
   script:
   - pwd
   - apt-get update -yqq
@@ -41,7 +45,7 @@ websetup:
   - php composer.phar --no-interaction --quiet install
   # link our project stuff
   - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
-  - cd /builds/kai/lggr; sed -i "s/localhost/mysql/" inc/Config.php
+  - cd /builds/kai/lggr; sed -i "s/localhost/mysql/" inc/Config.php; sed -i "s/localhost/mysql/" inc/AdminConfig.php
 
 unittest:
   stage: test
