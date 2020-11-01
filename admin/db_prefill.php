@@ -16,8 +16,12 @@ $arrayServers = array();
 
 try {
 	$config = new Config();
-	$db = new \mysqli($config->getDbHost(), $config->getDbUSer(),
-		            $config->getDbPwd(), $config->getDbName());
+	$db = new \mysqli($config->getDbHost(), $config->getDbUser(),
+		$config->getDbPwd(), $config->getDbName());
+	if($db->connect_error) {
+		die('Connection error ' . $db->connect_error . ' to ' .
+			$config->getDbUser() . '@' . $config->getDbHost());
+	}
 	$db->set_charset('utf8');
 
 	trimAll($db);
