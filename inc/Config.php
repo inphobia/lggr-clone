@@ -6,7 +6,7 @@ class Config extends AbstractConfig {
     function __construct() {
                 $this->setDbUser('logviewer');
                 $this->setDbPwd('xxx');
-		$this->setDbName('logger');
+		$this->setDbName('lggr');
 		$this->setDbHost('localhost');
 
         
