@@ -55,7 +55,7 @@ function makeEntries($faker, $db, $count=1000) {
 	global $arrayFacilities, $arrayLevels, $arrayServers;
 
 	if (!($stmt = $db->prepare("INSERT INTO newlogs (date, facility, level, host, program, pid, message, idhost) VALUES (?,?,?,?,?,?,?,?)"))) {
-		    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		    echo "Prepare failed: (" . $db->errno . ") " . $db->error;
 	}
 	$dDate = "";
 	$dFacility = "";
