@@ -11,7 +11,9 @@ class LggrPerf {
 
     private $sQuery = null;
 
-    function __construct() {}
+    function __construct() {
+    	  // nothing to do here
+    }
 
     // constructor
     public function start($sql) {
