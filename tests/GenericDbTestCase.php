@@ -1,12 +1,9 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-// use PHPUnit\DbUnit\TestCaseTrait;
 
 abstract class GenericDbTestCase extends TestCase
 {
-    // use TestCaseTrait;
-
     // only instantiate pdo once for test clean-up/fixture load
     static private $pdo = null;
 
