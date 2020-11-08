@@ -74,14 +74,15 @@ unittest:
     reports:
       junit: logs/junit.xml
 
-webtest:
-  stage: test
-  <<: *filldb
-  script:
-  - apt-get install -yqq wget
-  - pwd
-  - ls -la
-  - cd /tmp
+#webtest:
+#  stage: test
+#  <<: *filldb
+#  allow_failure: true
+#  script:
+#  - apt-get install -yqq wget
+#  - pwd
+#  - ls -la
+#  - cd /tmp
 #  - wget -S -O - http://127.0.0.1/ 
 
 sonarqube:
