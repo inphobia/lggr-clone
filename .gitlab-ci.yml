@@ -31,7 +31,7 @@ services:
 .filldb: &filldb
   before_script:
   - apt-get update -yqq
-  - apt-get install -yqq git mysql-client
+  - apt-get install -yqq git mariadb-client
   - pecl install xdebug && docker-php-ext-enable xdebug
   - docker-php-ext-install mysqli
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
