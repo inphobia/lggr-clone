@@ -61,6 +61,12 @@ unittest:
   <<: *filldb
   script:
   - php composer.phar test
+  artifacts:
+    paths:
+      - logs/junit.xml
+    expire_in: 1 month
+    reports:
+      junit: logs/junit.xml
 
 webtest:
   stage: test
