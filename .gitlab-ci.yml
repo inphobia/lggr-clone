@@ -66,6 +66,7 @@ unittest:
     <<: *global_cache
     paths:
       - logs/junit.xml
+      - logs/coverage.xml
   script:
   - php composer.phar test
   artifacts:
