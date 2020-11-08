@@ -31,6 +31,9 @@ class Lggr {
         
         $this->db = new \mysqli($this->config->getDbHost(), $this->config->getDbUSer(),
             $this->config->getDbPwd(), $this->config->getDbName());
+        if ($this->db->connect_error) {
+            die('DB connect failed: ' . $this->db->connect_error);
+        }
         $this->db->set_charset('utf8');
     }
 
