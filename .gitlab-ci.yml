@@ -2,6 +2,7 @@ image: php:7.0-apache
 
 stages:
   - setup
+  - analysis
   - test
 
 # Set any variables we need
@@ -55,6 +56,25 @@ websetup:
   # link our project stuff
   - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
   - cd /builds/kai/lggr; sed -i "s/localhost/mysql/" inc/Config.php; sed -i "s/localhost/mysql/" inc/AdminConfig.php; sed -i "s/localhost/mysql/" inc/CiConfig.php
+
+sonarqube:
+  stage: analysis
+  image:
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    GIT_DEPTH: "0"
+  cache:
+    <<: *global_cache
+    paths:
+      - .sonar/cache
+  script:
+    - sonar-scanner -Dsonar.qualitygate.wait=true
+  allow:failure: true
+  only:
+    - merge_requests
+    - develop
 
 unittest:
   stage: test
