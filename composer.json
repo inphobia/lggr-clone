@@ -26,6 +26,6 @@
 		"phpunit/phpunit": "^6"
 	},
 	"scripts": {
-		"test": "phpunit --log-junit logs/junit.xml --configuration tests/phpunit.xml tests"
+		"test": "phpunit --log-junit logs/junit.xml --coverage-clover logs/coverage.xml --configuration tests/phpunit.xml tests"
 	}
 }

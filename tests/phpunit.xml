@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpunit>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./inc</directory>
+            <file>index.php</file>
+            <exclude>
+                <directory>./tests</directory>
+            </exclude>
+        </whitelist>
+    </filter>
     <php>
         <var name="DB_DSN" value="mysql:dbname=lggr;host=localhost" />
         <var name="DB_USER" value="logviewer" />
