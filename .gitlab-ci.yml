@@ -73,7 +73,7 @@ unittest:
   - php composer.phar test
   after_script:
     - php tests/x2j.php >logs/junit.json
-    - curl -X POST -H "${ELASTIC_HEADER}" -d @logs/json.json "${ELASTIC_URL}" 
+    - curl -X POST -H "${ELASTIC_HEADER}" -d @logs/junit.json "${ELASTIC_URL}" 
   artifacts:
     paths:
       - logs/junit.xml
