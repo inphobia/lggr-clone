@@ -11,9 +11,15 @@ final class TesterTest extends TestCase {
         self::$cfg = new \Lggr\Config(); 
     }
 
-    public function testSkipped() 	{
+    public function testIncomplete() 	{
         $this->markTestIncomplete(
           'This test has not been implemented yet.'
+        );
+    }
+
+    public function testSkipped() 	{
+        $this->markTestSkipped(
+          'This test has been skipped.'
         );
     }
 
