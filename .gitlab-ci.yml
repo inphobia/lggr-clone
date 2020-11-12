@@ -9,7 +9,7 @@ stages:
 variables:
   MYSQL_DATABASE: $MYSQL_DB
   MYSQL_ROOT_PASSWORD: $MYSQL_PASS
-  ELASTIC_URL: http://10.0.1.3:9200/logstash-jenkins/phpunit
+  ELASTIC_URL: $ELASTIC_HOST/phpunit/result
   ELASTIC_HEADER: 'Content-Type: application/json'
 
 cache: &global_cache
