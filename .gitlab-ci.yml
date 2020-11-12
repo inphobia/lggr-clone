@@ -70,7 +70,7 @@ unittest:
   script:
   - php composer.phar test
   - php tests/x2j.php >logs/junit.json
-  - curl -X POST -H "Content-Type: application/json" -d @logs/json.json "http://10.0.1.3:9200/logstash-jenkins/phpunit"
+  - curl -X POST -H "Content-Type\: application/json" -d @logs/json.json "http://10.0.1.3\:9200/logstash-jenkins/phpunit"
   artifacts:
     paths:
       - logs/junit.xml
