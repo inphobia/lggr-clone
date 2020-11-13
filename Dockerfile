@@ -1,16 +1,18 @@
-FROM debian:stable
+FROM php:7.1-apache
 MAINTAINER Kai Kretschmann
 
 RUN apt-get update && apt-get install -y \
-	mariadb-server \
-	apache2 \
-	php-mysql php-gd
-RUN a2enmod rewrite && a2enmod headers && service apache2 restart
+	mariadb-client curl wget git zip
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+RUN docker-php-ext-install mysqli
 
-EXPOSE 80
+RUN wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig \
+&& php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+&& php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
+&& php composer-setup.php \
+&& php -r "unlink('composer-setup.php'); unlink('installer.sig');"
 
-WORKDIR "/var/www/html"
-CMD ["/bin/bash"]
+
 
 # docker build -t lggr/test .
 # docker run -p 4000:80 lggr/test
