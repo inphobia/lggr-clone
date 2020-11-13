@@ -1,6 +1,7 @@
 image: php:7.1-apache
 
 stages:
+  - build
   - setup
   - test
   - analysis
@@ -39,6 +40,15 @@ services:
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
   - php admin/db_prefill.php
+
+dockerbuild:
+  image: docker:19.03.12
+  stage: build
+  services:
+    - docker:19.03.12-dind
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build .
 
 websetup:
   stage: setup
