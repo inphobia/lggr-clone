@@ -1,7 +1,6 @@
-image: php:7.1-apache
+image: $CI_REGISTRY/kai/lggr:latest
 
 stages:
-  - build
   - setup
   - test
   - analysis
@@ -33,25 +32,9 @@ services:
 # Each job gets a new fresh service, so we have to initialize each time again
 .filldb: &filldb
   before_script:
-  - apt-get update -yqq
-  - apt-get install -yqq git mariadb-client curl
-  - pecl install xdebug && docker-php-ext-enable xdebug
-  - docker-php-ext-install mysqli
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
   - php admin/db_prefill.php
-
-dockerbuild:
-  inherit:
-    default: false
-  image: docker:19.03.12
-  stage: build
-  allow_failure: true
-  services:
-    - docker:19.03.12-dind
-  script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build .
 
 websetup:
   stage: setup
@@ -59,15 +42,6 @@ websetup:
     <<: *global_cache
     policy: push
   script:
-  - pwd
-  - apt-get update -yqq
-  - apt-get install -yqq wget git zip
-  # Install composer dependencies
-  - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
-  - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-  - php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-  - php composer-setup.php
-  - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
   - php composer.phar --no-interaction --quiet install
   # link our project stuff
   - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
