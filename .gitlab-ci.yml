@@ -42,7 +42,7 @@ websetup:
     <<: *global_cache
     policy: push
   script:
-  - php composer.phar --no-interaction --quiet install
+  - composer --no-interaction --quiet install
   # link our project stuff
   - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
   - cd /builds/kai/lggr; sed -i "s/localhost/mysql/" inc/Config.php; sed -i "s/localhost/mysql/" inc/AdminConfig.php; sed -i "s/localhost/mysql/" inc/CiConfig.php
@@ -57,7 +57,7 @@ unittest:
       - logs/junit.xml
       - logs/coverage.xml
   script:
-  - php composer.phar test
+  - composer test
   after_script:
     - php tests/x2j.php >logs/junit.json
     - curl -X POST -H "${ELASTIC_HEADER}" -d @logs/junit.json "${ELASTIC_URL}" 
