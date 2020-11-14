@@ -25,6 +25,6 @@ final class TesterTest extends TestCase {
 
     // check error handling
     public function testFailure() 	{
-//    	$this->assertEquals('abc', '123');
+    	$this->assertEquals('abc', '123');
     }
 }
