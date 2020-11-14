@@ -16,7 +16,6 @@ cache: &global_cache
   paths:
   - vendor/
   - inc/
-  - composer.phar
   key: "$CI_COMMIT_SHORT_SHA"
   policy: pull-push
 
