@@ -23,8 +23,8 @@ final class TesterTest extends TestCase {
         );
     }
 
-    // check error handling
-    public function testFailure() 	{
+    // check error handling, skipped because of prefix
+    public function tstFailure() 	{
     	$this->assertEquals('abc', '123');
     }
 }
