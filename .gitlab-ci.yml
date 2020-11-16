@@ -1,4 +1,4 @@
-image: $CI_REGISTRY/kai/lggr:latest
+image: $CI_REGISTRY/kai/lggr:7.3
 
 stages:
   - setup
@@ -31,6 +31,7 @@ services:
 # Each job gets a new fresh service, so we have to initialize each time again
 .filldb: &filldb
   before_script:
+  - php -v
   - cat doc/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - cat doc/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
   - php admin/db_prefill.php
