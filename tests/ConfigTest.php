@@ -8,19 +8,19 @@ final class ConfigTest extends TestCase
 {
 	protected static $cfg;
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		self::$cfg = new \Lggr\Config();
 	}
 
-	public function testCreate()
+	public function testCreate(): void
 	{
 		$this->assertInstanceOf(
 			\Lggr\AbstractConfig::class,
 			self::$cfg
 		);
 	}
-	public function testDbUser()
+	public function testDbUser(): void
 	{
 		$this->assertEquals(
 			'logviewer',
