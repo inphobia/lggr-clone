@@ -8,19 +8,19 @@ final class AdminConfigTest extends TestCase
 {
 	protected static $cfg;
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		self::$cfg = new \Lggr\AdminConfig();
 	}
 
-	public function testCreate()
+	public function testCreate(): void
 	{
 		$this->assertInstanceOf(
 			\Lggr\AbstractConfig::class,
 			self::$cfg
 		);
 	}
-	public function testDbUser()
+	public function testDbUser(): void
 	{
 		$this->assertEquals(
 			'loggeradmin',
