@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpunit verbose="true">
-    <coverage>
+    <coverage cacheDirectory="./covcache" includeUncoveredFiles="true">
         <include>
             <directory suffix=".php">./inc</directory>
         </include>
@@ -8,15 +8,6 @@
             <directory>./vendor</directory>
         </exclude>
     </coverage>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./inc</directory>
-            <file>index.php</file>
-            <exclude>
-                <directory>./tests</directory>
-            </exclude>
-        </whitelist>
-    </filter>
     <php>
         <var name="DB_DSN" value="mysql:dbname=lggr;host=localhost" />
         <var name="DB_USER" value="logviewer" />
