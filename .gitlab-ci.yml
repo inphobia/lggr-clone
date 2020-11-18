@@ -11,6 +11,8 @@ variables:
   MYSQL_ROOT_PASSWORD: $MYSQL_PASS
   ELASTIC_URL: $ELASTIC_HOST/phpunit/result
   ELASTIC_HEADER: 'Content-Type: application/json'
+  ELASTIC_USER: $ELK_USER
+  ELASTIC_PASSWD: $ELK_PASSWD
 
 cache: &global_cache
   paths:
@@ -60,7 +62,7 @@ unittest:
   - composer test
   after_script:
     - php tests/x2j.php >logs/junit.json
-    - curl -X POST -H "${ELASTIC_HEADER}" -d @logs/junit.json "${ELASTIC_URL}" 
+    - curl -X POST -H "${ELASTIC_HEADER}" -u "${ELASTIC_USER}:${ELASTIC_PASSWD}" -d @logs/junit.json "${ELASTIC_URL}" 
   artifacts:
     paths:
       - logs/junit.xml
