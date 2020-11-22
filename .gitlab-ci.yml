@@ -43,6 +43,9 @@ websetup:
   cache:
     <<: *global_cache
     policy: push
+  before_script:
+  - sleep 60
+  - echo Did wait for services
   script:
   - composer --no-interaction --quiet install
   # link our project stuff
@@ -58,6 +61,9 @@ unittest:
     paths:
       - logs/junit.xml
       - logs/coverage.xml
+  before_script:
+  - sleep 60
+  - echo Did wait for services
   script:
   - composer test
   after_script:
