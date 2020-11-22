@@ -438,7 +438,7 @@ LIMIT $from,$count";
             $aWhere[] = "level='$sTmp'";
         } // if
         
-        if (count($aWhere) > 0) {
+        if (!empty($aWhere)) {
             $sqlSize .= " WHERE " . implode(Lggr::INNERAND, $aWhere);
             $sqlData .= " WHERE " . implode(Lggr::INNERAND, $aWhere);
         } // if
