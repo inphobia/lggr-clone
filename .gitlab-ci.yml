@@ -47,9 +47,9 @@ websetup:
     matrix:
       - MYSQLVERSION: mariadb
         PHPVERSION:
-          - 7.3
-          - 7.4
-  image: $CI_REGISTRY/kai/lggr:$PHPVERSION
+          - kai/lggr:7.3
+          - kai/lggr:7.4
+  image: $CI_REGISTRY/$PHPVERSION
   script:
   - composer --no-interaction --quiet install
   # link our project stuff
@@ -69,9 +69,9 @@ unittest:
     matrix:
       - MYSQLVERSION: mariadb
         PHPVERSION:
-          - 7.3
-          - 7.4
-  image: $CI_REGISTRY/kai/lggr:$PHPVERSION
+          - kai/lggr:7.3
+          - kai/lggr:7.4
+  image: $CI_REGISTRY/$PHPVERSION
   script:
   - composer test
   after_script:
