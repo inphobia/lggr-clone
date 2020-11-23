@@ -1,4 +1,3 @@
-
 stages:
   - setup
   - test
@@ -46,7 +45,10 @@ websetup:
     policy: push
   parallel:
     matrix:
-      - PHPVERSION: [7.3, 7.4]
+      - MYSQLVERSION: mariadb
+        PHPVERSION:
+          - 7.3
+          - 7.4
   image: $CI_REGISTRY/kai/lggr:$PHPVERSION
   script:
   - composer --no-interaction --quiet install
@@ -65,7 +67,10 @@ unittest:
       - logs/coverage.xml
   parallel:
     matrix:
-      - PHPVERSION: [7.3, 7.4]
+      - MYSQLVERSION: mariadb
+        PHPVERSION:
+          - 7.3
+          - 7.4
   image: $CI_REGISTRY/kai/lggr:$PHPVERSION
   script:
   - composer test
