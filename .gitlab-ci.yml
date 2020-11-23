@@ -47,7 +47,6 @@ websetup:
     matrix:
       - MYSQLVERSION: mariadb
         PHPVERSION:
-          - kai/lggr:7.2
           - kai/lggr:7.3
           - kai/lggr:7.4
   image: $CI_REGISTRY/$PHPVERSION
@@ -70,7 +69,6 @@ unittest:
     matrix:
       - MYSQLVERSION: mariadb
         PHPVERSION:
-          - kai/lggr:7.2
           - kai/lggr:7.3
           - kai/lggr:7.4
   image: $CI_REGISTRY/$PHPVERSION
