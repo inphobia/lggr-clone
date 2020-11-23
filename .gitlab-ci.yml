@@ -1,4 +1,3 @@
-image: $CI_REGISTRY/kai/lggr:7.4
 
 stages:
   - setup
@@ -45,6 +44,10 @@ websetup:
   cache:
     <<: *global_cache
     policy: push
+  parallel:
+    matrix:
+      - PHPVERSION: [7.3, 7.4]
+  image: $CI_REGISTRY/kai/lggr:$PHPVERSION
   script:
   - composer --no-interaction --quiet install
   # link our project stuff
@@ -60,6 +63,10 @@ unittest:
     paths:
       - logs/junit.xml
       - logs/coverage.xml
+  parallel:
+    matrix:
+      - PHPVERSION: [7.3, 7.4]
+  image: $CI_REGISTRY/kai/lggr:$PHPVERSION
   script:
   - composer test
   after_script:
