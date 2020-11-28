@@ -9,7 +9,9 @@
 		}
 	],
 	"support": {
-		"email": "info@lggr.io"
+		"email": "info@lggr.io",
+		"source": "https://gitlab.kretschmann.software/kai/lggr.git",
+		"issues": "https://gitlab.kretschmann.software/kai/lggr/-/issues"
 	},
 	"require": {
 		"twbs/bootstrap": "3.3.4",
