@@ -1,6 +1,9 @@
 <?php
 namespace Lggr;
 
+use PHPAuth\Config as PHPAuthConfig;
+use PHPAuth\Auth as PHPAuth;
+
 class Lggr {
 
     const LASTSTAT = 5000;
@@ -19,11 +22,17 @@ class Lggr {
 
     private $aPerf = null;
 
+    private $auth = null;
+
     function __construct(LggrState $state, AbstractConfig $config) {
         $this->config = $config;
         $this->state = $state;
         $this->cache = new LggrCacheFile(); // or use LggrCacheRedis instead
-        $this->aPerf = array(); // of type LggrPerf objects
+	$this->aPerf = array(); // of type LggrPerf objects
+
+	$dbh = new \PDO("mysql:host=" . $this->config->getDbHost() . ";dbname=" . $this->config->getDbName(), $this->config->getDbUser(), $this->config->getDbPwd());
+	$authConfig = new PHPAuthConfig($dbh);
+	$this->auth = new PHPAuth($dbh, $authConfig);
         
         if (! $this->state->isLocalCall()) {
             $this->checkSecurity();
@@ -44,7 +53,12 @@ class Lggr {
         } // if
     }
 
-    // destructor
+    public function getAuthUser() {
+	    // print_r($this->auth->getCurrentUser());
+	    return $this->auth->getCurrentUser();
+    }
+
+    // check auth
     private function checkSecurity() {
         // might be called by cli
         if(!isset($_SERVER["REMOTE_ADDR"])) {
@@ -57,9 +71,9 @@ class Lggr {
         }
         if ($_SERVER["REMOTE_ADDR"] === "127.0.0.1") {
             return;
-        }
-        if (! isset($_SERVER['REMOTE_USER'])) {
-            throw new LggrException('You must enable basic authentication');
+	}
+	if(!$this->auth->isLogged()) {
+            throw new LggrException('You must be logged in here');
         } // if
     }
 

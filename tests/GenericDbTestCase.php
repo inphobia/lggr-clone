@@ -17,7 +17,8 @@ abstract class GenericDbTestCase extends TestCase
                 self::$pdo = new PDO( $GLOBALS['DB_DSN'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'] );
             }
             $this->conn = $this->createDefaultDBConnection(self::$pdo, $GLOBALS['DB_DBNAME']);
-        }
+	}
+	echo "In getConnection\n";
 
         return $this->conn;
     }

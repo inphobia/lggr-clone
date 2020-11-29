@@ -18,11 +18,9 @@ if (isset($_COOKIE['PHPSESSID'])) {
 } else {
     $dbgsession = '-';
 } // if
-if (isset($_SERVER['REMOTE_USER'])) {
-    $remoteUser = $_SERVER['REMOTE_USER'];
-} else {
-    $remoteUser = 'ANONYMOUS';
-} // if
+
+$aUserdata = $l->getAuthUser();
+$remoteUser = $aUserdata['email'];
 
 ?>
         <p class="debugfooter"><?=$pCount?> <?=_('queries in')?> <?=$pTime?> <?=_('seconds')?>. <?=_('Session')?>: <?=$dbgsession?> <?=_('by')?> <?=htmlentities($remoteUser)?></p>
