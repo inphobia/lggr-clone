@@ -4,7 +4,7 @@ namespace Lggr;
 class Config extends AbstractConfig {
 
     function __construct() {
-                $this->setDbUser('logviewer');
+                $this->setDbUser('lggrweb');
                 $this->setDbPwd('xxx');
 		$this->setDbName('lggr');
 		$this->setDbHost('localhost');

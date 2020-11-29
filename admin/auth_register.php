@@ -2,7 +2,7 @@
 
 require_once '../vendor/autoload.php';
 
-use Lggr\AdminConfig;
+use Lggr\AuthConfig;
 
 use PHPAuth\Config as PHPAuthConfig;
 use PHPAuth\Auth as PHPAuth;
@@ -11,7 +11,7 @@ use GetOptionKit\OptionCollection;
 use GetOptionKit\OptionParser;
 use GetOptionKit\OptionPrinter\ConsoleOptionPrinter;
 
-$config = new AdminConfig();
+$config = new AuthConfig();
 
 $specs = new OptionCollection;
 $specs->add('e|email:', 'email for login')->isa('Email');
