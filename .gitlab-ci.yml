@@ -53,6 +53,7 @@ websetup:
   image: $CI_REGISTRY/$PHPVERSION
   script:
   - composer --no-interaction --quiet install
+  - php -i|grep PDO
   # link our project stuff
   - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
   - cd /builds/kai/lggr; sed -i "s/localhost/mysql/" inc/Config.php; sed -i "s/localhost/mysql/" inc/AdminConfig.php; sed -i "s/localhost/mysql/" inc/CiConfig.php
