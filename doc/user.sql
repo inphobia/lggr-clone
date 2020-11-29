@@ -12,6 +12,8 @@ GRANT INSERT,SELECT,DELETE,UPDATE ON lggr.phpauth_sessions TO lggrauth@'%';
 GRANT INSERT,SELECT,DELETE,UPDATE ON lggr.phpauth_sessions TO lggrauth@localhost;
 GRANT INSERT,SELECT,DELETE,UPDATE ON lggr.phpauth_emails_banned TO lggrauth@'%';
 GRANT INSERT,SELECT,DELETE,UPDATE ON lggr.phpauth_emails_banned TO lggrauth@localhost;
+GRANT INSERT,SELECT,DELETE,UPDATE ON lggr.phpauth_users TO lggrauth@'%';
+GRANT INSERT,SELECT,DELETE,UPDATE ON lggr.phpauth_users TO lggrauth@localhost;
 
 # used by syslog-ng for inserting new data, referenced in /etc/syslog-ng/conf.d/08newlogsql.conf
 CREATE OR REPLACE USER lggrsyslog@'%' IDENTIFIED BY 'xxx';
