@@ -23,7 +23,7 @@ final class AdminConfigTest extends TestCase
 	public function testDbUser(): void
 	{
 		$this->assertEquals(
-			'loggeradmin',
+			'lggrcron',
 			self::$cfg->getDbUser()
 		);
 	}

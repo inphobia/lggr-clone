@@ -23,7 +23,7 @@ final class ConfigTest extends TestCase
 	public function testDbUser(): void
 	{
 		$this->assertEquals(
-			'logviewer',
+			'lggrweb',
 			self::$cfg->getDbUser()
 		);
 	}
