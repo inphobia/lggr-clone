@@ -26,8 +26,8 @@ try
 {
 	$result = $parser->parse($argv);
 
-	if(!array_key_exists('email', $result->keys)) throw new Exception('email missing');
-	if(!array_key_exists('password', $result->keys)) throw new Exception('password missing');
+	if(!array_key_exists('email', $result->keys)) throw new InvalidArgumentException('email missing');
+	if(!array_key_exists('password', $result->keys)) throw new InvalidArgumentException('password missing');
 
 	$u_email = $result->keys['email']->value;
 	$u_password = $result->keys['password']->value;
@@ -36,7 +36,7 @@ catch(Exception $e)
 {
 	echo $e->getMessage() . "\n\n";
 	echo $printer->render($specs);
-	exit -1;
+	exit(1);
 }
 
 $dbh = new PDO("mysql:host=" . $config->getDbHost() . ";dbname=" . $config->getDbName(), $config->getDbUser(), $config->getDbPwd());
@@ -47,7 +47,7 @@ $o = $auth->register($u_email, $u_password, $u_password, Array(), null, false);
 if($o['error'])
 {
 	echo $o['message'] . "\n";
-	exit -2;
+	exit(2);
 }
 else
 {
