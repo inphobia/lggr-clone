@@ -124,7 +124,7 @@ pages:
   stage: deploy
   image: python:3.8-buster
   before_script:
-  - pip install -r doc/requirements.txt
+  - pip install -r docs/requirements.txt
   script:
   - mkdocs build
   artifacts:
