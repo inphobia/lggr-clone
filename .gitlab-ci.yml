@@ -2,6 +2,7 @@ stages:
   - setup
   - test
   - analysis
+  - deploy
 
 # Set any variables we need
 variables:
@@ -118,3 +119,14 @@ sonarqube:
   only:
     - merge_requests
     - develop
+
+pages:
+  stage: deploy
+  script:
+  - echo 'Nothing to do...'
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
+
