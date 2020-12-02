@@ -89,6 +89,19 @@ unittest:
     reports:
       junit: logs/junit.xml
 
+doctest:
+  stage: test
+  image: python:3.8-buster
+  before_script:
+  - pip install -r docs/requirements.txt
+  script:
+  - mkdocs build --strict --verbose --site-dir test
+  artifacts:
+    paths:
+    - test
+  except:
+  - master
+
 #webtest:
 #  stage: test
 #  <<: *filldb
