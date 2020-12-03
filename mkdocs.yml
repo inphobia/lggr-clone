@@ -1,6 +1,12 @@
 site_name: Lggr
 site_dir: public
+site_description: The web based syslog gui
+site_author: Kai KRETSCHMANN
+copyright: Kai KRETSCHMANN
+repo_url: https://gitlab.kretschmann.software/kai/lggr
+repo_name: Gitlab
 theme: readthedocs
 nav:
   - Home: index.md
   - About: about.md
+  - 'Issue tracker': 'https://gitlab.kretschmann.software/kai/lggr/-/issues'
