@@ -1,2 +1,6 @@
 site_name: Lggr
 site_dir: public
+theme: readthedocs
+nav:
+  - Home: index.md
+  - About: about.md
