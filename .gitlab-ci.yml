@@ -154,5 +154,5 @@ doxygen:
   script:
   - doxygen Doxyfile
   artifacts:
-    path:
+    paths:
     - public/doxygen
