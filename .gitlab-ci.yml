@@ -52,7 +52,6 @@ websetup:
         PHPVERSION:
           - kai/lggr:7.3
           - kai/lggr:7.4
-          - kai/lggr:8.0
   image: $CI_REGISTRY/$PHPVERSION
   script:
   - composer --no-interaction --quiet install
