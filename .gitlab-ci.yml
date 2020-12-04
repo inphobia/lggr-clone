@@ -151,6 +151,7 @@ doxygen:
   image: alpine
   before_script:
   - apk update && apk add doxygen
+  - mkdir -p public/doxygen
   script:
   - doxygen Doxyfile
   artifacts:
