@@ -2,6 +2,7 @@ stages:
   - setup
   - test
   - analysis
+  - document
   - deploy
 
 # Set any variables we need
@@ -133,27 +134,37 @@ sonarqube:
     - merge_requests
     - develop
 
-pages:
-  stage: deploy
+makedocs:
+  stage: document
   image: python:3.8-buster
   before_script:
   - pip install -r docs/requirements.txt
+  - mkdir pub_mkdocs
   script:
   - mkdocs build
   artifacts:
     paths:
-    - public
-#  only:
-#  - master
+    - pub_mkdocs
 
 doxygen:
-  stage: deploy
+  stage: document
   image: alpine
   before_script:
   - apk update && apk add doxygen
-  - mkdir -p public/doxygen
+  - mkdir -p pub_doxygen
   script:
   - doxygen Doxyfile
   artifacts:
     paths:
-    - public/doxygen
+    - pub_doxygen
+
+pages:
+  stage: deploy
+  image: alpine
+  script:
+  - mkdir public
+  - cp -a pub_mkdics public/
+  - cp -a pub_doxygen public/doxygen/
+  artifacts:
+    paths:
+    - public

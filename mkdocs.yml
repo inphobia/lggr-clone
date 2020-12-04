@@ -1,5 +1,5 @@
 site_name: Lggr
-site_dir: public
+site_dir: pub_mkdocs
 site_description: The web based syslog gui
 site_author: Kai KRETSCHMANN
 copyright: Kai KRETSCHMANN
