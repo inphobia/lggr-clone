@@ -161,9 +161,10 @@ doxygen:
 pages:
   stage: deploy
   image: alpine
-  script:
+  before_script:
   - mkdir public
-  - cp -a pub_mkdics public/
+  script:
+  - cp -a pub_mkdocs public/
   - cp -a pub_doxygen public/doxygen/
   artifacts:
     paths:
