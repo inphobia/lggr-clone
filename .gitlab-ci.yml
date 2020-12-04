@@ -146,3 +146,13 @@ pages:
 #  only:
 #  - master
 
+doxygen:
+  stage: deploy
+  image: alpine
+  before_script:
+  - apk update && apk add doxygen
+  script:
+  - doxygen Doxyfile
+  artifacts:
+    path:
+    - public/doxygen

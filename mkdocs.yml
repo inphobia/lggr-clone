@@ -9,4 +9,5 @@ theme: readthedocs
 nav:
   - Home: index.md
   - About: about.md
+  - Doxygen: doxygen/
   - 'Issue tracker': 'https://gitlab.kretschmann.software/kai/lggr/-/issues'
