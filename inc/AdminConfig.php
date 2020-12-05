@@ -1,7 +1,7 @@
 <?php
 namespace Lggr;
 
-/*
+/**
  * @brief Configuration for admin database access.
  */
 class AdminConfig extends AbstractConfig {

@@ -1,7 +1,7 @@
 <?php
 namespace Lggr;
 
-/*
+/**
  * @brief Emulates the syslog message levels.
  */
 abstract class MessageLevel {

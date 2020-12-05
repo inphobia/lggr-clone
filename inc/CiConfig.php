@@ -1,7 +1,7 @@
 <?php
 namespace Lggr;
 
-/*
+/**
  * @brief Configuration class for CI tests.
  */
 class CiConfig extends AbstractConfig {

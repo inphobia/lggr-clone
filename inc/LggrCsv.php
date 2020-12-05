@@ -1,7 +1,7 @@
 <?php
 namespace Lggr;
 
-/*
+/**
  * @brief Export as CSV class.
  */
 class LggrCsv {

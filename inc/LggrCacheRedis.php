@@ -1,7 +1,7 @@
 <?php
 namespace Lggr;
 
-/*
+/**
  * @brief Caching class for redis based cache.
  */
 class LggrCacheRedis extends AbstractLggrCache {

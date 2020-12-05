@@ -1,7 +1,7 @@
 <?php
 namespace Lggr;
 
-/*
+/**
  * @brief Default configuration class for web UI.
  */
 class Config extends AbstractConfig {

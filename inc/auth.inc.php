@@ -1,6 +1,7 @@
 <?php
 
-/*
+/**
+ * @file auth.inc.php
  * @brief Include fragment for setting up authentication class.
  */
 

@@ -4,7 +4,7 @@ namespace Lggr;
 use PHPAuth\Config as PHPAuthConfig;
 use PHPAuth\Auth as PHPAuth;
 
-/*
+/**
  * @brief Main class for logic.
  */
 class Lggr {

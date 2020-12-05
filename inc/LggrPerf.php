@@ -1,36 +1,50 @@
 <?php
 namespace Lggr;
 
-/*
+/**
+ * @class LggrPerf
  * @brief Performance measurement class.
+ *
+ * Yet an empty skeleton, has to get more functionality.
  */
 class LggrPerf {
 
-    private $tsStart = null;
+    private $tsStart = null; /** timestamp start */
 
-    private $tsEnd = null;
+    private $tsEnd = null; /** timestamp end */
 
-    private $tsLen = null;
+    private $tsLen = null; /** calculated seconds */
 
-    private $sQuery = null;
+    private $sQuery = null; /** Stored SQL query to be measured */
 
+    /**
+     * Empty constructor
+     */
     function __construct() {
     	  // nothing to do here
     }
 
-    // constructor
+    /**
+     * Start timer and store query
+     * @param String sql query
+     */
     public function start($sql) {
         $this->sQuery = $sql;
         $this->tsStart = microtime(true);
     }
 
-    // function
+    /**
+     * Stop timer and store length
+     */
     public function stop() {
         $this->tsEnd = microtime(true);
         $this->tsLen = $this->tsEnd - $this->tsStart;
     }
 
-    // function
+    /**
+     * Return array with time and query
+     * @return array with keys time and query
+     */
     public function getPerf() {
         $a = array();
         
@@ -42,7 +56,9 @@ class LggrPerf {
         return $a;
     }
 
-    // function
-    private function logPerf() {} // function
+    /**
+     * TODO write performance info to logging layer
+     */
+    private function logPerf() {}
 }
 

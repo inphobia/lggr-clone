@@ -1,7 +1,7 @@
 <?php
 namespace Lggr;
 
-/*
+/**
  * @brief Caching class for file based cache.
  */
 class LggrCacheFile extends AbstractLggrCache {
