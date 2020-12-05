@@ -150,7 +150,7 @@ doxygen:
   stage: document
   image: alpine
   before_script:
-  - apk update && apk add doxygen && apk add graphviz
+  - apk update && apk add doxygen graphviz font-bitstream-type1 ghostscript-fonts
   - mkdir -p pub_doxygen
   script:
   - doxygen Doxyfile
