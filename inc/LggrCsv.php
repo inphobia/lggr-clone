@@ -1,7 +1,9 @@
 <?php
 namespace Lggr;
 
-/* speichern als UTF8 ohne BOM */
+/*
+ * @brief Export as CSV class.
+ */
 class LggrCsv {
 
     private $lggr = null;

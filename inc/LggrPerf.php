@@ -1,6 +1,9 @@
 <?php
 namespace Lggr;
 
+/*
+ * @brief Performance measurement class.
+ */
 class LggrPerf {
 
     private $tsStart = null;

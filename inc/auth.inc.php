@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @brief Include fragment for setting up authentication class.
+ */
+
 use PHPAuth\Config as PHPAuthConfig;
 use PHPAuth\Auth as PHPAuth;
 

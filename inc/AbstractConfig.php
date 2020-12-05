@@ -1,6 +1,9 @@
 <?php
 namespace Lggr;
 
+/*
+ * @brief Base class for configuring website and db access.
+ */
 abstract class AbstractConfig {
 
     protected $DBUSER;

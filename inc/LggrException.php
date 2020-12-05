@@ -2,7 +2,7 @@
 namespace Lggr;
 
 /**
- * Project specific exception class
+ * @brief Project specific exception class.
  */
 class LggrException extends \Exception {
 
