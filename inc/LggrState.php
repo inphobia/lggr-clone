@@ -1,6 +1,9 @@
 <?php
 namespace Lggr;
 
+/**
+ * @brief Global object to save all current UI states into.
+ */
 class LggrState {
 
     const SESSIONNAME = 'LggrState';
@@ -37,6 +40,7 @@ class LggrState {
     // result size of last query
     private $bPanelOpen = false;
 
+    // constructor
     function __construct() {
         $this->bLocalCall = false;
         $this->iPage = 0;
@@ -55,7 +59,6 @@ class LggrState {
         $this->bPanelOpen = false;
     }
 
-    // constructor
     public function setSearch($s) {
         if (null != $s) {
             $this->bSearch = true;
