@@ -150,9 +150,11 @@ makedocs:
 
 doxygen:
   stage: document
-  image: alpine
+  image: ubuntu:trusty
   before_script:
-  - apk update && apk add doxygen graphviz font-bitstream-type1 ghostscript-fonts ttf-freefont
+  - export DEBIAN_FRONTEND=noninteractive
+  - apt-get -yq update
+  - apt-get -yq install graphviz doxygen
   - mkdir -p pub_doxygen
   script:
   - doxygen Doxyfile
