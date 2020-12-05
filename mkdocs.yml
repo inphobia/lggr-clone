@@ -10,4 +10,5 @@ nav:
   - Home: index.md
   - About: about.md
   - Doxygen: doxygen/index.md
+  - PhpUnit: phpunit/index.md
   - 'Issue tracker': 'https://gitlab.kretschmann.software/kai/lggr/-/issues'

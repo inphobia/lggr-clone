@@ -86,6 +86,7 @@ unittest:
       - logs/junit.xml
       - logs/coverage.xml
       - logs/junit.json
+      - pub_phpunit
     expire_in: 1 month
     reports:
       junit: logs/junit.xml
@@ -166,6 +167,7 @@ pages:
   script:
   - cp -a pub_mkdocs/* public/
   - cp -a pub_doxygen/html/* public/doxygen/
+  - cp -a pub_phpunit/* public/phpunit/
   artifacts:
     paths:
     - public
