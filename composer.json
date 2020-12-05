@@ -1,10 +1,12 @@
 {
-	"name": "lggr",
+	"name": "kretschmann/lggr",
 	"description": "Web based syslog gui",
 	"version": "1.2.0",
 	"type": "project",
 	"homepage": "https://lggr.io",
-	"keywords": "syslog, php, web, logging",
+	"keywords": [
+		"syslog", "php", "web", "logging"
+	],
 	"license": "MIT",
 	"authors": [
 		{
