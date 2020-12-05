@@ -13,6 +13,7 @@ variables:
   ELASTIC_HEADER: 'Content-Type: application/json'
   ELASTIC_USER: $ELK_USER
   ELASTIC_PASSWD: $ELK_PASSWD
+  DOCKER_AUTH_CONFIG: '{ "auths": { "https://index.docker.io/v1/": { "auth": "$DOCKER_AUTH" } }}'
 
 cache: &global_cache
   paths:
