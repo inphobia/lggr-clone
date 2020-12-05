@@ -87,9 +87,9 @@ unittest:
 
 doctest:
   stage: test
-  image: python:3.8-buster
+  image: $CI_REGISTRY/kai/lggr:mkdocs
   before_script:
-  - pip install -r docs/requirements.txt
+  - mkdir test
   script:
   - mkdocs build --strict --verbose --site-dir test
   artifacts:
@@ -127,9 +127,8 @@ sonarqube:
 
 makedocs:
   stage: document
-  image: python:3.8-buster
+  image: $CI_REGISTRY/kai/lggr:mkdocs
   before_script:
-  - pip install -r docs/requirements.txt
   - mkdir pub_mkdocs
   script:
   - mkdocs build
