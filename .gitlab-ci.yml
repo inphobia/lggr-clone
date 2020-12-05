@@ -139,11 +139,8 @@ makedocs:
 
 doxygen:
   stage: document
-  image: ubuntu:trusty
+  image: $CI_REGISTRY/kai/lggr:doxygen
   before_script:
-  - export DEBIAN_FRONTEND=noninteractive
-  - apt-get -yq update
-  - apt-get -yq install graphviz doxygen
   - mkdir -p pub_doxygen
   script:
   - doxygen Doxyfile
