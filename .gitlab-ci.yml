@@ -45,9 +45,6 @@ cache: &global_cache
 
 websetup:
   stage: setup
-  cache:
-    <<: *global_cache
-    policy: push
   parallel:
     matrix:
       - MYSQLVERSION: mariadb
@@ -61,17 +58,16 @@ websetup:
   # link our project stuff
   - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
   - cd /builds/kai/lggr; sed -i "s/localhost/mysql/" inc/Config.php; sed -i "s/localhost/mysql/" inc/AdminConfig.php; sed -i "s/localhost/mysql/" inc/CiConfig.php
+  artifacts:
+    paths:
+      - vendor/
+      - inc/
 
 unittest:
   stage: test
   <<: *loadservices
   <<: *filldb
   allow_failure: true
-  cache:
-    <<: *global_cache
-    paths:
-      - logs/junit.xml
-      - logs/coverage.xml
   parallel:
     matrix:
       - MYSQLVERSION: mariadb
@@ -125,10 +121,6 @@ sonarqube:
     entrypoint: [""]
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
-  cache:
-    <<: *global_cache
-    paths:
-      - .sonar/cache
   before_script:
     - git fetch --unshallow
   script:
