@@ -1,4 +1,10 @@
 {
+	"name": "lggr",
+	"description": "Web based syslog gui",
+	"version": "1.2.0",
+	"type": "project",
+	"homepage": "https://lggr.io",
+	"keywords": "syslog, php, web, logging",
 	"license": "MIT",
 	"authors": [
 		{
@@ -11,9 +17,11 @@
 	"support": {
 		"email": "info@lggr.io",
 		"source": "https://gitlab.kretschmann.software/kai/lggr.git",
-		"issues": "https://gitlab.kretschmann.software/kai/lggr/-/issues"
+		"issues": "https://gitlab.kretschmann.software/kai/lggr/-/issues",
+		"docs": "https://kai.kretschmann.fyi/lggr/"
 	},
 	"require": {
+		"php": ">=7.3",
 		"twbs/bootstrap": "3.3.4",
 		"components/jquery": "1.11.*",
 		"components/jqueryui": "1.11.*",
