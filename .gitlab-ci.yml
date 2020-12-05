@@ -26,7 +26,8 @@ cache: &global_cache
 # See http://docs.gitlab.com/ce/ci/services/README.html for examples.
 #  - name: mariadb:10.1
 #    alias: database
-services:
+.loadservices: &loadservices
+  services:
   - name: mariadb:10.1
     alias: mysql
   - redis:latest
@@ -63,6 +64,7 @@ websetup:
 
 unittest:
   stage: test
+  <<: *loadservices
   <<: *filldb
   allow_failure: true
   cache:
@@ -95,7 +97,6 @@ unittest:
 doctest:
   stage: test
   image: python:3.8-buster
-  services:
   before_script:
   - pip install -r docs/requirements.txt
   script:
@@ -122,7 +123,6 @@ sonarqube:
   image:
     name: sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
-  services:
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
   cache:
@@ -141,7 +141,6 @@ sonarqube:
 makedocs:
   stage: document
   image: python:3.8-buster
-  services:
   before_script:
   - pip install -r docs/requirements.txt
   - mkdir pub_mkdocs
@@ -154,7 +153,6 @@ makedocs:
 doxygen:
   stage: document
   image: ubuntu:trusty
-  services:
   before_script:
   - export DEBIAN_FRONTEND=noninteractive
   - apt-get -yq update
@@ -169,7 +167,6 @@ doxygen:
 pages:
   stage: deploy
   image: alpine
-  services:
   before_script:
   - mkdir public
   script:
