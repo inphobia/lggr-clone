@@ -159,3 +159,10 @@ pages:
   artifacts:
     paths:
     - public
+
+deploy:
+  stage: deploy
+  image: alpine
+  script:
+    - 'curl --header "Job-Token: $CI_JOB_TOKEN" --data tag=<tag> "https://gitlab.kretschmann.software/api/v4/projects/$CI_PROJECT_ID/packages/composer"'
+
