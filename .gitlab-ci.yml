@@ -81,14 +81,10 @@ unittest:
       - logs/coverage.xml
       - logs/junit.json
       - pub_phpunit
-    reports:
-      cobertura:
-        - logs/coverage.xml
-      junit:
-        - logs/junit.xml
     expire_in: 1 month
     reports:
       junit: logs/junit.xml
+      cobertura: logs/coverage.xml
 
 doctest:
   stage: test
