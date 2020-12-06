@@ -38,13 +38,14 @@ variables:
 
 websetup:
   stage: setup
-  parallel:
-    matrix:
-      - MYSQLVERSION: mariadb
-        PHPVERSION:
-          - kai/lggr:7.3
-          - kai/lggr:7.4
-  image: $CI_REGISTRY/$PHPVERSION
+#  parallel:
+#    matrix:
+#      - MYSQLVERSION: mariadb
+#        PHPVERSION:
+#          - kai/lggr:7.3
+#          - kai/lggr:7.4
+#  image: $CI_REGISTRY/$PHPVERSION
+  image $CI_REGISTRY/kai/lggr:7.4
   script:
   - composer --no-interaction --quiet install
   - php -i|grep PDO
@@ -52,7 +53,7 @@ websetup:
   - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
   - cd /builds/kai/lggr; sed -i "s/localhost/mysql/" inc/Config.php; sed -i "s/localhost/mysql/" inc/AdminConfig.php; sed -i "s/localhost/mysql/" inc/CiConfig.php
   artifacts:
-    name: "web-$PHPVERSION"
+    name: "web"
     paths:
       - vendor/
       - inc/
@@ -62,20 +63,21 @@ unittest:
   <<: *loadservices
   <<: *filldb
   allow_failure: true
-  parallel:
-    matrix:
-      - MYSQLVERSION: mariadb
-        PHPVERSION:
-          - kai/lggr:7.3
-          - kai/lggr:7.4
-  image: $CI_REGISTRY/$PHPVERSION
+#  parallel:
+#    matrix:
+#      - MYSQLVERSION: mariadb
+#        PHPVERSION:
+#          - kai/lggr:7.3
+#          - kai/lggr:7.4
+#  image: $CI_REGISTRY/$PHPVERSION
+  image $CI_REGISTRY/kai/lggr:7.4
   script:
   - composer test
   after_script:
     - php tests/x2j.php >logs/junit.json
     - curl -X POST -H "${ELASTIC_HEADER}" -u "${ELASTIC_USER}:${ELASTIC_PASSWD}" -d @logs/junit.json "${ELASTIC_URL}" 
   artifacts:
-    name: "test-$PHPVERSION"
+    name: "test"
     paths:
       - logs/junit.xml
       - logs/coverage.xml
@@ -125,17 +127,6 @@ doctest:
     - test
   except:
   - master
-
-#webtest:
-#  stage: test
-#  <<: *filldb
-#  allow_failure: true
-#  script:
-#  - apt-get install -yqq wget
-#  - pwd
-#  - ls -la
-#  - cd /tmp
-#  - wget -S -O - http://127.0.0.1/ 
 
 sonarqube:
   stage: analysis
