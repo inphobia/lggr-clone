@@ -37,7 +37,9 @@
 		}
 	},
 	"require-dev": {
-		"phpunit/phpunit": "^9.4"
+		"phpunit/phpunit": "^9.4",
+		"phpunit/phpunit-selenium": "*",
+		"php-webdriver/webdriver": "*"
 	},
 	"scripts": {
 		"test": "phpunit --log-junit logs/junit.xml --coverage-clover logs/coverage.xml --configuration tests/phpunit.xml --coverage-html pub_phpunit tests",

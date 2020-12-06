@@ -11,3 +11,5 @@ pub_mkdocs/
 pub_phpunit/
 composer.lock
 *.bak
+**/.phpunit.result.cache
+covcache/

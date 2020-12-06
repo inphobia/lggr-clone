@@ -97,6 +97,7 @@ webtest:
     - redis:latest
   <<: *filldb
   before_script:
+  - composer --no-interaction --quiet install
   - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
   script:
   - composer webtest
