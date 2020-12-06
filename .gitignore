@@ -8,5 +8,6 @@ logs/*
 public/
 pub_doxygen/
 pub_mkdocs/
+pub_phpunit/
 composer.lock
 *.bak
