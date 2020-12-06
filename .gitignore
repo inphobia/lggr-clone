@@ -6,5 +6,7 @@ contrib/*
 vendor/*
 logs/*
 public/
+pub_doxygen/
+pub_mkdocs/
 composer.lock
 *.bak
