@@ -157,7 +157,7 @@ SELECT id,name AS host
 FROM servers";
         
         $perf->start($sql);
-        
+        $a = array();
         $res = $this->db->query($sql);
         if (false === $res) {
             throw new LggrException($this->db->error);
