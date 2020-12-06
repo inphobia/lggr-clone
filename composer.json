@@ -40,6 +40,7 @@
 		"phpunit/phpunit": "^9.4"
 	},
 	"scripts": {
-		"test": "phpunit --log-junit logs/junit.xml --coverage-clover logs/coverage.xml --configuration tests/phpunit.xml --coverage-html pub_phpunit tests"
+		"test": "phpunit --log-junit logs/junit.xml --coverage-clover logs/coverage.xml --configuration tests/phpunit.xml --coverage-html pub_phpunit tests",
+		"webtest": "phpunit --configuration webtests/phpunit.xml webtests"
 	}
 }

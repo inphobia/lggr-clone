@@ -86,6 +86,25 @@ unittest:
       junit: logs/junit.xml
       cobertura: logs/coverage.xml
 
+webtest:
+  stage: test
+  image: $CI_REGISTRY/kai/lggr:7.4
+  services:
+    - name: selenium/standalone-chrome
+      alias: chrome
+    - name: mariadb:10.1
+      alias: mysql
+    - redis:latest
+  <<: *filldb
+  before_script:
+  - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
+  script:
+  - composer webtest
+  allow_failure: true
+  artifacts:
+    paths:
+      - logs/junit.xml
+
 doctest:
   stage: test
   image: $CI_REGISTRY/kai/lggr:mkdocs
