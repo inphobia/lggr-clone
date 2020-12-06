@@ -29,7 +29,8 @@
 		"components/jqueryui": "1.11.*",
 		"fzaninotto/faker": "^1.9",
 		"phpauth/phpauth": "^1.2",
-		"corneltek/getoptionkit": "^2.6"
+		"corneltek/getoptionkit": "^2.6",
+		"apache/log4php": "*"
 	},
 	"autoload": {
 		"psr-4": {

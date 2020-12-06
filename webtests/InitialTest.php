@@ -12,8 +12,10 @@ use Facebook\WebDriver\WebDriverBy;
 
 final class InitialTest extends TestCase {
     protected static $cfg;
+    protected static $logger;
     protected $webDriver;
     protected $webIP;
+    protected $driverUrl;
 
     private function buildChromeCapabilities()
     {
@@ -24,13 +26,18 @@ final class InitialTest extends TestCase {
     public static function setUpBeforeClass(): void
     {
         self::$cfg = new \Lggr\Config(); 
+        self::$logger = Logger::getLogger("tests");
     }
 
     public function setUp(): void
     {
         $capabilities = $this->buildChromeCapabilities();
-	$this->webDriver = RemoteWebDriver::create('http://chrome:4444/wd/hub', $capabilities);
+        $this->driverUrl = getenv('DRIVERURL') ? getenv('DRIVERURL') : 'http://chrome:4444/wd/hub';
+	self::$logger->info("Use driver url " . $this->driverUrl);
+
+	$this->webDriver = RemoteWebDriver::create($this->driverUrl, $capabilities);
 	$this->webIP = getenv('WEBIP');
+	self::$logger->info("Use webserver IP " . $this->webIP);
     }
 
     public function tearDown(): void

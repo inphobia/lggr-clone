@@ -104,6 +104,7 @@ webtest:
   script:
   - cd /builds/kai/lggr
   - WEBIP=`hostname -i`
+  - DRIVERURL=http://chrome:4444/wd/hub
   - composer webtest
   allow_failure: true
   artifacts:
