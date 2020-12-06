@@ -103,13 +103,14 @@ webtest:
   - hostname -i
   script:
   - cd /builds/kai/lggr
-  - tail composer.json
   - WEBIP=`hostname -i`
   - composer webtest
   allow_failure: true
   artifacts:
     paths:
-      - logs/junit.xml
+      - logs/webtest_junit.xml
+    reports:
+      junit: logs/webtest_junit.xml
 
 doctest:
   stage: test

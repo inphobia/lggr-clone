@@ -13,7 +13,7 @@ use Facebook\WebDriver\WebDriverBy;
 final class InitialTest extends TestCase {
     protected static $cfg;
     protected $webDriver;
-    protected $webip;
+    protected $webIP;
 
     private function buildChromeCapabilities()
     {
@@ -30,7 +30,7 @@ final class InitialTest extends TestCase {
     {
         $capabilities = $this->buildChromeCapabilities();
 	$this->webDriver = RemoteWebDriver::create('http://chrome:4444/wd/hub', $capabilities);
-	$this->webip = getenv('WEBIP');
+	$this->webIP = getenv('WEBIP');
     }
 
     public function tearDown(): void
@@ -40,7 +40,7 @@ final class InitialTest extends TestCase {
 
     public function testHome(): void
     {
-        $this->webDriver->get("http://" . $this->webip . "/");
+        $this->webDriver->get("http://" . $this->webIP . "/");
         sleep(5);
         echo $this->webDriver->getTitle();
     }
