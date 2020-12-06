@@ -45,7 +45,7 @@ websetup:
 #          - kai/lggr:7.3
 #          - kai/lggr:7.4
 #  image: $CI_REGISTRY/$PHPVERSION
-  image $CI_REGISTRY/kai/lggr:7.4
+  image: $CI_REGISTRY/kai/lggr:7.4
   script:
   - composer --no-interaction --quiet install
   - php -i|grep PDO
@@ -70,7 +70,7 @@ unittest:
 #          - kai/lggr:7.3
 #          - kai/lggr:7.4
 #  image: $CI_REGISTRY/$PHPVERSION
-  image $CI_REGISTRY/kai/lggr:7.4
+  image: $CI_REGISTRY/kai/lggr:7.4
   script:
   - composer test
   after_script:
