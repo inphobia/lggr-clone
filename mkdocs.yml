@@ -6,7 +6,8 @@ copyright: Kai KRETSCHMANN
 repo_url: https://gitlab.kretschmann.software/kai/lggr
 repo_name: Gitlab
 theme: readthedocs
-extra_javascript: docs/matomo.js
+extra_javascript:
+  - matomo.js
 nav:
   - Home: index.md
   - About: about.md
