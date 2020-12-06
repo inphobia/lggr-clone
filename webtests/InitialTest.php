@@ -33,11 +33,11 @@ final class InitialTest extends TestCase {
     {
         $capabilities = $this->buildChromeCapabilities();
         $this->driverUrl = getenv('DRIVERURL') ? getenv('DRIVERURL') : 'http://chrome:4444/wd/hub';
-	self::$logger->info("Use driver url " . $this->driverUrl);
+	self::$logger->info("Use driver url '" . $this->driverUrl . "'");
 
 	$this->webDriver = RemoteWebDriver::create($this->driverUrl, $capabilities);
 	$this->webIP = getenv('WEBIP');
-	self::$logger->info("Use webserver IP " . $this->webIP);
+	self::$logger->info("Use webserver IP '" . $this->webIP . "'");
     }
 
     public function tearDown(): void
