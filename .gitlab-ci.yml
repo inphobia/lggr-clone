@@ -100,8 +100,10 @@ webtest:
   - composer --no-interaction install
   - composer update
   - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
-  - ip address|grep inet
+  - hostname -i
+  - ip -4 addr show dev eth0
   script:
+  - cd /builds/kai/lggr
   - tail composer.json
   - composer webtest
   allow_failure: true
