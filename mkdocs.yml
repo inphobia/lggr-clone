@@ -14,3 +14,4 @@ nav:
   - Doxygen: doxygen/index.md
   - PhpUnit: phpunit/index.md
   - 'Issue tracker': 'https://gitlab.kretschmann.software/kai/lggr/-/issues'
+  - 'Sonarqube': 'https://sona.kretschmann.software/dashboard?branch=develop&id=lggr'
