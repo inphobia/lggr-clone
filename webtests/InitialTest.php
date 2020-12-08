@@ -32,7 +32,7 @@ final class InitialTest extends TestCase {
     public function setUp(): void
     {
         $capabilities = $this->buildChromeCapabilities();
-        $this->driverUrl = getenv('DRIVERURL') ? getenv('DRIVERURL') : 'http://chrome:4444/wd/hub';
+        $this->driverUrl = getenv('SELENIUM_URL') ? getenv('SELENIUM_URL') : 'http://chrome:4444/wd/hub';
 	self::$logger->info("Use driver url '" . $this->driverUrl . "'");
 
 	$this->webDriver = RemoteWebDriver::create($this->driverUrl, $capabilities);
@@ -49,7 +49,9 @@ final class InitialTest extends TestCase {
     {
         $this->webDriver->get("http://" . $this->webIP . "/");
         sleep(5);
-        echo $this->webDriver->getTitle();
+	$title $this->webDriver->getTitle();
+	self::$logger->info("title: '" . $title . "'");
+	$this->assertEquals('Lggr.io overview', $title);
     }
 
 }
