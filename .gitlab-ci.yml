@@ -104,7 +104,7 @@ webtest:
   - hostname -i
   script:
   - cd /builds/kai/lggr
-  - WEBIP=`hostname -i` SELENIUM_URL=$SELENIUM_URL composer webtest
+  - WEBIP=`hostname -i` composer webtest
   allow_failure: true
   artifacts:
     paths:
