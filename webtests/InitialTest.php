@@ -49,7 +49,7 @@ final class InitialTest extends TestCase {
     {
         $this->webDriver->get("http://" . $this->webIP . "/");
         sleep(5);
-	$title $this->webDriver->getTitle();
+	$title = $this->webDriver->getTitle();
 	self::$logger->info("title: '" . $title . "'");
 	$this->assertEquals('Lggr.io overview', $title);
     }
