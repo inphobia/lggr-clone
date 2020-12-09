@@ -58,6 +58,7 @@ websetup:
     paths:
       - vendor/
       - inc/
+      - composer.lock
 
 unittest:
   stage: test
@@ -76,7 +77,9 @@ unittest:
   - composer test
   after_script:
     - php tests/x2j.php >logs/junit.json
-    - curl -X POST -H "${ELASTIC_HEADER}" -u "${ELASTIC_USER}:${ELASTIC_PASSWD}" -d @logs/junit.json "${ELASTIC_URL}" 
+    - curl -X POST -H "${ELASTIC_HEADER}" -u "${ELASTIC_USER}:${ELASTIC_PASSWD}" -d @logs/junit.json "${ELASTIC_URL}"
+  dependencies:
+    - websetup
   artifacts:
     name: "test"
     paths:
@@ -106,6 +109,8 @@ webtest:
   - cd /builds/kai/lggr
   - WEBIP=`hostname -i` composer webtest
   allow_failure: true
+  dependencies:
+    - websetup
   artifacts:
     paths:
       - logs/webtest_junit.xml
