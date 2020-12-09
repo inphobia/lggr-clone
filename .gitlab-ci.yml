@@ -27,17 +27,6 @@ variables:
     alias: mysql
   - redis:latest
 
-# Each job gets a new fresh service, so we have to initialize each time again
-.filldb: &filldb
-  before_script:
-  - sleep 60
-  - echo Did wait for services
-  - php -v
-  - cat setup/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
-  - cat setup/auth.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
-  - cat setup/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
-  - php admin/db_prefill.php
-
 websetup:
   stage: setup
   image: $CI_REGISTRY/kai/lggr:7.4
@@ -63,9 +52,9 @@ dbsetup:
   - echo Did wait for services
   - cat setup/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - cat setup/auth.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
-  - cat setup/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
+  - cat setup/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - php admin/db_prefill.php
-  - mysqldump --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql --opt -A >dump.sql
+  - mysqldump --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql --opt "$MYSQL_DATABASE" >dump.sql
   dependencies:
     - websetup
   artifacts:
@@ -79,7 +68,8 @@ unittest:
   <<: *loadservices
   before_script:
   - ls -l dump.sql composer.lock
-  - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql <dump.sql
+  - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
+  - cat setup/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   script:
   - composer test
   after_script:
@@ -107,6 +97,7 @@ webtest:
   before_script:
   - ls -l dump.sql composer.lock
   - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
+  - cat setup/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
   - hostname -i
   script:

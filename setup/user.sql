@@ -1,5 +1,7 @@
 # create the following different mysql users:
 
+USE mysql;
+
 CREATE OR REPLACE USER lggrauth@'%' IDENTIFIED BY 'xxx';
 CREATE OR REPLACE USER lggrauth@localhost IDENTIFIED BY 'xxx';
 GRANT SELECT ON lggr.phpauth_config TO lggrauth@'%';
