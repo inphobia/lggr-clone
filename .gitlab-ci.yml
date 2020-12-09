@@ -39,13 +39,6 @@ variables:
 
 websetup:
   stage: setup
-#  parallel:
-#    matrix:
-#      - MYSQLVERSION: mariadb
-#        PHPVERSION:
-#          - kai/lggr:7.3
-#          - kai/lggr:7.4
-#  image: $CI_REGISTRY/$PHPVERSION
   image: $CI_REGISTRY/kai/lggr:7.4
   script:
   - composer --no-interaction --quiet install
@@ -60,19 +53,32 @@ websetup:
       - inc/
       - composer.lock
 
+dbsetup:
+  stage: setup
+  image: $CI_REGISTRY/kai/lggr:7.4
+  <<: *loadservices
+  script:
+  - sleep 60
+  - echo Did wait for services
+  - cat setup/db.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
+  - cat setup/auth.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
+  - cat setup/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
+  - php admin/db_prefill.php
+  - mysqldump --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" >dump.sql
+  dependencies:
+    - websetup
+  artifacts:
+    name: "database"
+    paths:
+      - dump.sql
+
 unittest:
   stage: test
-  <<: *loadservices
-  <<: *filldb
-  allow_failure: true
-#  parallel:
-#    matrix:
-#      - MYSQLVERSION: mariadb
-#        PHPVERSION:
-#          - kai/lggr:7.3
-#          - kai/lggr:7.4
-#  image: $CI_REGISTRY/$PHPVERSION
   image: $CI_REGISTRY/kai/lggr:7.4
+  <<: *loadservices
+  before_script:
+  - ls -l dump.sql composer.lock
+  - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
   script:
   - composer test
   after_script:
@@ -80,6 +86,7 @@ unittest:
     - curl -X POST -H "${ELASTIC_HEADER}" -u "${ELASTIC_USER}:${ELASTIC_PASSWD}" -d @logs/junit.json "${ELASTIC_URL}"
   dependencies:
     - websetup
+    - dbsetup
   artifacts:
     name: "test"
     paths:
@@ -95,14 +102,10 @@ unittest:
 webtest:
   stage: test
   image: $CI_REGISTRY/kai/lggr:7.4
-  services:
-    - name: mariadb:10.1
-      alias: mysql
-    - redis:latest
-  <<: *filldb
+  <<: *loadservices
   before_script:
-  - composer --no-interaction install
-  - composer update
+  - ls -l dump.sql composer.lock
+  - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
   - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
   - hostname -i
   script:
@@ -111,6 +114,7 @@ webtest:
   allow_failure: true
   dependencies:
     - websetup
+    - dbsetup
   artifacts:
     paths:
       - logs/webtest_junit.xml
