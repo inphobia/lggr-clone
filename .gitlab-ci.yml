@@ -113,7 +113,7 @@ webtest:
   - /etc/init.d/apache2 start
   script:
   - cd /builds/kai/lggr
-  - WEBIP=webtest composer webtest
+  - WEBIP=`hostname -i` composer webtest
   allow_failure: true
   dependencies:
     - websetup
