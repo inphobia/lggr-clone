@@ -72,8 +72,6 @@ unittest:
   - name: mariadb:10.1
     alias: mysql
   - redis:latest
-  - name: selenium/standalone-chrome
-    alias: selenium
   before_script:
   - ls -l dump.sql composer.lock
   - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
@@ -104,6 +102,8 @@ webtest:
   services:
   - name: mariadb:10.1
     alias: mysql
+  - name: selenium/standalone-chrome
+    alias: selenium
   - redis:latest
   before_script:
   - ls -l dump.sql composer.lock
