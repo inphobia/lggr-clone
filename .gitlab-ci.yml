@@ -110,6 +110,7 @@ webtest:
   - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
   - cat setup/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
+  - /etc/init.d/apache2 start
   script:
   - cd /builds/kai/lggr
   - WEBIP=webtest composer webtest
