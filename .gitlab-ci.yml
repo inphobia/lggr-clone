@@ -21,11 +21,11 @@ variables:
 # See http://docs.gitlab.com/ce/ci/services/README.html for examples.
 #  - name: mariadb:10.1
 #    alias: database
-.loadservices: &loadservices
-  services:
-  - name: mariadb:10.1
-    alias: mysql
-  - redis:latest
+#.loadservices: &loadservices
+#  services:
+#  - name: mariadb:10.1
+#    alias: mysql
+#  - redis:latest
 
 websetup:
   stage: setup
@@ -46,7 +46,10 @@ websetup:
 dbsetup:
   stage: initialize
   image: $CI_REGISTRY/kai/lggr:7.4
-  <<: *loadservices
+  services:
+  - name: mariadb:10.1
+    alias: mysql
+  - redis:latest
   script:
   - sleep 60
   - echo Did wait for services
@@ -98,7 +101,10 @@ unittest:
 webtest:
   stage: test
   image: $CI_REGISTRY/kai/lggr:7.4
-  <<: *loadservices
+  services:
+  - name: mariadb:10.1
+    alias: mysql
+  - redis:latest
   before_script:
   - ls -l dump.sql composer.lock
   - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
