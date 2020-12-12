@@ -10,6 +10,6 @@ class AuthConfig extends AbstractConfig {
         $this->setDbUser('lggrauth');
         $this->setDbPwd('xxx');
         $this->setDbName('lggr');
-        $this->setDbHost('localhost');
+        $this->setDbHost('mysql');
     }
 }
