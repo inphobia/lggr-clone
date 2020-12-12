@@ -18,7 +18,7 @@ class LggrCacheRedis extends AbstractLggrCache {
     private $r = null;
 
     function __construct() {
-        $this->r = new Redis();
+        $this->r = new \Redis();
         $this->r->connect(self::REDISHOST);
         $this->r->select(self::REDISDB);
     }
