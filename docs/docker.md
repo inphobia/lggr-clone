@@ -3,7 +3,6 @@
 Starting with an empty folder we create this structure:
 
     root@www1 ~/dockers/lggrdemo # ls -la
-    total 20
     drwxr-xr-x  4 root root 4096 Dec 12 11:47 .
     drwxr-xr-x 27 root root 4096 Dec 12 10:21 ..
     drwxr-xr-x  5 root root 4096 Dec 12 10:58 data
@@ -19,7 +18,7 @@ The main docker-compose.yml will look like this:
         image: mariadb:10.1
         volumes:
           - ./data/mysql/:/var/lib/mysql
-          - ./data/initd:/docker-entrypoint-initdb.d:ro
+          - ./data/initdb:/docker-entrypoint-initdb.d:ro
         restart: always
         networks:
           - lggr
@@ -54,14 +53,12 @@ We create an empty folder mysql for storing the database between restarts of the
 Within the initdb folder we copy the three setup sql files for initial creation of the db structure.
 
     root@www1 ~/dockers/lggrdemo/data # ls -la     
-    total 16                                       
     drwxr-xr-x 4 root root 4096 Dec 12 11:54 .     
     drwxr-xr-x 4 root root 4096 Dec 12 11:47 ..    
     drwxr-xr-x 2 root root 4096 Dec 12 10:57 initdb
     drwxr-xr-x 5  999 root 4096 Dec 12 11:51 mysql
 
     root@www1 ~/dockers/lggrdemo/data/initdb # ls -la  
-    total 32                                           
     drwxr-xr-x 2 root root 4096 Dec 12 10:57 .         
     drwxr-xr-x 4 root root 4096 Dec 12 11:54 ..        
     -rw-r--r-- 1 root root 8803 Dec 12 10:56 1_db.sql  
@@ -71,7 +68,6 @@ Within the initdb folder we copy the three setup sql files for initial creation 
 The webphp74 subfolder will contain the docker file for the web server image and a git clone of the project itself.
 
     root@www1 ~/dockers/lggrdemo/webphp74 # ls -la      
-    total 16                                            
     drwxr-xr-x  3 root root 4096 Dec 12 11:46 .         
     drwxr-xr-x  4 root root 4096 Dec 12 11:47 ..        
     -rw-r--r--  1 root root  902 Dec 12 11:46 Dockerfile
