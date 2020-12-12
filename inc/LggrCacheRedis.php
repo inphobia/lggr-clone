@@ -9,7 +9,7 @@ class LggrCacheRedis extends AbstractLggrCache {
     // 5 minutes
     const MAXAGE = 300;
 
-    const REDISHOST = 'localhost';
+    const REDISHOST = 'redis';
 
     const REDISDB = 0;
 
