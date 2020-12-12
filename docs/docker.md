@@ -175,6 +175,7 @@ The *Dockerfile* finally has this content:
     RUN apt-get update && apt-get install -y \
             mariadb-client curl wget git zip iproute2
     RUN pecl install xdebug && docker-php-ext-enable xdebug
+    RUN pecl install redis && docker-php-ext-enable redis
     RUN docker-php-ext-install mysqli pdo pdo_mysql gettext
     RUN a2enmod expires
     
