@@ -32,6 +32,14 @@ The main docker-compose.yml will look like this:
           MYSQL_USER: lggrci
           MYSQL_PASSWORD: xxx
     
+      syslog:
+        image: balabit/syslog-ng:3.29.1
+        restart: always
+        cap_add:
+          - ALL
+        networks:
+          - lggr
+    
       redis:
         image: redis:latest
         restart: always
