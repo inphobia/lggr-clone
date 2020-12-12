@@ -1,5 +1,6 @@
 # Docker setup
 
+## Folder structure
 Starting with an empty folder we create this structure:
 
     root@www1 ~/dockers/lggrdemo # ls -la
@@ -8,6 +9,9 @@ Starting with an empty folder we create this structure:
     drwxr-xr-x  5 root root 4096 Dec 12 10:58 data
     -rw-r--r--  1 root root  598 Dec 12 11:47 docker-compose.yml
     drwxr-xr-x  3 root root 4096 Dec 12 11:46 webphp74
+
+
+## docker compose file
 
 The main docker-compose.yml will look like this:
 
@@ -48,6 +52,8 @@ The main docker-compose.yml will look like this:
     networks:
       lggr:
 
+## data subfolder
+
 The data subfolder will be used by the mysql container.
 We create an empty folder mysql for storing the database between restarts of the container.
 Within the initdb folder we copy the three setup sql files for initial creation of the db structure.
@@ -65,7 +71,11 @@ Within the initdb folder we copy the three setup sql files for initial creation 
     -rw-r--r-- 1 root root 4271 Dec 12 10:56 2_auth.sql
     -rw-r--r-- 1 root root 2313 Dec 12 10:56 3_user.sql
 
+## Dockerfile
+
 The webphp74 subfolder will contain the docker file for the web server image and a git clone of the project itself.
+
+The lggr folder will be created by a git clone command. Be sure to enter the folder and switch to the develop branch.
 
     root@www1 ~/dockers/lggrdemo/webphp74 # ls -la      
     drwxr-xr-x  3 root root 4096 Dec 12 11:46 .         
@@ -75,21 +85,21 @@ The webphp74 subfolder will contain the docker file for the web server image and
 
 The Dockerfile finally has this content:
 
-         FROM php:7.4-apache                                                                                                                                                                                              
-         LABEL maintainer="Kai KRETSCHMANN"                                                                                                                                                                               
-                                                                                                                                                                                                                 
-         RUN apt-get update && apt-get install -y \                                                                                                                                                                       
-                 mariadb-client curl wget git zip iproute2                                                                                                                                                                
-         RUN pecl install xdebug && docker-php-ext-enable xdebug                                                                                                                                                          
-         RUN docker-php-ext-install mysqli pdo pdo_mysql gettext                                                                                                                                                          
-         RUN a2enmod expires                                                                                                                                                                                              
-                                                                                                                                                                                                                 
-         RUN wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig \                                                                                                                         
-         && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \                                                                                                                                   
-         && php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
-         && php composer-setup.php && mv composer.phar /usr/bin/composer \                                                                                                                                                
-         && php -r "unlink('composer-setup.php'); unlink('installer.sig');"                                                                                                                                               
-                                                                                                                                                                                                                 
-         COPY lggr/ /var/www/html/                                                                                                                                                                                        
-         RUN ls -l /var/www/html                                                                                                                                                                                          
-         RUN cd /var/www/html && composer --no-interaction install                                                                                                                                                        
+    FROM php:7.4-apache
+    LABEL maintainer="Kai KRETSCHMANN"
+    
+    RUN apt-get update && apt-get install -y \
+            mariadb-client curl wget git zip iproute2
+    RUN pecl install xdebug && docker-php-ext-enable xdebug
+    RUN docker-php-ext-install mysqli pdo pdo_mysql gettext
+    RUN a2enmod expires
+    
+    RUN wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig \
+    && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
+    && php composer-setup.php && mv composer.phar /usr/bin/composer \
+    && php -r "unlink('composer-setup.php'); unlink('installer.sig');"
+    
+    COPY lggr/ /var/www/html/
+    RUN ls -l /var/www/html
+    RUN cd /var/www/html && composer --no-interaction install
