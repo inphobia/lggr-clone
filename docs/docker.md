@@ -199,3 +199,15 @@ After starting via *docker-compose up -d* it should look like this:
     lggrdemo_redis_1    docker-entrypoint.sh redis ...   Up             6379/tcp
     lggrdemo_syslog_1   /usr/sbin/syslog-ng -F           Up (healthy)   514/udp, 601/tcp, 6514/tcp
     lggrdemo_web_1      docker-php-entrypoint apac ...   Up             127.0.0.1:888->80/tcp
+
+## Initial access
+
+To get into the web gui of **lggr** you now would have to access http://127.0.0.1:888/login.php via a system local browser,
+or you forward to that local ip via any reverse proxy.
+
+For login you first have to create a web access user into the database.
+For this you can use the command line:
+
+    docker exec -it lggrdemo_web_1 /bin/bash
+    # cd admin
+    # php auth_register.php --email=info@example.com --password=xxx
