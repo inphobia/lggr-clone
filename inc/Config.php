@@ -10,7 +10,7 @@ class Config extends AbstractConfig {
         $this->setDbUser('lggrweb');
         $this->setDbPwd('xxx');
         $this->setDbName('lggr');
-        $this->setDbHost('localhost');
+        $this->setDbHost('mysql');
 
         
         // Set your preferred language en_US, de_DE, or pt_BR

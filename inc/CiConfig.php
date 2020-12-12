@@ -10,6 +10,6 @@ class CiConfig extends AbstractConfig {
         $this->setDbUser('lggrci');
         $this->setDbPwd('xxx');
         $this->setDbName('lggr');
-        $this->setDbHost('localhost');
+        $this->setDbHost('mysql');
     }
 }

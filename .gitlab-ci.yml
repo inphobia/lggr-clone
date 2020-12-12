@@ -36,7 +36,6 @@ websetup:
   # link our project stuff
   - rm .htaccess
   - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
-  - cd /builds/kai/lggr; sed -i "s/localhost/mysql/" inc/Config.php; sed -i "s/localhost/mysql/" inc/AdminConfig.php; sed -i "s/localhost/mysql/" inc/CiConfig.php
   artifacts:
     name: "web"
     paths:

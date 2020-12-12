@@ -10,7 +10,7 @@ class AdminConfig extends AbstractConfig {
         $this->setDbUser('lggrcron');
         $this->setDbPwd('xxx');
         $this->setDbName('lggr');
-        $this->setDbHost('localhost');
+        $this->setDbHost('mysql');
     }
 
 }
