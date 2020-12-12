@@ -111,3 +111,15 @@ The Dockerfile finally has this content:
     COPY lggr/ /var/www/html/
     RUN ls -l /var/www/html
     RUN cd /var/www/html && composer --no-interaction install
+
+## Running composer containers:
+
+After starting via docker-compose up -d it should look like this:
+
+    root@www1 ~/dockers/lggrdemo # docker-compose ps
+          Name                     Command                  State                 Ports
+    ----------------------------------------------------------------------------------------------
+    lggrdemo_mysql_1    docker-entrypoint.sh mysqld      Up             3306/tcp
+    lggrdemo_redis_1    docker-entrypoint.sh redis ...   Up             6379/tcp
+    lggrdemo_syslog_1   /usr/sbin/syslog-ng -F           Up (healthy)   514/udp, 601/tcp, 6514/tcp
+    lggrdemo_web_1      docker-php-entrypoint apac ...   Up             127.0.0.1:888->80/tcp
