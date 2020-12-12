@@ -11,6 +11,7 @@ extra_javascript:
 nav:
   - Home: index.md
   - About: about.md
+  - Docker: docker.md
   - Doxygen: doxygen/index.md
   - PhpUnit: phpunit/index.md
   - 'Issue tracker': 'https://gitlab.kretschmann.software/kai/lggr/-/issues'
