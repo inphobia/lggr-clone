@@ -201,6 +201,18 @@ After starting via *docker-compose up -d* it should look like this:
     lggrdemo_syslog_1   /usr/sbin/syslog-ng -F           Up (healthy)   514/udp, 601/tcp, 6514/tcp
     lggrdemo_web_1      docker-php-entrypoint apac ...   Up             127.0.0.1:888->80/tcp
 
+### Restart and rebuild
+
+To just stop and start again, a simple *docker-compuse down* and *docker-compose up -d* is enough.
+
+If you change anything on the Dockerfile or fetch a new git snapshot, you have to cleanup the images and rebuild again:
+
+    docker-compose down
+    docker-compose rm
+    docker-compose up --build -d
+
+For all those commands you have to be in the same folder where your *docker-compose.yml* file is placed.
+
 ## Initial access
 
 To get into the web gui of **lggr** you now would have to access http://127.0.0.1:888/login.php via a system local browser,
@@ -212,3 +224,4 @@ For this you can use the command line:
     docker exec -it lggrdemo_web_1 /bin/bash
     # cd admin
     # php auth_register.php --email=info@example.com --password=xxx
+
