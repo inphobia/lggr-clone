@@ -76,7 +76,7 @@ class Lggr {
             return;
 	}
 	if(!$this->auth->isLogged()) {
-            throw new LggrException('You must be logged in here');
+            throw new LggrException('You must be logged in here, go to /login.php');
         } // if
     }
 
