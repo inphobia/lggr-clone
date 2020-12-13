@@ -248,8 +248,8 @@ ORDER BY c DESC";
 
     // function
     function getArchived($from = 0, $count = LggrState::PAGELEN) {
-        $iArchivedSize = $this->cache->retrieve(ARCHIVEDSIZE);
-        $aArchivedData = $this->cache->retrieve(ARCHIVEDSIZE . intval($from));
+        $iArchivedSize = $this->cache->retrieve(Lggr::ARCHIVEDSIZE);
+        $aArchivedData = $this->cache->retrieve(Lggr::ARCHIVEDSIZE . intval($from));
         
         if ((null != $iArchivedSize) && (null != $aArchivedData)) {
             $this->state->setResultSize($iArchivedSize);
@@ -672,7 +672,7 @@ AND archived='N'
             throw new LggrException($this->db->error);
         } // if
         
-        $this->cache->purge(ARCHIVEDSIZE);
+        $this->cache->purge(Lggr::ARCHIVEDSIZE);
         $this->cache->purge("archivedData0");
     }
 
