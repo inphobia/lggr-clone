@@ -1,5 +1,4 @@
 <?php
-namespace Lggr;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -7,17 +6,17 @@ $iCount = 0;
 $aPerf = array();
 $l = null;
 try {
-    $config = new AdminConfig();
+    $config = new \Lggr\AdminConfig();
     
-    $state = new LggrState();
+    $state = new \Lggr\LggrState();
     $state->setLocalCall(true);
     
-    $l = new Lggr($state, $config);
+    $l = new \Lggr\Lggr($state, $config);
     
     $iCount = $l->purgeOldMessages();
     $aPerf = $l->getPerf();
 }
-catch (LggrException $e) {
+catch (\Lggr\LggrException $e) {
     die($e->getMessage());
 } // try
 
