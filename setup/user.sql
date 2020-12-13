@@ -36,6 +36,10 @@ GRANT SELECT,DELETE ON lggr.newlogs TO lggrcron@'%';
 GRANT SELECT,DELETE ON lggr.newlogs TO lggrcron@localhost;
 GRANT SELECT,INSERT,DELETE  ON TABLE lggr.servers TO lggrcron@'%';
 GRANT SELECT,INSERT,DELETE  ON TABLE lggr.servers TO lggrcron@localhost;
+GRANT SELECT ON lggr.phpauth_config TO lggrcron@'%';
+GRANT SELECT ON lggr.phpauth_config TO lggrcron@localhost;
+GRANT SELECT ON lggr.phpauth_users TO lggrcron@'%';
+GRANT SELECT ON lggr.phpauth_users TO lggrcron@localhost;
 
 # used for CI, skip for live setup
 CREATE OR REPLACE USER lggrci@'%' IDENTIFIED BY 'xxx';
