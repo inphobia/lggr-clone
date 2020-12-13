@@ -3,13 +3,15 @@
     <hr>
     <footer>
 <?php
-$pCount = count($aPerf);
 $pTime = 0;
-foreach ($aPerf as $perf) {
-    $aTmp = $perf->getPerf();
+if(is_array($aÜerf)) {
+    $pCount = count($aPerf);
+    foreach ($aPerf as $perf) {
+        $aTmp = $perf->getPerf();
     
-    $pTime += $aTmp['time'];
-} // foreach
+        $pTime += $aTmp['time'];
+    } // foreach
+} // if
 
 $pTime = round($pTime, 4);
 
