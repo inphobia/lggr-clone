@@ -75,7 +75,7 @@ unittest:
   before_script:
   - ls -l dump.sql composer.lock
   - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
-  - cat setup/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
+  - cat setup/3_user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   script:
   - composer test
   after_script:
@@ -108,7 +108,7 @@ webtest:
   before_script:
   - ls -l dump.sql composer.lock
   - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
-  - cat setup/user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
+  - cat setup/3_user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   - rm .htaccess
   - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
   - /etc/init.d/apache2 start
