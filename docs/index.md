@@ -17,7 +17,7 @@ And there is a difference betweeen setting up the central lggr server and config
 
 ### MySQL / MariaDB
 
-First create a database *logger* and run the db.sql, auth.sql and user.sql scripts from the setup folder into it.
+First create a database *logger* and run the 1\_db.sql, 2\_auth.sql and 3\_user.sql scripts from the setup folder into it.
 It will create one major table, one server table, and four views.
 
 ### syslog-ng
