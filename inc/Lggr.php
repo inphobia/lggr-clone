@@ -57,7 +57,6 @@ class Lggr {
     }
 
     public function getAuthUser() {
-	    // print_r($this->auth->getCurrentUser());
 	    return $this->auth->getCurrentUser();
     }
 
