@@ -43,6 +43,7 @@
 		"php-webdriver/webdriver": "*"
 	},
 	"scripts": {
+		"npm-install": "npm rebuild",
 		"test": "XDEBUG_MODE=coverage phpunit --log-junit logs/junit.xml --coverage-clover logs/coverage.xml --configuration tests/phpunit.xml --coverage-html pub_phpunit tests",
 		"webtest": "phpunit --log-junit logs/webtest_junit.xml --configuration webtests/phpunit.xml webtests"
 	}
