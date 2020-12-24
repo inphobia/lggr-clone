@@ -32,6 +32,7 @@ websetup:
   image: $CI_REGISTRY/kai/lggr:7.4
   script:
   - composer --no-interaction --quiet install
+  - composer npm_install
   - php -i|grep PDO
   # link our project stuff
   - rm .htaccess
@@ -40,6 +41,7 @@ websetup:
     name: "web"
     paths:
       - vendor/
+      - node_modules/
       - inc/
       - composer.lock
 
