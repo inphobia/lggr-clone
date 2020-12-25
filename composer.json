@@ -1,0 +1,48 @@
+{
+	"name": "kretschmann/lggr",
+	"description": "Web based syslog gui",
+	"version": "1.5.0",
+	"type": "project",
+	"homepage": "https://lggr.io",
+	"keywords": [
+		"syslog", "php", "web", "logging"
+	],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Kai KRETSCHMANN",
+			"email": "kai@kretschmann.consulting",
+			"homepage": "https://kai.kretschmann.consulting",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"email": "info@lggr.io",
+		"source": "https://gitlab.kretschmann.software/kai/lggr.git",
+		"issues": "https://gitlab.kretschmann.software/kai/lggr/-/issues",
+		"docs": "https://kai.kretschmann.fyi/lggr/"
+	},
+	"require": {
+		"php": ">=7.3",
+		"twbs/bootstrap": "3.3.4",
+		"fzaninotto/faker": "^1.9",
+		"phpauth/phpauth": "^1.2",
+		"corneltek/getoptionkit": "^2.6",
+		"apache/log4php": "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Lggr\\": "inc/"
+		}
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^9.4",
+		"phpunit/phpunit-selenium": "*",
+		"php-webdriver/webdriver": "*"
+	},
+	"scripts": {
+		"npm-install": "npm install",
+		"test": "XDEBUG_MODE=coverage phpunit --log-junit logs/junit.xml --coverage-clover logs/coverage.xml --configuration tests/phpunit.xml --coverage-html pub_phpunit tests",
+		"webtest": "phpunit --log-junit logs/webtest_junit.xml --configuration webtests/phpunit.xml webtests"
+	}
+}

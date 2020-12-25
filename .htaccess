@@ -13,10 +13,3 @@ ExpiresActive	On
 ExpiresByType	text/css		"access plus 1 month"
 ExpiresByType	image/png		"access plus 1 month"
 ExpiresByType	application/javascript	"access plus 1 month"
-
-AuthType	Basic
-AuthName	"Restricted Area"
-AuthUserFile	/var/www/webuser
-Require		valid-user
-Require		ip 127.0.0.1
-Require		ip ::1

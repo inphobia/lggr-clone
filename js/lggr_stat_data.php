@@ -1,10 +1,9 @@
 <?php
+namespace Lggr;
+
 header('Content-Type: text/javascript');
 
-spl_autoload_register(
-    function ($class) {
-        include '../inc/' . strtolower($class) . '_class.php';
-    });
+require __DIR__ . '/../vendor/autoload.php';
 
 $searchvalue = '';
 

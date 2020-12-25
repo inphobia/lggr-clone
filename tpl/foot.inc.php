@@ -3,13 +3,15 @@
     <hr>
     <footer>
 <?php
-$pCount = count($aPerf);
 $pTime = 0;
-foreach ($aPerf as $perf) {
-    $aTmp = $perf->getPerf();
+if(is_array($aÜerf)) {
+    $pCount = count($aPerf);
+    foreach ($aPerf as $perf) {
+        $aTmp = $perf->getPerf();
     
-    $pTime += $aTmp['time'];
-} // foreach
+        $pTime += $aTmp['time'];
+    } // foreach
+} // if
 
 $pTime = round($pTime, 4);
 
@@ -18,24 +20,27 @@ if (isset($_COOKIE['PHPSESSID'])) {
 } else {
     $dbgsession = '-';
 } // if
-if (isset($_SERVER['REMOTE_USER'])) {
-    $remoteUser = $_SERVER['REMOTE_USER'];
+
+if(null != $l)
+{
+    $aUserdata = $l->getAuthUser();
+    $remoteUser = $aUserdata['email'];
 } else {
-    $remoteUser = 'ANONYMOUS';
-} // if
+    $remoteUser = 'anonymous';
+}
 
 ?>
         <p class="debugfooter"><?=$pCount?> <?=_('queries in')?> <?=$pTime?> <?=_('seconds')?>. <?=_('Session')?>: <?=$dbgsession?> <?=_('by')?> <?=htmlentities($remoteUser)?></p>
         <p>
             &copy; <a href="http://lggr.io" target="_blank" rel="noopener noreferrer">lggr.io</a>
-            2018
+            2020
         </p>
     </footer>
 </div>
 <!-- /container -->
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="<?=$config->getUrlJquery()?>jquery-1.11.3.min.js"></script>
+<script src="<?=$config->getUrlJquery()?>jquery.min.js"></script>
 <script src="<?=$config->getUrlJqueryui()?>jquery-ui.min.js"></script>
 <script
     src="<?=$config->getUrlJAtimepicker()?>jquery-ui-timepicker-addon.min.js"></script>

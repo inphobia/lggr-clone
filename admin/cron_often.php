@@ -1,25 +1,23 @@
 <?php
-spl_autoload_register(
-    function ($class) {
-        include __DIR__ . '/../inc/' . strtolower($class) . '_class.php';
-    });
+
+require __DIR__ . '/../vendor/autoload.php';
 
 $iCountServers = 0;
 $aPerf = array();
 $l = null;
 try {
-    $config = new AdminConfig();
+    $config = new \Lggr\AdminConfig();
     
-    $state = new LggrState();
+    $state = new \Lggr\LggrState();
     $state->setLocalCall(true);
     
-    $l = new Lggr($state, $config);
+    $l = new \Lggr\Lggr($state, $config);
     
     $iCountServers = $l->updateServers();
     
     $aPerf = $l->getPerf();
 }
-catch (LggrException $e) {
+catch (\Lggr\LggrException $e) {
     die($e->getMessage());
 } // try
 
@@ -31,4 +29,4 @@ foreach ($aPerf as $perf) {
 } // foreach
 
 ?>
-Purging updating <?= $iCountServers ?> servers with <?= $pCount ?> queries in <?= $pTime ?> seconds.
+Purging updating <?= $iCountServers ?> servers with <?= $pCount ?> queries in <?= number_format((float)$pTime, 2, '.', '') ?> seconds.

@@ -1,8 +1,7 @@
 <?php
-spl_autoload_register(
-    function ($class) {
-        include __DIR__ . '/../inc/' . strtolower($class) . '_class.php';
-    });
+namespace Lggr;
+
+require __DIR__ . '/../vendor/autoload.php';
 
 $iCount = 0;
 $a = array();

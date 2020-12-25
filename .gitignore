@@ -2,6 +2,16 @@ t.php
 cache/key_*
 test/*
 test/
-doc/
 contrib/*
+vendor/*
+node_modules/*
+logs/*
+public/
+pub_doxygen/
+pub_mkdocs/
+pub_phpunit/
+composer.lock
+package-lock.json
 *.bak
+**/.phpunit.result.cache
+covcache/
