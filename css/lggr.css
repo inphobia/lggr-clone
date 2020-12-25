@@ -44,6 +44,11 @@ input.tspick {
     width: 9em;
 }
 
+.dropdown-menu {
+    max-height: 150px;
+    overflow: auto;
+}
+
 .datarow div {
     white-space: nowrap;
     overflow: hidden;
