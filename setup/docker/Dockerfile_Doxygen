@@ -1,0 +1,5 @@
+FROM ubuntu:trusty
+MAINTAINER Kai Kretschmann
+
+RUN apt-get update && apt-get install -y \
+        graphviz doxygen

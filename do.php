@@ -1,8 +1,7 @@
 <?php
-spl_autoload_register(
-    function ($class) {
-        include 'inc/' . strtolower($class) . '_class.php';
-    });
+namespace Lggr;
+
+require __DIR__ . '/vendor/autoload.php';
 
 session_start();
 
@@ -93,7 +92,7 @@ switch ($_REQUEST['a']) {
         break;
     
     case 'archive':
-        $config = new AdminConfig();
+        $config = new Config();
         $l = new Lggr($state, $config);
         $iID = intval($_REQUEST['id']);
         $l->setArchive($iID, true);
@@ -102,7 +101,7 @@ switch ($_REQUEST['a']) {
         break;
     
     case 'unarchive':
-        $config = new AdminConfig();
+        $config = new Config();
         $l = new Lggr($state, $config);
         $iID = intval($_REQUEST['id']);
         $l->setArchive($iID, false);

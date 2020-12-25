@@ -1,0 +1,4 @@
+FROM python:3.8-buster
+MAINTAINER Kai Kretschmann
+
+RUN echo "mkdocs>=1.1.2">requirements && pip install -r requirements

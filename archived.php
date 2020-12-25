@@ -1,4 +1,6 @@
 <?php
+namespace Lggr;
+
 require 'inc/pre.inc.php';
 
 define('TITLE', _('Archived'));
