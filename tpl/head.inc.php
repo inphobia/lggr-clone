@@ -16,7 +16,10 @@ if (defined('TITLE')) {
 <link href="<?= $config->getUrlBootstrap() ?>css/bootstrap.min.css"
     rel="stylesheet" media="screen">
 <link rel="stylesheet"
-    href="<?= $config->getUrlJqueryui() ?>themes/smoothness/jquery-ui.css"
+    href="<?= $config->getUrlJqueryui() ?>jquery-ui.min.css"
+    media="screen">
+<link rel="stylesheet"
+    href="<?= $config->getUrlJqueryui() ?>jquery-ui.theme.min.css"
     media="screen">
 <link rel="stylesheet"
     href="<?= $config->getUrlJAtimepicker() ?>jquery-ui-timepicker-addon.min.css"

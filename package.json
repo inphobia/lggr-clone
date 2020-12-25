@@ -4,7 +4,7 @@
 	"dependencies": {
 		"chart.js": "^2.9.4",
 		"jqcloud-npm": "^4.0.0",
-		"jquery": "^1.11.1",
+		"jquery": "^1.11.3",
 		"jquery-ui-timepicker-addon": "^1.6.3",
 		"jqueryui": "^1.11.1"
 	}

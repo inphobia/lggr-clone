@@ -18,11 +18,10 @@ class Config extends AbstractConfig {
         
         /* remote storage */
         $this->setUrlBootstrap('/vendor/twbs/bootstrap/dist/');
-        $this->setUrlJquery('/vendor/components/jquery/');
-        $this->setUrlJqueryui('/vendor/components/jqueryui/');
-        $this->setUrlJAtimepicker(
-            '//cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/');
-        $this->setUrlChartjs('//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/');
-        $this->setUrlJQCloud('//cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/');
+        $this->setUrlJquery('/node_modules/jquery/dist/');
+        $this->setUrlJqueryui('/node_modules/jqueryui/');
+        $this->setUrlJAtimepicker('/node_modules/jquery-ui-timepicker-addon/dist/');
+        $this->setUrlChartjs('/node_modules/chart.js/dist/');
+        $this->setUrlJQCloud('/node_modules/jqcloud-npm/dist/');
     }
 }
