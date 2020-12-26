@@ -67,7 +67,10 @@ class Lggr {
             return;
         }
 
-        // local access allowed without login data
+	// local access allowed without login data
+	// Attention: Using a reverse proxy might change the requester IP
+	// to the localhost one. Change the code or add remote IP
+	// to the request headers!
         if ($_SERVER["REMOTE_ADDR"] === "::1") {
             return;
         }
@@ -75,7 +78,7 @@ class Lggr {
             return;
 	}
 	if(!$this->auth->isLogged()) {
-            throw new LggrException('You must be logged in here, go to /login.php');
+            throw new LggrException('You must be logged in here, go to <a href="/login.php">/login.php</a>');
         } // if
     }
 
