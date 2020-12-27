@@ -1,6 +1,14 @@
 {
 	"name": "lggr",
 	"version": "1.5.0",
+	"description": "Web gui for syslog data",
+	"homepage": "https://lggr.io",
+	"bugs": "https://gitlab.kretschmann.software/kai/lggr/-/issues",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://gitlab.kretschmann.software/kai/lggr.git"
+	},
 	"dependencies": {
 		"chart.js": "^2.9.4",
 		"jqcloud-npm": "^4.0.0",
