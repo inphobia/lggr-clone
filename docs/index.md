@@ -8,8 +8,9 @@ Setting up lggr requires some surrounding tools:
 * stunnel
 * mysql (MariaDB 10.1 used here)
 * apache
-* php 7.x (7.3 used yet)
+* php 7.x (7.4 used yet)
 * composer (for initial setup)
+* npm (for including UI javascript)
 
 And there is a difference betweeen setting up the central lggr server and configuring the multiple clients logging to it.
 
@@ -71,11 +72,18 @@ Depending on the linux/debian/syslog-ng versions you might have to enable one li
 ### Apache
 
 Just extract the files into your root web folder, i.e. /var/www/lggr and create a virtual host configuration.
-You have to adjust the database connection within inc/config_class.php to your needs. Use the read only mysql user.
+You have to adjust the database connection within inc/Config.php to your needs. Use the read only mysql user.
 
 ### PHP
 
 You need at least version 7.3, I’m developing using 7.4.
+
+After extracting the sources, go that folder and run
+
+    composer install
+    npm install
+
+Which should create the 'vendor' and 'node\_modules' folders.
 
 ### stunnel
 
