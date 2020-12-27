@@ -150,7 +150,7 @@ sonarqube:
   before_script:
     - git fetch --unshallow
   script:
-    - sonar-scanner -Dsonar.qualitygate.wait=true
+    - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.branch.name=${CI_COMMIT_REF_SLUG}
   allow_failure: true
   only:
     - merge_requests
