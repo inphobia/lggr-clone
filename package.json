@@ -1,11 +1,19 @@
 {
 	"name": "lggr",
 	"version": "1.5.0",
+	"description": "Web gui for syslog data",
+	"homepage": "https://lggr.io",
+	"bugs": "https://gitlab.kretschmann.software/kai/lggr/-/issues",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://gitlab.kretschmann.software/kai/lggr.git"
+	},
 	"dependencies": {
 		"chart.js": "^2.9.4",
 		"jqcloud-npm": "^4.0.0",
-		"jquery": "^1.11.3",
-		"jquery-ui-timepicker-addon": "^1.6.3",
-		"jqueryui": "^1.11.1"
+		"jquery": "^3.5.1",
+		"jquery-ui-dist": "1.12.1",
+		"jquery-ui-timepicker-addon": "^1.6.3"
 	}
 }
