@@ -19,7 +19,7 @@ class Config extends AbstractConfig {
         /* remote storage */
         $this->setUrlBootstrap('/vendor/twbs/bootstrap/dist/');
         $this->setUrlJquery('/node_modules/jquery/dist/');
-        $this->setUrlJqueryui('/node_modules/jqueryui/');
+        $this->setUrlJqueryui('/node_modules/jquery-ui-dist/');
         $this->setUrlJAtimepicker('/node_modules/jquery-ui-timepicker-addon/dist/');
         $this->setUrlChartjs('/node_modules/chart.js/dist/');
         $this->setUrlJQCloud('/node_modules/jqcloud-npm/dist/');

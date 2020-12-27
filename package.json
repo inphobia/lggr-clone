@@ -13,7 +13,7 @@
 		"chart.js": "^2.9.4",
 		"jqcloud-npm": "^4.0.0",
 		"jquery": "^3.5.1",
-		"jquery-ui-timepicker-addon": "^1.6.3",
-		"jqueryui": "*"
+		"jquery-ui-dist": "1.12.1",
+		"jquery-ui-timepicker-addon": "^1.6.3"
 	}
 }
