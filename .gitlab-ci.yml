@@ -17,16 +17,6 @@ variables:
   DOCKER_AUTH_CONFIG: '{ "auths": { "https://index.docker.io/v1/": { "auth": "$DOCKER_AUTH" } }}'
   SELENIUM_URL: $SELENIUM_URL
 
-# Bring in any services we need http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
-# See http://docs.gitlab.com/ce/ci/services/README.html for examples.
-#  - name: mariadb:10.1
-#    alias: database
-#.loadservices: &loadservices
-#  services:
-#  - name: mariadb:10.1
-#    alias: mysql
-#  - redis:latest
-
 websetup:
   stage: setup
   image: $CI_REGISTRY/kai/lggr:7.4
@@ -152,10 +142,6 @@ sonarqube:
   script:
     - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.branch.name=${CI_COMMIT_REF_SLUG}
   allow_failure: true
-  only:
-    - merge_requests
-    - develop
-    - feature
 
 makedocs:
   stage: document
