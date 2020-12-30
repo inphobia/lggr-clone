@@ -1,4 +1,3 @@
-
 <div class="container">
     <hr>
     <footer>
@@ -33,7 +32,7 @@ if(null != $l)
         <p class="debugfooter"><?=$pCount?> <?=_('queries in')?> <?=$pTime?> <?=_('seconds')?>. <?=_('Session')?>: <?=$dbgsession?> <?=_('by')?> <?=htmlentities($remoteUser)?></p>
         <p>
             &copy; <a href="http://lggr.io" target="_blank" rel="noopener noreferrer">lggr.io</a>
-            2020
+            2021
         </p>
     </footer>
 </div>
