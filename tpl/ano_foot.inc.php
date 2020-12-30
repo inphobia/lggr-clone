@@ -1,10 +1,9 @@
-
 <div class="container">
     <hr>
     <footer>
         <p>
             &copy; <a href="http://lggr.io" target="_blank" rel="noopener noreferrer">lggr.io</a>
-            2020
+            2021
         </p>
     </footer>
 </div>
