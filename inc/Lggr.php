@@ -589,11 +589,7 @@ FROM newlogs
 	$iMaxAge = intval($maxage);
         $perf = new LggrPerf();
         
-        $sql = "
-DELETE FROM newlogs
-WHERE `date` < (NOW() - INTERVAL $iMaxAge hour)
-AND archived='N'
-";
+        $sql = "call Purge_entries($iMaxAge);";
         
         $perf->start($sql);
         $res = $this->db->query($sql);

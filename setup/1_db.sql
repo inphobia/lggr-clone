@@ -136,6 +136,20 @@ CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` VIEW `week` AS select `new
 DROP TABLE IF EXISTS `year`;
 CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` VIEW `year` AS select `newlogs`.`id` AS `id`,`newlogs`.`date` AS `date`,`newlogs`.`facility` AS `facility`,`newlogs`.`level` AS `level`,`newlogs`.`host` AS `host`,`newlogs`.`program` AS `program`,`newlogs`.`archived` AS `archived`,`newlogs`.`message` AS `message` from `newlogs` where (`newlogs`.`date` >= (now() - interval 1 year)) ;
 
+-- Add stored procedure
+DELIMITER //
+
+CREATE PROCEDURE Purge_entries(hours INTEGER) 
+ MODIFIES SQL DATA
+ DELETE FROM newlogs
+ WHERE `date` < (NOW() - INTERVAL hours hour)
+ AND archived='N';
+//
+
+DELIMITER ;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+
+
