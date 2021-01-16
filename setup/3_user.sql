@@ -34,6 +34,8 @@ GRANT UPDATE(archived) ON lggr.newlogs TO lggrweb@localhost;
 # used by clean up cron job and for archiving, referenced in inc/adminconfig_class.php
 CREATE OR REPLACE USER lggrcron@'%' IDENTIFIED BY 'xxx';
 CREATE OR REPLACE USER lggrcron@localhost IDENTIFIED BY 'xxx';
+GRANT EXECUTE ON lggr.* TO lggrcron@'%';
+GRANT EXECUTE ON lggr.* TO lggrcron@localhost;
 GRANT SELECT,DELETE ON lggr.newlogs TO lggrcron@'%';
 GRANT SELECT,DELETE ON lggr.newlogs TO lggrcron@localhost;
 GRANT SELECT,INSERT,DELETE  ON TABLE lggr.servers TO lggrcron@'%';
