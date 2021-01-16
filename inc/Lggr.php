@@ -584,13 +584,14 @@ FROM newlogs
 
     // function
     
-    /* delete anything older than maxage hours, or 4 weeks */
+    /* delete anything older than maxage hours */
     function purgeOldMessages($maxage = 672) {
+	$iMaxAge = intval($maxage);
         $perf = new LggrPerf();
         
         $sql = "
 DELETE FROM newlogs
-WHERE `date` < (NOW() - INTERVAL $maxage hour)
+WHERE `date` < (NOW() - INTERVAL $iMaxAge hour)
 AND archived='N'
 ";
         

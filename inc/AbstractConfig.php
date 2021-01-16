@@ -28,6 +28,8 @@ abstract class AbstractConfig {
 
     protected $LOCALE;
 
+    protected $MAXAGE;
+
     final public function getDbUser() {
         return $this->DBUSER;
     }
@@ -70,6 +72,10 @@ abstract class AbstractConfig {
 
     final public function getLocale() {
         return $this->LOCALE;
+    }
+
+    final public function getMaxAge() {
+        return intval($this->MAXAGE);
     }
 
     protected function setDbUser($s) {
@@ -115,4 +121,9 @@ abstract class AbstractConfig {
     protected function setLocale($s) {
         $this->LOCALE = $s;
     }
+
+    protected function setMaxAge($i) {
+        $this->MAXAGE = intval($i);
+    }
+
 } // class

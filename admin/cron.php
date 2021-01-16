@@ -7,13 +7,17 @@ $aPerf = array();
 $l = null;
 try {
     $config = new \Lggr\AdminConfig();
+    $iMaxAge = $config->getMaxAge();
+?>
+Start purging msgs older than <?= $iMaxAge ?> hours ...
+<?php
     
     $state = new \Lggr\LggrState();
     $state->setLocalCall(true);
     
     $l = new \Lggr\Lggr($state, $config);
     
-    $iCount = $l->purgeOldMessages();
+    $iCount = $l->purgeOldMessages($iMaxAge);
     $aPerf = $l->getPerf();
 }
 catch (\Lggr\LggrException $e) {

@@ -11,6 +11,7 @@ class AdminConfig extends AbstractConfig {
         $this->setDbPwd('xxx');
         $this->setDbName('lggr');
         $this->setDbHost('mysql');
+        $this->setMaxAge(672);
     }
 
 }
