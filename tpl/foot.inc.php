@@ -3,7 +3,7 @@
     <footer>
 <?php
 $pTime = 0;
-if(is_array($aÜerf)) {
+if(is_array($aPerf)) {
     $pCount = count($aPerf);
     foreach ($aPerf as $perf) {
         $aTmp = $perf->getPerf();
