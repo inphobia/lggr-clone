@@ -1,4 +1,3 @@
-
 https://lggr.io/ - The web based syslog gui
 
 Fast
@@ -19,3 +18,8 @@ Open Source
 Validate and extend the source to any need.
 Standard PHP and MySQL requirements.
 Clean OO code.
+
+Gitlab pages
+
+Automated documentation found here:
+https://kai.kretschmann.fyi/lggr/
