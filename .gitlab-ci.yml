@@ -19,6 +19,8 @@ variables:
 
 websetup:
   stage: setup
+  tags:
+    - docker
   image: $CI_REGISTRY/kai/lggr:7.4
   script:
   - composer --no-interaction --quiet install
@@ -37,6 +39,8 @@ websetup:
 
 dbsetup:
   stage: initialize
+  tags:
+    - docker
   image: $CI_REGISTRY/kai/lggr:7.4
   services:
   - name: mariadb:10.1
@@ -59,6 +63,8 @@ dbsetup:
 
 unittest:
   stage: test
+  tags:
+    - docker
   image: $CI_REGISTRY/kai/lggr:7.4
   services:
   - name: mariadb:10.1
@@ -90,6 +96,8 @@ unittest:
 
 webtest:
   stage: test
+  tags:
+    - docker
   image: $CI_REGISTRY/kai/lggr:7.4
   services:
   - name: mariadb:10.1
@@ -119,6 +127,8 @@ webtest:
 
 doctest:
   stage: test
+  tags:
+    - docker
   image: $CI_REGISTRY/kai/lggr:mkdocs
   before_script:
   - mkdir test
@@ -132,6 +142,8 @@ doctest:
 
 sonarqube:
   stage: analysis
+  tags:
+    - docker
   image:
     name: sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
@@ -145,6 +157,8 @@ sonarqube:
 
 makedocs:
   stage: document
+  tags:
+    - docker
   image: $CI_REGISTRY/kai/lggr:mkdocs
   before_script:
   - mkdir pub_mkdocs
@@ -156,6 +170,8 @@ makedocs:
 
 doxygen:
   stage: document
+  tags:
+    - docker
   image: $CI_REGISTRY/kai/lggr:doxygen
   before_script:
   - mkdir -p pub_doxygen
@@ -167,6 +183,8 @@ doxygen:
 
 pages:
   stage: deploy
+  tags:
+    - docker
   image: alpine
   before_script:
   - mkdir public
@@ -180,6 +198,8 @@ pages:
 
 deploy:
   stage: deploy
+  tags:
+    - docker
   image: curlimages/curl:latest
   variables:
     URL: "$CI_SERVER_PROTOCOL://$CI_SERVER_HOST:$CI_SERVER_PORT/api/v4/projects/$CI_PROJECT_ID/packages/composer?job_token=$CI_JOB_TOKEN"
