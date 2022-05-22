@@ -147,6 +147,8 @@ bom:
   image: $CI_REGISTRY/kai/lggr:7.4
   script:
     - composer make-bom
+  after_script:
+    - 'curl -X POST ${DTRACK_URL}api/v1/bom -H "Content-Type: multipart/form-data" -H "X-API-Key: ${DTRACK_API}" -F "project=${DTRACK_PROJECT}" -F bom=@bom.xml'
   allow_failure: true
   artifacts:
     paths:
