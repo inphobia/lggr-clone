@@ -1,7 +1,7 @@
 {
 	"name": "kretschmann/lggr",
 	"description": "Web based syslog gui",
-	"version": "1.5.0",
+	"version": "1.5.1",
 	"type": "project",
 	"homepage": "https://lggr.io",
 	"keywords": [
