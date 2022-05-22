@@ -24,7 +24,7 @@
 	},
 	"require": {
 		"php": ">=7.4",
-		"twbs/bootstrap": "3.4.0",
+		"twbs/bootstrap": "3.4.1",
 		"fzaninotto/faker": "^1.9",
 		"phpauth/phpauth": "^1.2",
 		"corneltek/getoptionkit": "^2.6",
