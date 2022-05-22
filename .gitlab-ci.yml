@@ -142,6 +142,9 @@ doctest:
 
 bom:
   stage: analysis
+  tags:
+    - docker
+  image: $CI_REGISTRY/kai/lggr:7.4
   script:
     - composer make-bom
   allow_failure: true
