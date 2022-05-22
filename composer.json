@@ -23,8 +23,8 @@
 		"docs": "https://kai.kretschmann.fyi/lggr/"
 	},
 	"require": {
-		"php": ">=7.3",
-		"twbs/bootstrap": "3.3.4",
+		"php": ">=7.4",
+		"twbs/bootstrap": "3.4.0",
 		"fzaninotto/faker": "^1.9",
 		"phpauth/phpauth": "^1.2",
 		"corneltek/getoptionkit": "^2.6",
