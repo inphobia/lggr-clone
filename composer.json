@@ -38,11 +38,17 @@
 	"require-dev": {
 		"phpunit/phpunit": "^9.4",
 		"phpunit/phpunit-selenium": "*",
-		"php-webdriver/webdriver": "*"
+		"php-webdriver/webdriver": "*",
+		"cyclonedx/cyclonedx-php-composer": "^3.10"
 	},
 	"scripts": {
 		"npm-install": "npm install",
 		"test": "XDEBUG_MODE=coverage phpunit --log-junit logs/junit.xml --coverage-clover logs/coverage.xml --configuration tests/phpunit.xml --coverage-html pub_phpunit tests",
 		"webtest": "phpunit --log-junit logs/webtest_junit.xml --configuration webtests/phpunit.xml webtests"
+	},
+	"config": {
+		"allow-plugins": {
+			"cyclonedx/cyclonedx-php-composer": true
+		}
 	}
 }

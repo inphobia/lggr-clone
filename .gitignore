@@ -11,6 +11,7 @@ pub_doxygen/
 pub_mkdocs/
 pub_phpunit/
 composer.lock
+bom.xml
 package-lock.json
 *.bak
 **/.phpunit.result.cache

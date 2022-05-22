@@ -140,6 +140,15 @@ doctest:
   except:
   - master
 
+bom:
+  stage: analysis
+  script:
+    - composer make-bom
+  allow_failure: true
+  artifacts:
+    paths:
+      - bom.xml
+
 sonarqube:
   stage: analysis
   tags:
