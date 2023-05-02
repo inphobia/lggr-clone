@@ -92,7 +92,7 @@ unittest:
     expire_in: 1 month
     reports:
       junit: logs/junit.xml
-      cobertura: logs/coverage.xml
+#      cobertura: logs/coverage.xml
 
 webtest:
   stage: test
