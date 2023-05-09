@@ -9,7 +9,7 @@ $("#dialog").dialog({
 
 $('div.datablock').on('click', 'span.lggr-archived', function() {
 	$(this).removeClass('lggr-archived glyphicon-warning-sign');
-	var sID = $(this).parents('.row').attr('data-id');
+	const sID = $(this).parents('.row').attr('data-id');
 	$.ajax({
 		url: './do.php?a=unarchive',
 		method: 'POST',
@@ -20,7 +20,7 @@ $('div.datablock').on('click', 'span.lggr-archived', function() {
 });
 $('div.datablock').on('click', 'span.lggr-notarchived', function() {
 	$(this).removeClass('lggr-notarchived glyphicon-pushpin');
-	var sID = $(this).parents('.row').attr('data-id');
+	const sID = $(this).parents('.row').attr('data-id');
 	$.ajax({
 		url: './do.php?a=archive',
 		method: 'POST',
@@ -31,8 +31,8 @@ $('div.datablock').on('click', 'span.lggr-notarchived', function() {
 });
 
 $('div.datablock').on('click', 'tt', function() {
-	var sTxt = $(this).html();
-	var sTitle = $(this).parent().parent().find('.newlog-date').text();
+	const sTxt = $(this).html();
+	const sTitle = $(this).parent().parent().find('.newlog-date').text();
 
 	$('#dialog').html(sTxt).
 		dialog("option", "title", sTitle).
@@ -40,7 +40,7 @@ $('div.datablock').on('click', 'tt', function() {
 });
 
 $('button.newlog-level').on('click', function() {
-	var sLevel = $(this).text();
+	const sLevel = $(this).text();
 	window.location.href = "./do.php?a=level&level=" + sLevel;
 });
 
@@ -52,7 +52,7 @@ $('button#btnspecialrange').on('click', function(e) {
 	return false;
 });
 $('button.newlog-range').on('click', function() {
-	var iRange = $(this).attr('data-range');
+	const iRange = $(this).attr('data-range');
 	window.location.href = "./do.php?a=range&range=" + iRange;
 });
 
@@ -63,11 +63,11 @@ $('#tsfrom, #tsto').datetimepicker({
 
 $("body").keydown(function(e) {
 	// only if not focus inside input text fields
-	var oFocused = $(document.activeElement);
-	var sFocused = oFocused.attr('id');
+	const oFocused = $(document.activeElement);
+	const sFocused = oFocused.attr('id');
 	if(('prog' == sFocused) || ('q' == sFocused)) return;
 
-	var oLink = null;
+	let oLink = null;
 	if(e.which == 37) { // left
 		oLink = $('div.datablock nav:first-child ul.pagination a.pageleft');
 	} else if(e.which == 39) { // right
@@ -75,7 +75,7 @@ $("body").keydown(function(e) {
 	} // if
 
 	if(null != oLink) {
-		var s = oLink.attr('href');
+		const s = oLink.attr('href');
 		location.href = s;
 	} // if
 });

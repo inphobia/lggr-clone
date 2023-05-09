@@ -3,12 +3,12 @@
 $(document).ready(function() {
 
 Chart.defaults.global.responsive = true;
-var options = {
+const options = {
 	animateRotate: true
 };
 
 
-var ctx = $("#chartMsgsPerHour").get(0).getContext("2d");
+let ctx = $("#chartMsgsPerHour").get(0).getContext("2d");
 new Chart(ctx, {
 	type: 'bar',
 	data: dataMsgsPerHour,

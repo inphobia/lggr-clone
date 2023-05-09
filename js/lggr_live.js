@@ -2,8 +2,8 @@
 
 $(document).ready(function() {
 
-var timer=null;
-var running=true;
+let timer=null;
+let running=true;
 
 function htmlEntities(str) {
 	return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -28,19 +28,19 @@ $('#pauseplay').click(function() {
 });
 
 function loadLatest() {
-	var lastid = $('div.datablock div.datarow:first-child').attr('data-id');
+	const lastid = $('div.datablock div.datarow:first-child').attr('data-id');
 	$.ajax({
 		url: 'api.php',
 		type: 'GET',
 		data: 'a=latest&id='+lastid,
 		dataType: 'json',
 		success: function(data) {
-			var iEvents = data.length;
-			var sTmp = '';
+			const iEvents = data.length;
+			let sTmp = '';
 			for(var i=0; i<iEvents; i++) {
-				var oEvent = data[i];
+				const oEvent = data[i];
 
-				var label='';
+				let label='';
 				switch(oEvent.level) {
 					case 'emerg': label = '<span class="label label-danger">Emergency</span>'; break;
 					case 'crit': label = '<span class="label label-danger">Critical</span>'; break;
@@ -51,9 +51,9 @@ function loadLatest() {
 					default: label = '<span class="label label-default">' + oEvent.level + '</span>';
 				} // switch
 
-				var host = htmlEntities(oEvent.host);
-				var program = htmlEntities(oEvent.program);
-				var msg = htmlEntities(oEvent.message);
+				const host = htmlEntities(oEvent.host);
+				const program = htmlEntities(oEvent.program);
+				const msg = htmlEntities(oEvent.message);
 
 				sTmp += '<div class="row datarow freshrow" data-id="' + oEvent.id + '">';
 				sTmp += '<div class="col-md-2 col-xs-6 newlog-date">' + oEvent.date + '</div>';
@@ -71,7 +71,7 @@ function loadLatest() {
 				$('div.datablock div.freshrow').slideDown().removeClass('freshrow');
 			} // if
 
-			var ts = new Date();
+			const ts = new Date();
 			$('#tslatest').text(ts.timeNow());
 
 			timer = setTimeout(loadLatest, 5000);
@@ -83,7 +83,5 @@ function loadLatest() {
 	});
 } // function
 
-
 	timer = setTimeout(loadLatest, 5000);
-
 });
