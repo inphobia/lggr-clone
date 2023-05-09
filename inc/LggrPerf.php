@@ -20,7 +20,7 @@ class LggrPerf {
     /**
      * Empty constructor
      */
-    function __construct() {
+    public function __construct() {
     	  // nothing to do here
     }
 

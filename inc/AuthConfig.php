@@ -6,7 +6,7 @@ namespace Lggr;
  */
 class AuthConfig extends AbstractConfig {
 
-    function __construct() {
+    public function __construct() {
         $this->setDbUser('lggrauth');
         $this->setDbPwd('xxx');
         $this->setDbName('lggr');

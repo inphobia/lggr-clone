@@ -65,10 +65,10 @@ if (0 == count($aEvents)) {
 <?php
 
 if (! $isSearch) {
-    include 'tpl/paginate.inc.php';
+    include_once 'tpl/paginate.inc.php';
 } // if
 
-include 'tpl/containerhead.inc.php';
+include_once 'tpl/containerhead.inc.php';
 
 $i = 0;
 foreach ($aEvents as $event) {
@@ -139,7 +139,7 @@ EOL;
 
 <?php
 if (! $isSearch) {
-    include 'tpl/paginate.inc.php';
+    include_once 'tpl/paginate.inc.php';
 } // if
 ?>
 

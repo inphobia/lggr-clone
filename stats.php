@@ -1,13 +1,13 @@
 <?php
 namespace Lggr;
 
-require 'inc/pre.inc.php';
+require_once 'inc/pre.inc.php';
 
 $searchvalue = '';
 $searchvalueprog = '';
 
 define('TITLE', 'statistics');
-require 'tpl/head.inc.php';
+require_once 'tpl/head.inc.php';
 
 $l = null;
 try {
@@ -28,12 +28,12 @@ catch (LggrException $e) {
     echo '<div class="container"><div class="alert alert-danger" role="alert">' .
          $e->getMessage() . '</div></div>';
     
-    require 'tpl/foot.inc.php';
+    require_once 'tpl/foot.inc.php';
     
     exit();
 }
 
-require 'tpl/nav.inc.php';
+require_once 'tpl/nav.inc.php';
 ?>
 
 <div id="statsheader" class="container">
@@ -81,4 +81,4 @@ require 'tpl/nav.inc.php';
 
 <?php
 $aPerf = $l->getPerf();
-require 'tpl/foot.inc.php'?>
+require_once 'tpl/foot.inc.php'?>

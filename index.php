@@ -1,8 +1,8 @@
 <?php
-require 'inc/pre.inc.php';
+require_once 'inc/pre.inc.php';
 
 define('TITLE', 'overview');
-require 'tpl/head.inc.php';
+require_once 'tpl/head.inc.php';
 
 define('INC_FOOTER', 'tpl/foot.inc.php');
 
@@ -22,7 +22,7 @@ try {
 catch (\Lggr\LggrException $e) {
     echo '<div class="container"><div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div></div>';
 
-    require INC_FOOTER;
+    require_once INC_FOOTER;
     
     exit();
 }
@@ -118,7 +118,7 @@ try {
 catch (\Lggr\LggrException $e) {
     echo '<div class="container"><div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div></div>';
 
-    require INC_FOOTER;
+    require_once INC_FOOTER;
     
     exit();
 }
@@ -128,7 +128,7 @@ if (version_compare(phpversion(), '7.0', '<')) {
          phpversion() . ' might be too old, expecting at least 7.0</div></div>';
 } // if
 
-require 'tpl/nav.inc.php';
+require_once 'tpl/nav.inc.php';
 ?>
 
 <div class="container" id="infoheader">
@@ -365,11 +365,11 @@ if (0 == count($aEvents)) {
 <?php
 
 if (! $isSearch && (0 < count($aEvents))) {
-    include 'tpl/paginate.inc.php';
+    include_once 'tpl/paginate.inc.php';
 }
 
 if (0 < count($aEvents)) {
-    include 'tpl/containerhead.inc.php';
+    include_once 'tpl/containerhead.inc.php';
 }
 
 $i = 0;
@@ -437,7 +437,7 @@ EOL;
 } // foreach
 
 if (0 < count($aEvents)) {
-    include 'tpl/containerhead.inc.php';
+    include_once 'tpl/containerhead.inc.php';
 }
 
 ?>
@@ -445,7 +445,7 @@ if (0 < count($aEvents)) {
 
 <?php
 if (! $isSearch && (0 < count($aEvents))) {
-    include 'tpl/paginate.inc.php';
+    include_once 'tpl/paginate.inc.php';
 }
 ?>
 
@@ -453,5 +453,5 @@ if (! $isSearch && (0 < count($aEvents))) {
 
 <?php
 $aPerf = $l->getPerf();
-require INC_FOOTER;
+require_once INC_FOOTER;
 ?>

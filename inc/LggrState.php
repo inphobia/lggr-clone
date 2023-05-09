@@ -41,7 +41,7 @@ class LggrState {
     private $bPanelOpen = false;
 
     // constructor
-    function __construct() {
+    public function __construct() {
         $this->bLocalCall = false;
         $this->iPage = 0;
         $this->bSearch = false;

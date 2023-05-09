@@ -11,7 +11,7 @@ class LggrCacheFile extends AbstractLggrCache {
     // 5 minutes
     private $cachepath = null;
 
-    function __construct() {
+    public function __construct() {
         $this->cachepath = __DIR__ . '/../cache/';
     }
 

@@ -17,14 +17,14 @@ class LggrCacheRedis extends AbstractLggrCache {
 
     private $r = null;
 
-    function __construct() {
+    public function __construct() {
         $this->r = new \Redis();
         $this->r->connect(self::REDISHOST);
         $this->r->select(self::REDISDB);
     }
 
     // constructor
-    function __destruct() {
+    public function __destruct() {
         $this->r->close();
     }
 

@@ -1,8 +1,8 @@
 <?php
-require 'inc/pre.inc.php';
+require_once 'inc/pre.inc.php';
 
 define('TITLE', 'login');
-require 'tpl/head.inc.php';
+require_once 'tpl/head.inc.php';
 
 define('INC_FOOTER', 'tpl/ano_foot.inc.php');
 
@@ -16,7 +16,7 @@ if (version_compare(phpversion(), '7.0', '<')) {
          phpversion() . ' might be too old, expecting at least 7.0</div></div>';
 } // if
 
-require 'tpl/ano_nav.inc.php';
+require_once 'tpl/ano_nav.inc.php';
 ?>
 
 <div class="container" id="infoheader">
@@ -48,5 +48,5 @@ require 'tpl/ano_nav.inc.php';
 </div>
 
 <?php
-require INC_FOOTER;
+require_once INC_FOOTER;
 ?>

@@ -19,7 +19,7 @@ class LggrCsv {
         'message'
     ];
 
-    function __construct(Lggr &$oLggr) {
+    public function __construct(Lggr &$oLggr) {
         $this->lggr = & $oLggr;
     }
 
@@ -28,7 +28,7 @@ class LggrCsv {
         return 'lggrarchive_' . date('Ymd') . '.csv';
     }
 
-    function generiere() {
+    public function generiere() {
         header('Content-Type: text/csv; charset=utf-8');
         header(
             'Content-Disposition: attachment; filename="' .
