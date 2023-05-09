@@ -1,7 +1,7 @@
 {
 	"name": "kretschmann/lggr",
 	"description": "Web based syslog gui",
-	"version": "1.5.1",
+	"version": "1.5.2",
 	"type": "project",
 	"homepage": "https://lggr.io",
 	"keywords": [
@@ -25,10 +25,10 @@
 	"require": {
 		"php": ">=7.4",
 		"twbs/bootstrap": "3.4.1",
-		"fzaninotto/faker": "^1.9",
 		"phpauth/phpauth": "^1.2",
 		"corneltek/getoptionkit": "^2.6",
-		"apache/log4php": "*"
+		"apache/log4php": "*",
+		"fakerphp/faker": "^1.21"
 	},
 	"autoload": {
 		"psr-4": {
