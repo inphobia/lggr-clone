@@ -66,7 +66,8 @@ require_once 'tpl/nav.inc.php';
             <h2>
                 <span class="glyphicon glyphicon-wrench"
                     aria-hidden="true"></span> <?= _('Database') ?></h2>
-            <p><?= _('Events in DB') ?>: <?= number_format($aStatistic->cnt) ?><br><?= _('Oldest entry') ?>: <?= $aStatistic->oldest ?></p>
+            <p><?= _('Events in DB') ?>: <?= number_format($aStatistic->cnt) ?><br>
+            <?= _('Oldest entry') ?>: <?= $aStatistic->oldest ?></p>
             <p><?= _('Archived') ?>: <?= number_format($aArchivedStatistic->cnt) ?></p>
         </div>
     </div>

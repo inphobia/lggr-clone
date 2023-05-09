@@ -31,7 +31,8 @@ require_once 'tpl/ano_nav.inc.php';
 <form method="post" action="dologin.php">
   <div class="form-group">
     <label for="authEmail">Email address</label>
-    <input type="email" class="form-control" name="authEmail" id="authEmail" aria-describedby="emailHelp" placeholder="Enter email">
+    <input type="email" class="form-control" name="authEmail" id="authEmail"
+    aria-describedby="emailHelp" placeholder="Enter email">
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   <div class="form-group">

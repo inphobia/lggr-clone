@@ -179,7 +179,8 @@ foreach ($aLevels as $level) {
     } // switch
     
     echo <<<EOL
-<div class="progress-bar $label" role="progressbar" aria-valuenow="{$level->f}" style="width: {$level->f}%" title="{$level->level} {$level->f}%">
+<div class="progress-bar $label" role="progressbar" aria-valuenow="{$level->f}" 
+style="width: {$level->f}%" title="{$level->level} {$level->f}%">
 <span class="sr-only">{$level->f}%</span>
 </div>
 EOL;
@@ -229,7 +230,9 @@ foreach ($aServers as $server) {
     
     echo <<<EOL
 <div class="progress">
-    <div class="progress-bar" role="progressbar" aria-valuenow="{$server->f}" aria-valuemin="0" aria-valuemax="100" style="width: {$server->f}%; min-width: 3em" title="{$server->host} {$server->f}%">
+    <div class="progress-bar" role="progressbar" aria-valuenow="{$server->f}"
+    aria-valuemin="0" aria-valuemax="100"
+    style="width: {$server->f}%; min-width: 3em" title="{$server->host} {$server->f}%">
 {$server->host} {$server->f}%
     </div>
 </div>

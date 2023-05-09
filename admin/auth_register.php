@@ -43,10 +43,12 @@ catch(Exception $e)
 	exit(1);
 }
 
-$dbh = new PDO("mysql:host=" . $config->getDbHost() .
+$dbh = new PDO(
+	"mysql:host=" . $config->getDbHost() .
 	";dbname=" . $config->getDbName(),
 	$config->getDbUser(),
-	$config->getDbPwd());
+	$config->getDbPwd()
+);
 $authconfig = new PHPAuthConfig($dbh);
 $auth = new PHPAuth($dbh, $authconfig);
 
