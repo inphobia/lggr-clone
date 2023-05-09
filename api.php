@@ -15,19 +15,18 @@ $state = new LggrState();
 $l = new Lggr($state, $config);
 
 switch ($_REQUEST['a']) {
-    
+
     case 'latest':
         $id = intval($_REQUEST['id']);
         $aEvents = $l->getNewer($id);
-        
+
         header('Content-Type: application/json; charset=utf8');
-        
+
         echo json_encode($aEvents);
-        
+
         break;
-    
+
     default:
         // ignore
         break;
 } // switch
-

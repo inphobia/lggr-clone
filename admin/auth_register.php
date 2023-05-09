@@ -23,21 +23,21 @@ $parser = new OptionParser($specs);
 $u_email = null;
 $u_password = null;
 try {
-	$result = $parser->parse($argv);
+    $result = $parser->parse($argv);
 
-	if (!array_key_exists('email', $result->keys)) {
-		throw new InvalidArgumentException('email missing');
-	}
-	if (!array_key_exists('password', $result->keys)) {
-		throw new InvalidArgumentException('password missing');
-	}
+    if (!array_key_exists('email', $result->keys)) {
+        throw new InvalidArgumentException('email missing');
+    }
+    if (!array_key_exists('password', $result->keys)) {
+        throw new InvalidArgumentException('password missing');
+    }
 
-	$u_email = $result->keys['email']->value;
-	$u_password = $result->keys['password']->value;
+    $u_email = $result->keys['email']->value;
+    $u_password = $result->keys['password']->value;
 } catch (Exception $e) {
-	echo $e->getMessage() . "\n\n";
-	echo $printer->render($specs);
-	exit(1);
+    echo $e->getMessage() . "\n\n";
+    echo $printer->render($specs);
+    exit(1);
 }
 
 $dbh = new PDO(
@@ -50,8 +50,8 @@ $auth = new PHPAuth($dbh, $authconfig);
 
 $o = $auth->register($u_email, $u_password, $u_password, array(), null, false);
 if ($o['error']) {
-	echo $o['message'] . "\n";
-	exit(2);
+    echo $o['message'] . "\n";
+    exit(2);
 } else {
-	echo "OK\n";
+    echo "OK\n";
 }
