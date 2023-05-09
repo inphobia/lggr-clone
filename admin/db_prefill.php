@@ -16,13 +16,13 @@ $arrayLevels = array(
 $arrayServers = array();
 
 try {
-	$config = new CiConfig();
-	$db = new \mysqli(
-		$config->getDbHost(),
-		$config->getDbUser(),
-		$config->getDbPwd(),
-		$config->getDbName()
-	);
+    $config = new CiConfig();
+    $db = new \mysqli(
+        $config->getDbHost(),
+        $config->getDbUser(),
+        $config->getDbPwd(),
+        $config->getDbName()
+    );
 	if ($db->connect_error) {
 		die('Connection error ' . $db->connect_error . ' to ' .
 			$config->getDbUser() . '@' . $config->getDbHost());
@@ -46,7 +46,7 @@ function trimAll($db)
 function makeServers($faker, $db, $count=10)
 {
 	$a = array();
-	for($i=0; $i<$count; $i++) {
+	for ($i=0; $i<$count; $i++) {
 		$name = $faker->domainWord;
 		echo $name . ", ";
 		$sql = "INSERT INTO servers (name) VALUES ('" . $name . "')";
@@ -72,7 +72,7 @@ function makeEntries($faker, $db, $count=1000)
 	$dPid = 0;
 	$dMessage = "";
 	$dIdhost = 0;
-	if (!$stmt->bind_param("sssssisi", $dDate,$dFacility,$dLevel,$dHost,$dProgram,$dPid,$dMessage,$dIdhost)) {
+	if (!$stmt->bind_param("sssssisi", $dDate, $dFacility, $dLevel, $dHost, $dProgram, $dPid, $dMessage, $dIdhost)) {
 		echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 	}
 

@@ -4,7 +4,8 @@ namespace Lggr;
 /**
  * @brief Caching class for redis based cache.
  */
-class LggrCacheRedis extends AbstractLggrCache {
+class LggrCacheRedis extends AbstractLggrCache
+{
 
     // 5 minutes
     const MAXAGE = 300;
@@ -17,25 +18,29 @@ class LggrCacheRedis extends AbstractLggrCache {
 
     private $r = null;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->r = new \Redis();
         $this->r->connect(self::REDISHOST);
         $this->r->select(self::REDISDB);
     }
 
     // constructor
-    public function __destruct() {
+    public function __destruct()
+    {
         $this->r->close();
     }
 
     // destructor
-    public function store($key, $value) {
+    public function store($key, $value)
+    {
         $s = serialize($value);
         $this->r->setex(SELF::REDISPFX . $key, self::MAXAGE, $s);
     }
 
     // function
-    public function retrieve($key) {
+    public function retrieve($key)
+    {
         $value = $this->r->get(SELF::REDISPFX . $key);
         if (false === $value) {
             return null;
@@ -44,7 +49,8 @@ class LggrCacheRedis extends AbstractLggrCache {
     }
 
     // function
-    public function purge($key) {
+    public function purge($key)
+    {
         $this->r->delete(SELF::REDISPFX . $key);
     } // function
 } // class

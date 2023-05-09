@@ -4,7 +4,8 @@ namespace Lggr;
 /**
  * @brief Export as CSV class.
  */
-class LggrCsv {
+class LggrCsv
+{
 
     private $lggr = null;
 
@@ -19,16 +20,19 @@ class LggrCsv {
         'message'
     ];
 
-    public function __construct(Lggr &$oLggr) {
+    public function __construct(Lggr &$oLggr)
+    {
         $this->lggr = & $oLggr;
     }
 
     // constructor
-    private function generiereDateiname() {
+    private function generiereDateiname()
+    {
         return 'lggrarchive_' . date('Ymd') . '.csv';
     }
 
-    public function generiere() {
+    public function generiere()
+    {
         header('Content-Type: text/csv; charset=utf-8');
         header(
             'Content-Disposition: attachment; filename="' .
@@ -69,4 +73,5 @@ class LggrCsv {
             $iCnt ++;
         } // foreach
     } // function
+
 } // class

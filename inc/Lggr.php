@@ -36,8 +36,7 @@ class Lggr
 	    $this->aPerf = array(); // of type LggrPerf objects
 
 	    $dbh = new \PDO(
-            "mysql:host=" . $this->config->getDbHost() .
-            ";dbname=" . $this->config->getDbName(),
+            "mysql:host=" . $this->config->getDbHost() . ";dbname=" . $this->config->getDbName(),
             $this->config->getDbUser(),
             $this->config->getDbPwd()
         );
@@ -48,8 +47,12 @@ class Lggr
             $this->checkSecurity();
         }
         
-        $this->db = new \mysqli($this->config->getDbHost(), $this->config->getDbUSer(),
-            $this->config->getDbPwd(), $this->config->getDbName());
+        $this->db = new \mysqli(
+            $this->config->getDbHost(),
+            $this->config->getDbUSer(),
+            $this->config->getDbPwd(),
+            $this->config->getDbName()
+        );
         if ($this->db->connect_error) {
             die('DB connect failed: ' . $this->db->connect_error);
         }
@@ -73,7 +76,7 @@ class Lggr
     private function checkSecurity()
     {
         // might be called by cli
-        if(!isset($_SERVER["REMOTE_ADDR"])) {
+        if (!isset($_SERVER["REMOTE_ADDR"])) {
             return;
         }
 
@@ -87,7 +90,7 @@ class Lggr
         if ($_SERVER["REMOTE_ADDR"] === "127.0.0.1") {
             return;
 	    }
-	    if(!$this->auth->isLogged()) {
+	    if (!$this->auth->isLogged()) {
             throw new LggrException('You must be logged in here, go to <a href="/login.php">/login.php</a>');
         } // if
     }
@@ -534,7 +537,8 @@ LIMIT $from,$count";
     }
 
     // function
-    public function getMessagesPerHour() {
+    public function getMessagesPerHour()
+    {
         $perf = new LggrPerf();
         
         $sql = "

@@ -7,7 +7,8 @@ namespace Lggr;
  *
  * Yet an empty skeleton, has to get more functionality.
  */
-class LggrPerf {
+class LggrPerf
+{
 
     private $tsStart = null; /** timestamp start */
 
@@ -20,7 +21,8 @@ class LggrPerf {
     /**
      * Empty constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
     	  // nothing to do here
     }
 
@@ -28,7 +30,8 @@ class LggrPerf {
      * Start timer and store query
      * @param String sql query
      */
-    public function start($sql) {
+    public function start($sql)
+    {
         $this->sQuery = $sql;
         $this->tsStart = microtime(true);
     }
@@ -36,7 +39,8 @@ class LggrPerf {
     /**
      * Stop timer and store length
      */
-    public function stop() {
+    public function stop()
+    {
         $this->tsEnd = microtime(true);
         $this->tsLen = $this->tsEnd - $this->tsStart;
     }
@@ -45,7 +49,8 @@ class LggrPerf {
      * Return array with time and query
      * @return array with keys time and query
      */
-    public function getPerf() {
+    public function getPerf()
+    {
         $a = array();
         
         $a['time'] = $this->tsLen;
@@ -57,8 +62,11 @@ class LggrPerf {
     }
 
     /**
-     * write performance info to logging layer, for later
+     * write performance info to logging layer
      */
-    private function logPerf() {}
-}
+    private function logPerf()
+    {
+        // for later
+    }
 
+}
