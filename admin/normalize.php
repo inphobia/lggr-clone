@@ -17,7 +17,6 @@ try {
     $l->normalizeHosts();
     
     $a = $l->getPerf();
-}
-catch (LggrException $e) {
+} catch (LggrException $e) {
     die($e->getMessage());
 } // try

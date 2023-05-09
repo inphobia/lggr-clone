@@ -4,9 +4,11 @@ namespace Lggr;
 /**
  * @brief Default configuration class for web UI.
  */
-class Config extends AbstractConfig {
+class Config extends AbstractConfig
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->setDbUser('lggrweb');
         $this->setDbPwd('xxx');
         $this->setDbName('lggr');

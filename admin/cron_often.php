@@ -16,8 +16,7 @@ try {
     $iCountServers = $l->updateServers();
     
     $aPerf = $l->getPerf();
-}
-catch (\Lggr\LggrException $e) {
+} catch (\Lggr\LggrException $e) {
     die($e->getMessage());
 } // try
 

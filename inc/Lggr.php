@@ -7,7 +7,8 @@ use PHPAuth\Auth as PHPAuth;
 /**
  * @brief Main class for logic.
  */
-class Lggr {
+class Lggr
+{
 
     const LASTSTAT = 5000;
 
@@ -27,7 +28,8 @@ class Lggr {
 
     private $auth = null;
 
-    public function __construct(LggrState $state, AbstractConfig $config) {
+    public function __construct(LggrState $state, AbstractConfig $config)
+    {
         $this->config = $config;
         $this->state = $state;
         $this->cache = new LggrCacheRedis(); // or use LggrCacheFile instead
@@ -55,18 +57,21 @@ class Lggr {
     }
 
     // constructor
-    public function __destruct() {
+    public function __destruct()
+    {
         if (null != $this->db) {
             $this->db->close();
         } // if
     }
 
-    public function getAuthUser() {
+    public function getAuthUser()
+    {
 	    return $this->auth->getCurrentUser();
     }
 
     // check auth
-    private function checkSecurity() {
+    private function checkSecurity()
+    {
         // might be called by cli
         if(!isset($_SERVER["REMOTE_ADDR"])) {
             return;
@@ -88,7 +93,8 @@ class Lggr {
     }
 
     // function
-    private function getViewName() {
+    private function getViewName()
+    {
         $rcView = '';
         switch ($this->state->getRange()) {
             case 1:
@@ -110,7 +116,8 @@ class Lggr {
         return $rcView;
     }
 
-    public function getLevels() {
+    public function getLevels()
+    {
         $perf = new LggrPerf();
         
         $v = $this->getViewName();
@@ -156,7 +163,8 @@ ORDER BY c DESC
     }
 
     // function
-    public function getAllServers() {
+    public function getAllServers()
+    {
         $perf = new LggrPerf();
         
         $sql = "
@@ -181,7 +189,8 @@ FROM servers";
     }
 
     // function
-    public function getServersName($id) {
+    public function getServersName($id)
+    {
         $perf = new LggrPerf();
         
         $sql = "
@@ -208,7 +217,8 @@ WHERE id=$id";
     }
 
     // function
-    public function getServers() {
+    public function getServers()
+    {
         $perf = new LggrPerf();
         
         $v = $this->getViewName();
@@ -254,7 +264,8 @@ ORDER BY c DESC";
     }
 
     // function
-    public function getArchived($from = 0, $count = LggrState::PAGELEN) {
+    public function getArchived($from = 0, $count = LggrState::PAGELEN)
+    {
         $iArchivedSize = $this->cache->retrieve(Lggr::ARCHIVEDSIZE);
         $aArchivedData = $this->cache->retrieve(Lggr::ARCHIVEDSIZE . intval($from));
         
@@ -290,7 +301,8 @@ LIMIT $from,$count";
     }
 
     // function
-    public function getLatest($from = 0, $count = LggrState::PAGELEN) {
+    public function getLatest($from = 0, $count = LggrState::PAGELEN)
+    {
         $perfSize = new LggrPerf();
         $perfData = new LggrPerf();
         
@@ -317,7 +329,8 @@ LIMIT $from,$count";
     }
 
     // function
-    public function getCloud() {
+    public function getCloud()
+    {
         $perf = new LggrPerf();
         
         $v = $this->getViewName();
@@ -340,7 +353,8 @@ LIMIT $from,$count";
     }
 
     // function
-    public function getNewer($id) {
+    public function getNewer($id)
+    {
         $perf = new LggrPerf();
         
         $sqlData = "
@@ -359,7 +373,8 @@ LIMIT " . LggrState::PAGELEN;
     }
 
     // function
-    public function getEntry($id) {
+    public function getEntry($id)
+    {
         $perf = new LggrPerf();
         
         $sqlData = "
@@ -375,7 +390,8 @@ WHERE id=$id";
     }
 
     // function
-    public function getFromTo($from = 0, $count = LggrState::PAGELEN) {
+    public function getFromTo($from = 0, $count = LggrState::PAGELEN)
+    {
         $perfSize = new LggrPerf();
         $perfData = new LggrPerf();
         
@@ -407,7 +423,8 @@ LIMIT $from,$count";
     }
 
     // function
-    public function getHostFromTo($from = 0, $count = LggrState::PAGELEN) {
+    public function getHostFromTo($from = 0, $count = LggrState::PAGELEN)
+    {
         $perfSize = new LggrPerf();
         $perfData = new LggrPerf();
         
@@ -442,8 +459,8 @@ LIMIT $from,$count";
     }
 
     // function
-    public function getFiltered($host = null, $level = null, $from = 0,
-        $count = LggrState::PAGELEN) {
+    public function getFiltered($host = null, $level = null, $from = 0, $count = LggrState::PAGELEN)
+    {
         $perfSize = new LggrPerf();
         $perfData = new LggrPerf();
         
@@ -484,7 +501,8 @@ LIMIT $from,$count";
     }
 
     // function
-    public function getText($msg = '', $prog = '', $from = 0, $count = LggrState::PAGELEN) {
+    public function getText($msg = '', $prog = '', $from = 0, $count = LggrState::PAGELEN)
+    {
         $perf = new LggrPerf();
         
         $v = $this->getViewName();
@@ -540,7 +558,8 @@ GROUP BY h";
     }
 
     // function
-    public function getArchivedStatistic() {
+    public function getArchivedStatistic()
+    {
         $perf = new LggrPerf();
         
         $sql = "
@@ -564,7 +583,8 @@ FROM archived
     }
 
     // function
-    public function getStatistic() {
+    public function getStatistic()
+    {
         $perf = new LggrPerf();
         
         $sql = "
@@ -590,7 +610,8 @@ FROM newlogs
     // function
     
     /* delete anything older than maxage hours */
-    public function purgeOldMessages($maxage = 672) {
+    public function purgeOldMessages($maxage = 672)
+    {
 	$iMaxAge = intval($maxage);
         $perf = new LggrPerf();
         
@@ -608,7 +629,8 @@ FROM newlogs
     }
 
     // function
-    public function updateServers() {
+    public function updateServers()
+    {
         $perf = new LggrPerf();
         $iCount = 0;
         
@@ -662,7 +684,8 @@ FROM newlogs
         return $iCount;
     }
 
-    public function setArchive($iID, $bIsArchived) {
+    public function setArchive($iID, $bIsArchived)
+    {
         $iID = intval($iID);
         if ($bIsArchived) {
             $sArchive = 'Y';
@@ -681,7 +704,8 @@ FROM newlogs
     }
 
     // function
-    public function normalizeHosts() {
+    public function normalizeHosts()
+    {
         
         // Find any new hostnames
         $sql = "
@@ -738,7 +762,8 @@ AND host='$hostName'
     }
 
     // function
-    private function getResultSize($sql) {
+    private function getResultSize($sql)
+    {
         $res = $this->db->query($sql);
         if (false === $res) {
             throw new LggrException($this->db->error);
@@ -751,7 +776,8 @@ AND host='$hostName'
     }
 
     // function
-    private function sendResult($sql) {
+    private function sendResult($sql)
+    {
         $a = array();
         
         $res = $this->db->query($sql);
@@ -767,7 +793,8 @@ AND host='$hostName'
     }
 
     // function
-    public function getPerf() {
+    public function getPerf()
+    {
         return $this->aPerf;
     } // function
 } // class

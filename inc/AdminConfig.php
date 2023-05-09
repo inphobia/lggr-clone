@@ -4,9 +4,11 @@ namespace Lggr;
 /**
  * @brief Configuration for admin database access.
  */
-class AdminConfig extends AbstractConfig {
+class AdminConfig extends AbstractConfig
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->setDbUser('lggrcron');
         $this->setDbPwd('xxx');
         $this->setDbName('lggr');

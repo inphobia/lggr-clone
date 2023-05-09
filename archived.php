@@ -11,8 +11,7 @@ define('INC_FOOTER', 'tpl/foot.inc.php');
 $l = null;
 try {
     $l = new Lggr($state, $config);
-}
-catch (LggrException $e) {
+} catch (LggrException $e) {
     echo '<div class="container"><div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div></div>';
 
     require_once INC_FOOTER;
@@ -27,8 +26,7 @@ try {
     $searchvalue = '';
     $searchvalueprog = '';
     $isSearch = false;
-}
-catch (LggrException $e) {
+} catch (LggrException $e) {
     echo '<div class="container"><div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div></div>';
 
     require_once INC_FOOTER;
@@ -148,4 +146,3 @@ if (! $isSearch) {
 <?php
 $aPerf = $l->getPerf();
 require_once INC_FOOTER;
-?>

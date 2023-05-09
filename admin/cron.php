@@ -19,8 +19,7 @@ Start purging msgs older than <?= $iMaxAge ?> hours ...
     
     $iCount = $l->purgeOldMessages($iMaxAge);
     $aPerf = $l->getPerf();
-}
-catch (\Lggr\LggrException $e) {
+} catch (\Lggr\LggrException $e) {
     die($e->getMessage());
 } // try
 
