@@ -82,7 +82,7 @@ try {
                  $sFilter .= _('Filter by server') . ' ' . TAG_STRONG_OPEN .
             htmlentities(
                 $state->getHostName(),
-                 ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
+                ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
             ) . TAG_STRONG_CLOSE;
         $searchvalue = '';
         $searchvalueprog = '';
@@ -140,8 +140,7 @@ try {
         $searchvalueprog = '';
         $isSearch = false;
     } // if search
-}
-catch (\Lggr\LggrException $e) {
+} catch (\Lggr\LggrException $e) {
     echo '<div class="container"><div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div></div>';
 
     require_once INC_FOOTER;
