@@ -48,7 +48,7 @@ abstract class AbstractConfig
 
     final public function getDbHost()
     {
-	    return $this->DBHOST;
+        return $this->DBHOST;
     }
 
     final public function getUrlBootstrap()
@@ -108,7 +108,7 @@ abstract class AbstractConfig
 
     protected function setDbHost($s)
     {
-	    $this->DBHOST = $s;
+        $this->DBHOST = $s;
     }
 
     protected function setUrlBootstrap($s)
