@@ -7,7 +7,8 @@ $faker = \Faker\Factory::create();
 $faker->seed(123);
 
 $arrayFacilities = array(
-	'kern','user','mail','daemon','auth','syslog','lpr','news','uucp','authpriv','ftp','cron','local0','local1','local2','local3','local4','local5','local6','local7'
+	'kern','user','mail','daemon','auth','syslog','lpr','news','uucp','authpriv',
+	'ftp','cron','local0','local1','local2','local3','local4','local5','local6','local7'
 );
 $arrayLevels = array(
 	'emerg','alert','crit','err','warning','notice','info','debug'
@@ -55,7 +56,7 @@ function makeEntries($faker, $db, $count=1000) {
 	global $arrayFacilities, $arrayLevels, $arrayServers;
 
 	if (!($stmt = $db->prepare("INSERT INTO newlogs (date, facility, level, host, program, pid, message, idhost) VALUES (?,?,?,?,?,?,?,?)"))) {
-		    echo "Prepare failed: (" . $db->errno . ") " . $db->error;
+		echo "Prepare failed: (" . $db->errno . ") " . $db->error;
 	}
 	$dDate = "";
 	$dFacility = "";

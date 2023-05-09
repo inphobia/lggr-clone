@@ -57,7 +57,7 @@ class LggrPerf {
     }
 
     /**
-     * TODO write performance info to logging layer
+     * write performance info to logging layer, for later
      */
     private function logPerf() {}
 }

@@ -37,7 +37,7 @@ function loadLatest() {
 		success: function(data) {
 			const iEvents = data.length;
 			let sTmp = '';
-			for(var i=0; i<iEvents; i++) {
+			for(let i=0; i<iEvents; i++) {
 				const oEvent = data[i];
 
 				let label='';
