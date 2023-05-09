@@ -36,9 +36,9 @@ class Lggr
 	    $this->aPerf = array(); // of type LggrPerf objects
 
 	    $dbh = new \PDO(
-            "mysql:host=" . $this->config->getDbHost() . ";dbname=" . $this->config->getDbName(),
-            $this->config->getDbUser(),
-            $this->config->getDbPwd()
+          "mysql:host=" . $this->config->getDbHost() . ";dbname=" . $this->config->getDbName(),
+          $this->config->getDbUser(),
+          $this->config->getDbPwd()
         );
 	    $authConfig = new PHPAuthConfig($dbh);
 	    $this->auth = new PHPAuth($dbh, $authConfig);

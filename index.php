@@ -18,8 +18,7 @@ try {
     $aLevels = $l->getLevels();
     $aServers = $l->getServers();
     $aAllServers = $l->getAllServers();
-}
-catch (\Lggr\LggrException $e) {
+} catch (\Lggr\LggrException $e) {
     echo '<div class="container"><div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div></div>';
 
     require_once INC_FOOTER;
@@ -39,12 +38,20 @@ $page = $state->getPage();
 try {
     if ($state->isSearch()) {
         
-        $aEvents = $l->getText($state->getSearch(), $state->getSearchProg(),
-            $page * \Lggr\LggrState::PAGELEN, \Lggr\LggrState::PAGELEN);
-        $searchvalue = htmlentities($state->getSearch(),
-            ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES);
-        $searchvalueprog = htmlentities($state->getSearchProg(),
-            ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES);
+        $aEvents = $l->getText(
+            $state->getSearch(),
+            $state->getSearchProg(),
+            $page * \Lggr\LggrState::PAGELEN,
+            \Lggr\LggrState::PAGELEN
+        );
+        $searchvalue = htmlentities(
+            $state->getSearch(),
+            ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
+        );
+        $searchvalueprog = htmlentities(
+            $state->getSearchProg(),
+            ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
+        );
         $isSearch = true;
         $sFilter = _('Text search for');
         if ('' != $state->getSearch()) {
@@ -57,18 +64,26 @@ try {
         
         $host = $state->getHostName();
         
-        $aEvents = $l->getHostFromTo($page * \Lggr\LggrState::PAGELEN,
-            \Lggr\LggrState::PAGELEN);
+        $aEvents = $l->getHostFromTo(
+            $page * \Lggr\LggrState::PAGELEN,
+            \Lggr\LggrState::PAGELEN
+        );
         
         $sFilter = _('Filter by time range between') . ' ' . TAG_STRONG_CLOSE .
-             htmlentities($state->getFrom(),
-                 ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES) . TAG_STRONG_CLOSE . ' ' .
+             htmlentities(
+                $state->getFrom(),
+                ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
+             ) . TAG_STRONG_CLOSE . ' ' .
                  _('and') . ' ' . TAG_STRONG_OPEN .
-             htmlentities($state->getTo(),
-                 ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES) . TAG_STRONG_CLOSE . ', ';
+             htmlentities(
+                $state->getTo(),
+                ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
+             ) . TAG_STRONG_CLOSE . ', ';
                  $sFilter .= _('Filter by server') . ' ' . TAG_STRONG_OPEN .
-             htmlentities($state->getHostName(),
-                 ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES) . TAG_STRONG_CLOSE;
+             htmlentities(
+                $state->getHostName(),
+                 ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
+             ) . TAG_STRONG_CLOSE;
         $searchvalue = '';
         $searchvalueprog = '';
         $isSearch = false;
@@ -179,7 +194,7 @@ foreach ($aLevels as $level) {
     } // switch
     
     echo <<<EOL
-<div class="progress-bar $label" role="progressbar" aria-valuenow="{$level->f}" 
+<div class="progress-bar $label" role="progressbar" aria-valuenow="{$level->f}"
 style="width: {$level->f}%" title="{$level->level} {$level->f}%">
 <span class="sr-only">{$level->f}%</span>
 </div>

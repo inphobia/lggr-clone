@@ -4,7 +4,7 @@
  * @file pre.inc.php
  * @brief Preloaded function to start a page output
  */
-if(!file_exists(__DIR__ . '/../vendor/autoload.php')) {
+if (!file_exists(__DIR__ . '/../vendor/autoload.php')) {
 	echo "autoload.php missing, did you run 'composer install'?";
 	exit;
 }
