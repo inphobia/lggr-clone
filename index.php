@@ -70,20 +70,20 @@ try {
         );
 
         $sFilter = _('Filter by time range between') . ' ' . TAG_STRONG_CLOSE .
-             htmlentities(
+            htmlentities(
                 $state->getFrom(),
                 ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
-             ) . TAG_STRONG_CLOSE . ' ' .
+            ) . TAG_STRONG_CLOSE . ' ' .
                  _('and') . ' ' . TAG_STRONG_OPEN .
-             htmlentities(
+            htmlentities(
                 $state->getTo(),
                 ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
-             ) . TAG_STRONG_CLOSE . ', ';
+            ) . TAG_STRONG_CLOSE . ', ';
                  $sFilter .= _('Filter by server') . ' ' . TAG_STRONG_OPEN .
-             htmlentities(
+            htmlentities(
                 $state->getHostName(),
                  ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
-             ) . TAG_STRONG_CLOSE;
+            ) . TAG_STRONG_CLOSE;
         $searchvalue = '';
         $searchvalueprog = '';
         $isSearch = false;
@@ -92,36 +92,47 @@ try {
         $host = $state->getHostName();
         $level = $state->getLevel();
 
-        $aEvents = $l->getFiltered($host, $level, $page * \Lggr\LggrState::PAGELEN,
-            \Lggr\LggrState::PAGELEN);
+        $aEvents = $l->getFiltered(
+            $host,
+            $level,
+            $page * \Lggr\LggrState::PAGELEN,
+            \Lggr\LggrState::PAGELEN
+        );
         $searchvalue = '';
         $searchvalueprog = '';
         $isSearch = false;
         $sFilter = '';
         if ($state->isHost()) {
             $sFilter .= _('Filter by server') . ' ' . TAG_STRONG_OPEN .
-                 htmlentities($state->getHostName(),
-                     ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES) . TAG_STRONG_CLOSE;
+                htmlentities(
+                    $state->getHostName(),
+                    ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
+                ) . TAG_STRONG_CLOSE;
         }
         if ($state->isLevel()) {
             $sFilter .= _('Filter by level') . ' ' . TAG_STRONG_OPEN .
-                 htmlentities($state->getLevel(),
-                     ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES) . TAG_STRONG_CLOSE;
+                htmlentities(
+                    $state->getLevel(),
+                    ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
+                ) . TAG_STRONG_CLOSE;
         }
     } elseif ($state->isFromTo()) {
 
         $aEvents = $l->getFromTo($page * \Lggr\LggrState::PAGELEN, \Lggr\LggrState::PAGELEN);
         $sFilter = _('Filter by time range between') . ' ' . TAG_STRONG_OPEN .
-             htmlentities($state->getFrom(),
-                 ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES) . TAG_STRONG_CLOSE . ' ' .
-                 _('and') . ' ' . TAG_STRONG_OPEN .
-             htmlentities($state->getTo(),
-                 ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES) . TAG_STRONG_CLOSE;
+            htmlentities(
+                $state->getFrom(),
+                ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
+            ) . TAG_STRONG_CLOSE . ' ' .
+            _('and') . ' ' . TAG_STRONG_OPEN .
+            htmlentities(
+                $state->getTo(),
+                ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
+            ) . TAG_STRONG_CLOSE;
         $searchvalue = '';
         $searchvalueprog = '';
         $isSearch = false;
     } else {
-
         $sFilter = null;
 
         $aEvents = $l->getLatest($page * \Lggr\LggrState::PAGELEN, \Lggr\LggrState::PAGELEN);
@@ -438,8 +449,10 @@ foreach ($aEvents as $event) {
     } // switch
 
     $host = htmlentities($event->host, ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES);
-    $program = htmlentities($event->program,
-        ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES);
+    $program = htmlentities(
+        $event->program,
+        ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
+    );
     $msg = htmlentities($event->message, ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES);
 
     echo <<<EOL

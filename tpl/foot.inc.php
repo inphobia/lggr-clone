@@ -20,7 +20,7 @@ if (isset($_COOKIE['PHPSESSID'])) {
     $dbgsession = '-';
 } // if
 
-if(null != $l) {
+if (null != $l) {
     $aUserdata = $l->getAuthUser();
     $remoteUser = $aUserdata['email'];
 } else {
@@ -28,7 +28,8 @@ if(null != $l) {
 }
 
 ?>
-        <p class="debugfooter"><?=$pCount?> <?=_('queries in')?> <?=$pTime?> <?=_('seconds')?>. <?=_('Session')?>: <?=$dbgsession?> <?=_('by')?> <?=htmlentities($remoteUser)?></p>
+        <p class="debugfooter"><?=$pCount?> <?=_('queries in')?> <?=$pTime?> <?=_('seconds')?>.
+        <?=_('Session')?>: <?=$dbgsession?> <?=_('by')?> <?=htmlentities($remoteUser)?></p>
         <p>
             &copy; <a href="http://lggr.io" target="_blank" rel="noopener noreferrer">lggr.io</a>
             2021
