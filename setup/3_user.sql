@@ -30,6 +30,9 @@ GRANT SELECT ON lggr.* TO lggrweb@'%';
 GRANT SELECT ON lggr.* TO lggrweb@localhost;
 GRANT UPDATE(archived) ON lggr.newlogs TO lggrweb@'%';
 GRANT UPDATE(archived) ON lggr.newlogs TO lggrweb@localhost;
+# needed for login process
+GRANT INSERT,SELECT,DELETE,UPDATE ON lggr.phpauth_attempts TO lggrweb@'%';
+GRANT INSERT,SELECT,DELETE,UPDATE ON lggr.phpauth_attempts TO lggrweb@localhost;
 
 # used by clean up cron job and for archiving, referenced in inc/adminconfig_class.php
 CREATE OR REPLACE USER lggrcron@'%' IDENTIFIED BY 'xxx';
