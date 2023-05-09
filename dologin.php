@@ -1,7 +1,7 @@
 <?php
 
-require 'inc/pre.inc.php';
-require 'inc/auth.inc.php';
+require_once 'inc/pre.inc.php';
+require_once 'inc/auth.inc.php';
 
 $user = $_POST['authEmail'];
 $pwd = $_POST['authPassword'];

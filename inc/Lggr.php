@@ -27,15 +27,15 @@ class Lggr {
 
     private $auth = null;
 
-    function __construct(LggrState $state, AbstractConfig $config) {
+    public function __construct(LggrState $state, AbstractConfig $config) {
         $this->config = $config;
         $this->state = $state;
         $this->cache = new LggrCacheRedis(); // or use LggrCacheFile instead
-	$this->aPerf = array(); // of type LggrPerf objects
+	    $this->aPerf = array(); // of type LggrPerf objects
 
-	$dbh = new \PDO("mysql:host=" . $this->config->getDbHost() . ";dbname=" . $this->config->getDbName(), $this->config->getDbUser(), $this->config->getDbPwd());
-	$authConfig = new PHPAuthConfig($dbh);
-	$this->auth = new PHPAuth($dbh, $authConfig);
+	    $dbh = new \PDO("mysql:host=" . $this->config->getDbHost() . ";dbname=" . $this->config->getDbName(), $this->config->getDbUser(), $this->config->getDbPwd());
+	    $authConfig = new PHPAuthConfig($dbh);
+	    $this->auth = new PHPAuth($dbh, $authConfig);
         
         if (! $this->state->isLocalCall()) {
             $this->checkSecurity();
@@ -50,7 +50,7 @@ class Lggr {
     }
 
     // constructor
-    function __destruct() {
+    public function __destruct() {
         if (null != $this->db) {
             $this->db->close();
         } // if
@@ -67,17 +67,17 @@ class Lggr {
             return;
         }
 
-	// local access allowed without login data
-	// Attention: Using a reverse proxy might change the requester IP
-	// to the localhost one. Change the code or add remote IP
-	// to the request headers!
+    	// local access allowed without login data
+	    // Attention: Using a reverse proxy might change the requester IP
+    	// to the localhost one. Change the code or add remote IP
+	    // to the request headers!
         if ($_SERVER["REMOTE_ADDR"] === "::1") {
             return;
         }
         if ($_SERVER["REMOTE_ADDR"] === "127.0.0.1") {
             return;
-	}
-	if(!$this->auth->isLogged()) {
+	    }
+	    if(!$this->auth->isLogged()) {
             throw new LggrException('You must be logged in here, go to <a href="/login.php">/login.php</a>');
         } // if
     }
@@ -105,7 +105,7 @@ class Lggr {
         return $rcView;
     }
 
-    function getLevels() {
+    public function getLevels() {
         $perf = new LggrPerf();
         
         $v = $this->getViewName();
@@ -151,7 +151,7 @@ ORDER BY c DESC
     }
 
     // function
-    function getAllServers() {
+    public function getAllServers() {
         $perf = new LggrPerf();
         
         $sql = "
@@ -176,7 +176,7 @@ FROM servers";
     }
 
     // function
-    function getServersName($id) {
+    public function getServersName($id) {
         $perf = new LggrPerf();
         
         $sql = "
@@ -203,7 +203,7 @@ WHERE id=$id";
     }
 
     // function
-    function getServers() {
+    public function getServers() {
         $perf = new LggrPerf();
         
         $v = $this->getViewName();
@@ -249,7 +249,7 @@ ORDER BY c DESC";
     }
 
     // function
-    function getArchived($from = 0, $count = LggrState::PAGELEN) {
+    public function getArchived($from = 0, $count = LggrState::PAGELEN) {
         $iArchivedSize = $this->cache->retrieve(Lggr::ARCHIVEDSIZE);
         $aArchivedData = $this->cache->retrieve(Lggr::ARCHIVEDSIZE . intval($from));
         
@@ -285,7 +285,7 @@ LIMIT $from,$count";
     }
 
     // function
-    function getLatest($from = 0, $count = LggrState::PAGELEN) {
+    public function getLatest($from = 0, $count = LggrState::PAGELEN) {
         $perfSize = new LggrPerf();
         $perfData = new LggrPerf();
         
@@ -312,7 +312,7 @@ LIMIT $from,$count";
     }
 
     // function
-    function getCloud() {
+    public function getCloud() {
         $perf = new LggrPerf();
         
         $v = $this->getViewName();
@@ -335,7 +335,7 @@ LIMIT $from,$count";
     }
 
     // function
-    function getNewer($id) {
+    public function getNewer($id) {
         $perf = new LggrPerf();
         
         $sqlData = "
@@ -354,7 +354,7 @@ LIMIT " . LggrState::PAGELEN;
     }
 
     // function
-    function getEntry($id) {
+    public function getEntry($id) {
         $perf = new LggrPerf();
         
         $sqlData = "
@@ -370,7 +370,7 @@ WHERE id=$id";
     }
 
     // function
-    function getFromTo($from = 0, $count = LggrState::PAGELEN) {
+    public function getFromTo($from = 0, $count = LggrState::PAGELEN) {
         $perfSize = new LggrPerf();
         $perfData = new LggrPerf();
         
@@ -402,7 +402,7 @@ LIMIT $from,$count";
     }
 
     // function
-    function getHostFromTo($from = 0, $count = LggrState::PAGELEN) {
+    public function getHostFromTo($from = 0, $count = LggrState::PAGELEN) {
         $perfSize = new LggrPerf();
         $perfData = new LggrPerf();
         
@@ -437,7 +437,7 @@ LIMIT $from,$count";
     }
 
     // function
-    function getFiltered($host = null, $level = null, $from = 0,
+    public function getFiltered($host = null, $level = null, $from = 0,
         $count = LggrState::PAGELEN) {
         $perfSize = new LggrPerf();
         $perfData = new LggrPerf();
@@ -479,7 +479,7 @@ LIMIT $from,$count";
     }
 
     // function
-    function getText($msg = '', $prog = '', $from = 0, $count = LggrState::PAGELEN) {
+    public function getText($msg = '', $prog = '', $from = 0, $count = LggrState::PAGELEN) {
         $perf = new LggrPerf();
         
         $v = $this->getViewName();
@@ -511,7 +511,7 @@ LIMIT $from,$count";
     }
 
     // function
-    function getMessagesPerHour() {
+    public function getMessagesPerHour() {
         $perf = new LggrPerf();
         
         $sql = "
@@ -535,7 +535,7 @@ GROUP BY h";
     }
 
     // function
-    function getArchivedStatistic() {
+    public function getArchivedStatistic() {
         $perf = new LggrPerf();
         
         $sql = "
@@ -559,7 +559,7 @@ FROM archived
     }
 
     // function
-    function getStatistic() {
+    public function getStatistic() {
         $perf = new LggrPerf();
         
         $sql = "
@@ -585,7 +585,7 @@ FROM newlogs
     // function
     
     /* delete anything older than maxage hours */
-    function purgeOldMessages($maxage = 672) {
+    public function purgeOldMessages($maxage = 672) {
 	$iMaxAge = intval($maxage);
         $perf = new LggrPerf();
         
@@ -603,7 +603,7 @@ FROM newlogs
     }
 
     // function
-    function updateServers() {
+    public function updateServers() {
         $perf = new LggrPerf();
         $iCount = 0;
         
@@ -657,7 +657,7 @@ FROM newlogs
         return $iCount;
     }
 
-    function setArchive($iID, $bIsArchived) {
+    public function setArchive($iID, $bIsArchived) {
         $iID = intval($iID);
         if ($bIsArchived) {
             $sArchive = 'Y';
@@ -676,7 +676,7 @@ FROM newlogs
     }
 
     // function
-    function normalizeHosts() {
+    public function normalizeHosts() {
         
         // Find any new hostnames
         $sql = "

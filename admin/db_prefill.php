@@ -1,7 +1,7 @@
 <?php
 namespace Lggr;
 
-require __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $faker = \Faker\Factory::create();
 $faker->seed(123);

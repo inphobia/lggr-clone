@@ -1,10 +1,10 @@
 <?php
 namespace Lggr;
 
-require 'inc/pre.inc.php';
+require_once 'inc/pre.inc.php';
 
 define('TITLE', _('Archived'));
-require 'tpl/head.inc.php';
+require_once 'tpl/head.inc.php';
 
 define('INC_FOOTER', 'tpl/foot.inc.php');
 
@@ -15,7 +15,7 @@ try {
 catch (LggrException $e) {
     echo '<div class="container"><div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div></div>';
 
-    require INC_FOOTER;
+    require_once INC_FOOTER;
     
     exit();
 }
@@ -31,7 +31,7 @@ try {
 catch (LggrException $e) {
     echo '<div class="container"><div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div></div>';
 
-    require INC_FOOTER;
+    require_once INC_FOOTER;
     
     exit();
 }
@@ -41,7 +41,7 @@ if (version_compare(phpversion(), '5.4', '<')) {
          phpversion() . ' might be too old, expecting at least 5.4</div></div>';
 } // if
 
-require 'tpl/nav.inc.php';
+require_once 'tpl/nav.inc.php';
 ?>
 
 <div class="container" id="infoheader">
@@ -147,5 +147,5 @@ if (! $isSearch) {
 
 <?php
 $aPerf = $l->getPerf();
-require INC_FOOTER;
+require_once INC_FOOTER;
 ?>
