@@ -3,7 +3,7 @@
     <footer>
 <?php
 $pTime = 0;
-if(is_array($aPerf)) {
+if (is_array($aPerf)) {
     $pCount = count($aPerf);
     foreach ($aPerf as $perf) {
         $aTmp = $perf->getPerf();
@@ -20,8 +20,7 @@ if (isset($_COOKIE['PHPSESSID'])) {
     $dbgsession = '-';
 } // if
 
-if(null != $l)
-{
+if(null != $l) {
     $aUserdata = $l->getAuthUser();
     $remoteUser = $aUserdata['email'];
 } else {

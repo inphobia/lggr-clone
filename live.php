@@ -11,8 +11,7 @@ try {
     $l = new Lggr($state, $config);
     
     $aEvents = $l->getLatest(0, LggrState::PAGELEN);
-}
-catch (LggrException $e) {
+} catch (LggrException $e) {
     echo '<div class="container"><div class="alert alert-danger" role="alert">' .
          $e->getMessage() . '</div></div>';
     
@@ -89,10 +88,18 @@ foreach ($aEvents as $event) {
                  '</span>';
     } // switch
     
-    $host = htmlentities($event->host, ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES);
-    $program = htmlentities($event->program,
-        ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES);
-    $msg = htmlentities($event->message, ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES);
+    $host = htmlentities(
+        $event->host,
+        ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
+    );
+    $program = htmlentities(
+        $event->program,
+        ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
+    );
+    $msg = htmlentities(
+        $event->message,
+        ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES
+    );
     
     echo <<<EOL
 <div class="row datarow $rowclass" data-id="{$event->id}">

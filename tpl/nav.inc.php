@@ -16,8 +16,8 @@
             <ul class="nav navbar-nav">
                 <li><a href="live.php"><?= _('Live') ?></a></li>
                 <li><a href="stats.php"><?= _('Statistic') ?></a></li>
-		<li><a href="archived.php"><?= _('Archived') ?></a></li>
-		<li><a href="dologout.php"><?= _('Logout') ?></a></li>
+        <li><a href="archived.php"><?= _('Archived') ?></a></li>
+        <li><a href="dologout.php"><?= _('Logout') ?></a></li>
                 <li><a href="https://lggr.io" target="_blank" rel="noopener noreferrer"><?= _('Project') ?></a></li>
             </ul>
             <form id="searchform" method="post"
@@ -39,4 +39,3 @@
         <!--/.navbar-collapse -->
     </div>
 </nav>
-

@@ -14,7 +14,7 @@ define('TAG_SPANBUTTON_CLOSE', '</span></button>');
 $l = null;
 try {
     $l = new \Lggr\Lggr($state, $config);
-    
+
     $aLevels = $l->getLevels();
     $aServers = $l->getServers();
     $aAllServers = $l->getAllServers();
@@ -22,7 +22,7 @@ try {
     echo '<div class="container"><div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div></div>';
 
     require_once INC_FOOTER;
-    
+
     exit();
 }
 
@@ -37,7 +37,7 @@ $page = $state->getPage();
 
 try {
     if ($state->isSearch()) {
-        
+
         $aEvents = $l->getText(
             $state->getSearch(),
             $state->getSearchProg(),
@@ -61,14 +61,14 @@ try {
             $sFilter .= ' program ' . TAG_STRONG_OPEN . $searchvalueprog . TAG_STRONG_CLOSE;
         }
     } elseif ($state->isFromTo() && $state->isHost()) {
-        
+
         $host = $state->getHostName();
-        
+
         $aEvents = $l->getHostFromTo(
             $page * \Lggr\LggrState::PAGELEN,
             \Lggr\LggrState::PAGELEN
         );
-        
+
         $sFilter = _('Filter by time range between') . ' ' . TAG_STRONG_CLOSE .
              htmlentities(
                 $state->getFrom(),
@@ -88,10 +88,10 @@ try {
         $searchvalueprog = '';
         $isSearch = false;
     } elseif ($state->isHost() || $state->isLevel()) {
-        
+
         $host = $state->getHostName();
         $level = $state->getLevel();
-        
+
         $aEvents = $l->getFiltered($host, $level, $page * \Lggr\LggrState::PAGELEN,
             \Lggr\LggrState::PAGELEN);
         $searchvalue = '';
@@ -109,7 +109,7 @@ try {
                      ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES) . TAG_STRONG_CLOSE;
         }
     } elseif ($state->isFromTo()) {
-        
+
         $aEvents = $l->getFromTo($page * \Lggr\LggrState::PAGELEN, \Lggr\LggrState::PAGELEN);
         $sFilter = _('Filter by time range between') . ' ' . TAG_STRONG_OPEN .
              htmlentities($state->getFrom(),
@@ -121,9 +121,9 @@ try {
         $searchvalueprog = '';
         $isSearch = false;
     } else {
-        
+
         $sFilter = null;
-        
+
         $aEvents = $l->getLatest($page * \Lggr\LggrState::PAGELEN, \Lggr\LggrState::PAGELEN);
         $searchvalue = '';
         $searchvalueprog = '';
@@ -134,7 +134,7 @@ catch (\Lggr\LggrException $e) {
     echo '<div class="container"><div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div></div>';
 
     require_once INC_FOOTER;
-    
+
     exit();
 }
 
@@ -192,7 +192,7 @@ foreach ($aLevels as $level) {
         default:
             $label = '';
     } // switch
-    
+
     echo <<<EOL
 <div class="progress-bar $label" role="progressbar" aria-valuenow="{$level->f}"
 style="width: {$level->f}%" title="{$level->level} {$level->f}%">
@@ -240,9 +240,9 @@ foreach ($aServers as $server) {
     if ($server->f < 5) {
         continue;
     }
-    
+
     $server->f = round($server->f);
-    
+
     echo <<<EOL
 <div class="progress">
     <div class="progress-bar" role="progressbar" aria-valuenow="{$server->f}"
@@ -393,13 +393,13 @@ if (0 < count($aEvents)) {
 $i = 0;
 foreach ($aEvents as $event) {
     $i ++;
-    
+
     if (0 == $i % 2) {
         $rowclass = 'even';
     } else {
         $rowclass = 'odd';
     } // if
-    
+
     switch ($event->level) {
         case 'emerg':
             $label = '<span class="label label-danger">Emergency</span>';
@@ -423,7 +423,7 @@ foreach ($aEvents as $event) {
             $label = '<span class="label label-default">' . $event->level .
                  '</span>';
     } // switch
-    
+
     switch ($event->archived) {
         case 'Y':
             $archived = '<span id="arch' . $event->id .
@@ -436,12 +436,12 @@ foreach ($aEvents as $event) {
         default:
             $archived = '?';
     } // switch
-    
+
     $host = htmlentities($event->host, ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES);
     $program = htmlentities($event->program,
         ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES);
     $msg = htmlentities($event->message, ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES);
-    
+
     echo <<<EOL
 <div class="row datarow $rowclass" data-id="{$event->id}">
     <div class="col-md-2 col-xs-6 newlog-date">{$event->date}</div>
@@ -472,4 +472,3 @@ if (! $isSearch && (0 < count($aEvents))) {
 <?php
 $aPerf = $l->getPerf();
 require_once INC_FOOTER;
-?>

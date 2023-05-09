@@ -33,20 +33,20 @@ class Lggr
         $this->config = $config;
         $this->state = $state;
         $this->cache = new LggrCacheRedis(); // or use LggrCacheFile instead
-	    $this->aPerf = array(); // of type LggrPerf objects
+        $this->aPerf = array(); // of type LggrPerf objects
 
-	    $dbh = new \PDO(
+        $dbh = new \PDO(
           "mysql:host=" . $this->config->getDbHost() . ";dbname=" . $this->config->getDbName(),
           $this->config->getDbUser(),
           $this->config->getDbPwd()
         );
-	    $authConfig = new PHPAuthConfig($dbh);
-	    $this->auth = new PHPAuth($dbh, $authConfig);
-        
+        $authConfig = new PHPAuthConfig($dbh);
+        $this->auth = new PHPAuth($dbh, $authConfig);
+
         if (! $this->state->isLocalCall()) {
             $this->checkSecurity();
         }
-        
+
         $this->db = new \mysqli(
             $this->config->getDbHost(),
             $this->config->getDbUSer(),
@@ -69,7 +69,7 @@ class Lggr
 
     public function getAuthUser()
     {
-	    return $this->auth->getCurrentUser();
+        return $this->auth->getCurrentUser();
     }
 
     // check auth
@@ -80,17 +80,17 @@ class Lggr
             return;
         }
 
-    	// local access allowed without login data
-	    // Attention: Using a reverse proxy might change the requester IP
-    	// to the localhost one. Change the code or add remote IP
-	    // to the request headers!
+        // local access allowed without login data
+        // Attention: Using a reverse proxy might change the requester IP
+        // to the localhost one. Change the code or add remote IP
+        // to the request headers!
         if ($_SERVER["REMOTE_ADDR"] === "::1") {
             return;
         }
         if ($_SERVER["REMOTE_ADDR"] === "127.0.0.1") {
             return;
-	    }
-	    if (!$this->auth->isLogged()) {
+        }
+        if (!$this->auth->isLogged()) {
             throw new LggrException('You must be logged in here, go to <a href="/login.php">/login.php</a>');
         } // if
     }
@@ -122,7 +122,7 @@ class Lggr
     public function getLevels()
     {
         $perf = new LggrPerf();
-        
+
         $v = $this->getViewName();
         $sql = "
 SELECT level, COUNT(*) AS c
@@ -131,15 +131,15 @@ FROM (SELECT level FROM $v ORDER BY `date` DESC LIMIT " .
 GROUP BY level
 ORDER BY c DESC
 ";
-        
+
         $a = $this->cache->retrieve("levels$v");
         if (null != $a) {
             return $a;
         } // if
         $a = array();
-        
+
         $perf->start($sql);
-        
+
         $res = $this->db->query($sql);
         if (false === $res) {
             throw new LggrException($this->db->error);
@@ -148,7 +148,7 @@ ORDER BY c DESC
             $a[] = $row;
         } // while
         $res->close();
-        
+
         $sum = 0;
         foreach ($a as $level) {
             $sum += $level->c;
@@ -157,10 +157,10 @@ ORDER BY c DESC
             $f = $level->c / $sum * 100;
             $level->f = round($f, 2);
         } // foreach
-        
+
         $perf->stop();
         $this->aPerf[] = $perf;
-        
+
         $this->cache->store("levels$v", $a);
         return $a;
     }
@@ -169,11 +169,11 @@ ORDER BY c DESC
     public function getAllServers()
     {
         $perf = new LggrPerf();
-        
+
         $sql = "
 SELECT id,name AS host
 FROM servers";
-        
+
         $perf->start($sql);
         $a = array();
         $res = $this->db->query($sql);
@@ -184,10 +184,10 @@ FROM servers";
             $a[] = $row;
         } // while
         $res->close();
-        
+
         $perf->stop();
         $this->aPerf[] = $perf;
-        
+
         return $a;
     }
 
@@ -195,14 +195,14 @@ FROM servers";
     public function getServersName($id)
     {
         $perf = new LggrPerf();
-        
+
         $sql = "
 SELECT name
 FROM servers
 WHERE id=$id";
-        
+
         $perf->start($sql);
-        
+
         $a = null;
         $res = $this->db->query($sql);
         if (false === $res) {
@@ -212,10 +212,10 @@ WHERE id=$id";
             $a = $row;
         } // while
         $res->close();
-        
+
         $perf->stop();
         $this->aPerf[] = $perf;
-        
+
         return $a->name;
     }
 
@@ -223,24 +223,24 @@ WHERE id=$id";
     public function getServers()
     {
         $perf = new LggrPerf();
-        
+
         $v = $this->getViewName();
-        
+
         $sql = "
 SELECT host, COUNT(*) AS c
 FROM (SELECT host FROM $v ORDER BY `date` DESC LIMIT " .
              self::LASTSTAT . ") AS sub
 GROUP BY host
 ORDER BY c DESC";
-        
+
         $a = $this->cache->retrieve("servers$v");
         if (null != $a) {
             return $a;
         } // if
         $a = array();
-        
+
         $perf->start($sql);
-        
+
         $res = $this->db->query($sql);
         if (false === $res) {
             throw new LggrException($this->db->error);
@@ -249,7 +249,7 @@ ORDER BY c DESC";
             $a[] = $row;
         } // while
         $res->close();
-        
+
         $sum = 0;
         foreach ($a as $host) {
             $sum += $host->c;
@@ -258,10 +258,10 @@ ORDER BY c DESC";
             $f = $host->c / $sum * 100;
             $host->f = round($f, 2);
         } // foreach
-        
+
         $perf->stop();
         $this->aPerf[] = $perf;
-        
+
         $this->cache->store("servers$v", $a);
         return $a;
     }
@@ -271,35 +271,35 @@ ORDER BY c DESC";
     {
         $iArchivedSize = $this->cache->retrieve(Lggr::ARCHIVEDSIZE);
         $aArchivedData = $this->cache->retrieve(Lggr::ARCHIVEDSIZE . intval($from));
-        
+
         if ((null != $iArchivedSize) && (null != $aArchivedData)) {
             $this->state->setResultSize($iArchivedSize);
             return $aArchivedData;
         } // if
-        
+
         $perfSize = new LggrPerf();
         $perfData = new LggrPerf();
-        
+
         $sqlSize = "SELECT COUNT(*) AS c FROM archived";
         $sqlData = "
 SELECT * FROM archived
 ORDER BY `date` DESC
 LIMIT $from,$count";
-        
+
         $perfSize->start($sqlSize);
         $this->getResultSize($sqlSize);
         $perfSize->stop();
-        
+
         $perfData->start($sqlData);
         $a = $this->sendResult($sqlData);
         $perfData->stop();
-        
+
         $this->aPerf[] = $perfSize;
         $this->aPerf[] = $perfData;
-        
+
         $this->cache->store("archivedSize", $this->state->getResultSize());
         $this->cache->store("archivedData" . intval($from), $a);
-        
+
         return $a;
     }
 
@@ -308,26 +308,26 @@ LIMIT $from,$count";
     {
         $perfSize = new LggrPerf();
         $perfData = new LggrPerf();
-        
+
         $v = $this->getViewName();
-        
+
         $sqlSize = "SELECT COUNT(*) AS c FROM $v";
         $sqlData = "
 SELECT * FROM $v
 ORDER BY `date` DESC
 LIMIT $from,$count";
-        
+
         $perfSize->start($sqlSize);
         $this->getResultSize($sqlSize);
         $perfSize->stop();
-        
+
         $perfData->start($sqlData);
         $a = $this->sendResult($sqlData);
         $perfData->stop();
-        
+
         $this->aPerf[] = $perfSize;
         $this->aPerf[] = $perfData;
-        
+
         return $a;
     }
 
@@ -335,23 +335,23 @@ LIMIT $from,$count";
     public function getCloud()
     {
         $perf = new LggrPerf();
-        
+
         $v = $this->getViewName();
-        
+
         $a = $this->cache->retrieve("cloud$v");
         if (null != $a) {
             return $a;
         } // if
-        
+
         $sql = "SELECT COUNT(*) AS c, program FROM $v GROUP BY program HAVING CHAR_LENGTH(program)>2 ORDER BY c DESC";
         $perf->start($sql);
         $a = $this->sendResult($sql);
         $perf->stop();
-        
+
         $this->aPerf[] = $perf;
-        
+
         $this->cache->store("cloud$v", $a);
-        
+
         return $a;
     }
 
@@ -359,19 +359,19 @@ LIMIT $from,$count";
     public function getNewer($id)
     {
         $perf = new LggrPerf();
-        
+
         $sqlData = "
 SELECT * FROM lasthour
 WHERE id>$id
 ORDER BY `date` DESC
 LIMIT " . LggrState::PAGELEN;
-        
+
         $perf->start($sqlData);
         $a = $this->sendResult($sqlData);
         $perf->stop();
-        
+
         $this->aPerf[] = $perf;
-        
+
         return $a;
     }
 
@@ -379,15 +379,15 @@ LIMIT " . LggrState::PAGELEN;
     public function getEntry($id)
     {
         $perf = new LggrPerf();
-        
+
         $sqlData = "
 SELECT * FROM lasthour
 WHERE id=$id";
-        
+
         $perf->start($sqlData);
         $a = $this->sendResult($sqlData);
         $perf->stop();
-        
+
         $this->aPerf[] = $perf;
         return $a;
     }
@@ -397,31 +397,31 @@ WHERE id=$id";
     {
         $perfSize = new LggrPerf();
         $perfData = new LggrPerf();
-        
+
         $sFrom = $this->db->escape_string($this->state->getFrom());
         $sTo = $this->db->escape_string($this->state->getTo());
-        
+
         $sqlSize = "
 SELECT COUNT(*) AS c FROM newlogs
 WHERE `date` BETWEEN '$sFrom' AND '$sTo'";
-        
+
         $sqlData = "
 SELECT * FROM newlogs
 WHERE `date` BETWEEN '$sFrom' AND '$sTo'
 ORDER BY `date` DESC
 LIMIT $from,$count";
-        
+
         $perfSize->start($sqlSize);
         $this->getResultSize($sqlSize);
         $perfSize->stop();
-        
+
         $perfData->start($sqlData);
         $a = $this->sendResult($sqlData);
         $perfData->stop();
-        
+
         $this->aPerf[] = $perfSize;
         $this->aPerf[] = $perfData;
-        
+
         return $a;
     }
 
@@ -430,34 +430,34 @@ LIMIT $from,$count";
     {
         $perfSize = new LggrPerf();
         $perfData = new LggrPerf();
-        
+
         $iHost = $this->state->getHostId();
         $sFrom = $this->db->escape_string($this->state->getFrom());
         $sTo = $this->db->escape_string($this->state->getTo());
-        
+
         $sqlSize = "
 SELECT COUNT(*) AS c FROM newlogs
 WHERE `date` BETWEEN '$sFrom' AND '$sTo'
 AND idhost=$iHost";
-        
+
         $sqlData = "
 SELECT * FROM newlogs
 WHERE `date` BETWEEN '$sFrom' AND '$sTo'
 AND idhost=$iHost
 ORDER BY `date` DESC
 LIMIT $from,$count";
-        
+
         $perfSize->start($sqlSize);
         $this->getResultSize($sqlSize);
         $perfSize->stop();
-        
+
         $perfData->start($sqlData);
         $a = $this->sendResult($sqlData);
         $perfData->stop();
-        
+
         $this->aPerf[] = $perfSize;
         $this->aPerf[] = $perfData;
-        
+
         return $a;
     }
 
@@ -466,12 +466,12 @@ LIMIT $from,$count";
     {
         $perfSize = new LggrPerf();
         $perfData = new LggrPerf();
-        
+
         $v = $this->getViewName();
-        
+
         $sqlSize = "SELECT COUNT(*) AS c FROM $v";
         $sqlData = "SELECT * FROM $v";
-        
+
         $aWhere = array();
         if (null != $host) {
             $sTmp = $this->db->escape_string($host);
@@ -481,25 +481,25 @@ LIMIT $from,$count";
             $sTmp = $this->db->escape_string($level);
             $aWhere[] = "level='$sTmp'";
         } // if
-        
+
         if (!empty($aWhere)) {
             $sqlSize .= " WHERE " . implode(Lggr::INNERAND, $aWhere);
             $sqlData .= " WHERE " . implode(Lggr::INNERAND, $aWhere);
         } // if
-        
+
         $sqlData .= " ORDER BY `date` DESC LIMIT $from,$count";
-        
+
         $perfSize->start($sqlSize);
         $this->getResultSize($sqlSize);
         $perfSize->stop();
-        
+
         $perfData->start($sqlData);
         $a = $this->sendResult($sqlData);
         $perfData->stop();
-        
+
         $this->aPerf[] = $perfSize;
         $this->aPerf[] = $perfData;
-        
+
         return $a;
     }
 
@@ -507,11 +507,11 @@ LIMIT $from,$count";
     public function getText($msg = '', $prog = '', $from = 0, $count = LggrState::PAGELEN)
     {
         $perf = new LggrPerf();
-        
+
         $v = $this->getViewName();
         $sTmpMsg = $this->db->escape_string($msg);
         $sTmpProg = $this->db->escape_string($prog);
-        
+
         $aWhere = array();
         if ('' != $msg) {
             $aWhere[] = "message LIKE '%{$sTmpMsg}%'";
@@ -520,19 +520,19 @@ LIMIT $from,$count";
             $aWhere[] = "program LIKE '%{$sTmpProg}%'";
         } // if
         $sWhere = implode(' AND ', $aWhere);
-        
+
         $sql = "
 SELECT * FROM $v
 WHERE $sWhere
 ORDER BY `date` DESC
 LIMIT $from,$count";
-        
+
         $perf->start($sql);
         $a = $this->sendResult($sql);
         $perf->stop();
-        
+
         $this->aPerf[] = $perf;
-        
+
         return $a;
     }
 
@@ -540,23 +540,23 @@ LIMIT $from,$count";
     public function getMessagesPerHour()
     {
         $perf = new LggrPerf();
-        
+
         $sql = "
 SELECT HOUR(TIME(`date`)) AS h, COUNT(*) AS c
 FROM today
 GROUP BY h";
-        
+
         $a = $this->cache->retrieve('mph');
         if (null != $a) {
             return $a;
         } // if
-        
+
         $perf->start($sql);
         $a = $this->sendResult($sql);
         $perf->stop();
-        
+
         $this->aPerf[] = $perf;
-        
+
         $this->cache->store('mph', $a);
         return $a;
     }
@@ -565,23 +565,23 @@ GROUP BY h";
     public function getArchivedStatistic()
     {
         $perf = new LggrPerf();
-        
+
         $sql = "
 SELECT COUNT(*) AS cnt
 FROM archived
 ";
-        
+
         $a = $this->cache->retrieve('archivedstats');
         if (null != $a) {
             return $a;
         } // if
-        
+
         $perf->start($sql);
         $a = $this->sendResult($sql);
         $perf->stop();
-        
+
         $this->aPerf[] = $perf;
-        
+
         $this->cache->store('archivedstats', $a);
         return $a;
     }
@@ -590,37 +590,37 @@ FROM archived
     public function getStatistic()
     {
         $perf = new LggrPerf();
-        
+
         $sql = "
 SELECT COUNT(*) AS cnt, MIN(`date`) AS oldest
 FROM newlogs
 ";
-        
+
         $a = $this->cache->retrieve('stats');
         if (null != $a) {
             return $a;
         } // if
-        
+
         $perf->start($sql);
         $a = $this->sendResult($sql);
         $perf->stop();
-        
+
         $this->aPerf[] = $perf;
-        
+
         $this->cache->store('stats', $a);
         return $a;
     }
 
     // function
-    
+
     /* delete anything older than maxage hours */
     public function purgeOldMessages($maxage = 672)
     {
-	$iMaxAge = intval($maxage);
+    $iMaxAge = intval($maxage);
         $perf = new LggrPerf();
-        
+
         $sql = "call Purge_entries($iMaxAge);";
-        
+
         $perf->start($sql);
         $res = $this->db->query($sql);
         if (false === $res) {
@@ -628,7 +628,7 @@ FROM newlogs
         } // if
         $perf->stop();
         $this->aPerf[] = $perf;
-        
+
         return $this->db->affected_rows;
     }
 
@@ -637,26 +637,26 @@ FROM newlogs
     {
         $perf = new LggrPerf();
         $iCount = 0;
-        
+
         // First, get list of all known servers
         $sql = "SELECT id,name FROM servers";
         $perf->start($sql);
         $aServersKnownObj = $this->sendResult($sql);
         $perf->stop();
         $this->aPerf[] = $perf;
-        
+
         $aServersKnown = array();
         foreach ($aServersKnownObj as $obj) {
             $aServersKnown[$obj->name] = $obj->id;
         } // foreach
-          
+
         // Second, get list of all used servers in logs
         $sql = "SELECT DISTINCT host FROM newlogs";
         $perf->start($sql);
         $aServersUsed = $this->sendResult($sql);
         $perf->stop();
         $this->aPerf[] = $perf;
-        
+
         // Third, Look for servers not yet in the known servers list
         foreach ($aServersUsed as $obj) {
             $sName = $obj->host;
@@ -672,7 +672,7 @@ FROM newlogs
                 $iCount ++;
             } // if
         } // foreach
-          
+
         // Fourth, add foreign key of server to new entries with null foreign key
         foreach ($aServersKnown as $sName => $sID) {
             $sName = $this->db->escape_string($sName);
@@ -683,7 +683,7 @@ FROM newlogs
             } // if
             $iCount += $this->db->affected_rows;
         } // foreach
-          
+
         // return to caller
         return $iCount;
     }
@@ -696,13 +696,13 @@ FROM newlogs
         } else {
             $sArchive = 'N';
         } // if
-        
+
         $sql = "UPDATE newlogs SET archived='$sArchive' WHERE id=$iID LIMIT 1";
         $res = $this->db->query($sql);
         if (false === $res) {
             throw new LggrException($this->db->error);
         } // if
-        
+
         $this->cache->purge(Lggr::ARCHIVEDSIZE);
         $this->cache->purge("archivedData0");
     }
@@ -710,7 +710,7 @@ FROM newlogs
     // function
     public function normalizeHosts()
     {
-        
+
         // Find any new hostnames
         $sql = "
 SELECT newlogs.host
@@ -722,21 +722,21 @@ GROUP BY newlogs.host";
         foreach ($aEmpty as $o) {
             $host = $o->host;
             $host = $this->db->escape_string($host);
-            
+
             $sql = "INSERT INTO hosts (name) VALUES ('$host')";
             $res = $this->db->query($sql);
             if (false === $res) {
                 throw new LggrException($this->db->error);
             } // if
             $id = $this->db->insert_id;
-            
+
             $sql = "UPDATE newlogs SET idhost=$id WHERE host='$host'";
             $res = $this->db->query($sql);
             if (false === $res) {
                 throw new LggrException($this->db->error);
             } // if
         } // foreach
-          
+
         // read current list of hostnames and ids
         $sql = "
 SELECT *
@@ -748,7 +748,7 @@ FROM hosts";
             $hostName = $o->name;
             $aHosts[$hostName] = $hostId;
         } // foreach
-          
+
         // search any new entry without hostid and update it
         foreach ($aHosts as $hostName => $hostId) {
             $hostName = $this->db->escape_string($hostName);
@@ -783,7 +783,7 @@ AND host='$hostName'
     private function sendResult($sql)
     {
         $a = array();
-        
+
         $res = $this->db->query($sql);
         if (false === $res) {
             throw new LggrException($this->db->error);
@@ -791,7 +791,7 @@ AND host='$hostName'
         while ($row = $res->fetch_object()) {
             $a[] = $row;
         } // while
-        
+
         $res->close();
         return $a;
     }

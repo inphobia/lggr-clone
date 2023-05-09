@@ -5,8 +5,8 @@
  * @brief Preloaded function to start a page output
  */
 if (!file_exists(__DIR__ . '/../vendor/autoload.php')) {
-	echo "autoload.php missing, did you run 'composer install'?";
-	exit;
+    echo "autoload.php missing, did you run 'composer install'?";
+    exit;
 }
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -50,4 +50,3 @@ bind_textdomain_codeset(MESSAGES, 'UTF-8');
 textdomain(MESSAGES);
 
 define('TAG_ARIALABEL', '" aria-label="');
-

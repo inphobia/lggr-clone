@@ -23,7 +23,7 @@ class LggrPerf
      */
     public function __construct()
     {
-    	  // nothing to do here
+          // nothing to do here
     }
 
     /**
@@ -52,12 +52,12 @@ class LggrPerf
     public function getPerf()
     {
         $a = array();
-        
+
         $a['time'] = $this->tsLen;
         $a['query'] = $this->sQuery;
-        
+
         $this->logperf();
-        
+
         return $a;
     }
 

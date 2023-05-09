@@ -30,19 +30,19 @@ $l = null;
 try {
     $config = new Config();
     $l = new Lggr($state, $config);
-    
+
     $aLevels = $l->getLevels();
     $aServers = $l->getServers();
-    
+
     $aStatistic = $l->getStatistic();
     $aStatistic = $aStatistic[0];
-    
+
     $aMsgPerHour = $l->getMessagesPerHour();
-    
+
     $aCloud = $l->getCloud();
 }
 catch (LggrException $e) {
-    
+
     exit();
 }
 
@@ -57,12 +57,12 @@ foreach ($aMsgPerHour as $hour) {
 } // foreach
 ?>
 var dataMsgsPerHour = {
-	labels: ["<?= implode('","', array_keys($aTmp)) ?>"],
-	datasets: [ {
-		label: "Msgs per hour",
-		fillColor: "rgba(220,220,220,0.5)",
-		data: [<?= implode(',', array_values($aTmp)) ?>],
-	} ]
+    labels: ["<?= implode('","', array_keys($aTmp)) ?>"],
+    datasets: [ {
+        label: "Msgs per hour",
+        fillColor: "rgba(220,220,220,0.5)",
+        data: [<?= implode(',', array_values($aTmp)) ?>],
+    } ]
 };
 
 <?php
@@ -72,12 +72,12 @@ foreach ($aServers as $server) {
 } // foreach
 ?>
 var dataServers = {
-	labels: ["<?= implode('","', array_keys($aTmp)) ?>"],
-	datasets: [ {
-		label: "Hostname",
-		fillColor: "rgba(151,187,205,0.5)",
-		data: [<?= implode(',', array_values($aTmp)) ?>],
-	} ]
+    labels: ["<?= implode('","', array_keys($aTmp)) ?>"],
+    datasets: [ {
+        label: "Hostname",
+        fillColor: "rgba(151,187,205,0.5)",
+        data: [<?= implode(',', array_values($aTmp)) ?>],
+    } ]
 };
 
 var dataLevels = {
