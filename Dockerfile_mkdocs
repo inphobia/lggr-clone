@@ -1,0 +1,5 @@
+FROM python
+MAINTAINER Kai Kretschmann
+
+RUN apt-get update && apt-get install -y \
+	mkdocs

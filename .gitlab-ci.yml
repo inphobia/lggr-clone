@@ -73,7 +73,7 @@ dodocker:
     - if: '$DODOCKER == "yes"'
   parallel:
     matrix:
-      - D: ['74', '81']
+      - D: ['74', '81', 'mkdocs']
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   services:
