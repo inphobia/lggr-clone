@@ -1,8 +1,0 @@
-
-# this will only work after running a "docker login" command line once
-
-docker build -t gitlab.kretschmann.software:5050/kai/lggr:7.3 - <Dockerfile_73
-docker push gitlab.kretschmann.software:5050/kai/lggr:7.3
-
-docker build -t gitlab.kretschmann.software:5050/kai/lggr:7.4 - <Dockerfile_74
-docker push gitlab.kretschmann.software:5050/kai/lggr:7.4
