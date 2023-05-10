@@ -8,6 +8,7 @@ stages:
 
 # Set any variables we need
 variables:
+  LGGR_IMAGE: $CI_REGISTRY/kai/lggr:7.4
   MYSQL_DATABASE: $MYSQL_DB
   MYSQL_ROOT_PASSWORD: $MYSQL_PASS
   ELASTIC_URL: $ELASTIC_HOST/phpunit/result
@@ -21,7 +22,7 @@ websetup:
   stage: setup
   tags:
     - docker
-  image: $CI_REGISTRY/kai/lggr:7.4
+  image: $LGGR_IMAGE
   rules:
     - if: '$DODOCKER != "yes"'
   script:
@@ -43,7 +44,7 @@ dbsetup:
   stage: initialize
   tags:
     - docker
-  image: $CI_REGISTRY/kai/lggr:7.4
+  image: $LGGR_IMAGE
   rules:
     - if: '$DODOCKER != "yes"'
   services:
@@ -72,7 +73,7 @@ dodocker:
     - if: '$DODOCKER == "yes"'
   parallel:
     matrix:
-      - D: ['74']
+      - D: ['74', '81']
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   services:
@@ -90,7 +91,7 @@ unittest:
   stage: test
   tags:
     - docker
-  image: $CI_REGISTRY/kai/lggr:7.4
+  image: $LGGR_IMAGE
   rules:
     - if: '$DODOCKER != "yes"'
   services:
@@ -125,7 +126,7 @@ webtest:
   stage: test
   tags:
     - docker
-  image: $CI_REGISTRY/kai/lggr:7.4
+  image: $LGGR_IMAGE
   rules:
     - if: '$DODOCKER != "yes"'
   services:
