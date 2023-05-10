@@ -8,7 +8,7 @@ stages:
 
 # Set any variables we need
 variables:
-  LGGR_IMAGE: $CI_REGISTRY/kai/lggr:7.4
+  LGGR_IMAGE: $CI_REGISTRY/kai/lggr:74
   MYSQL_DATABASE: $MYSQL_DB
   MYSQL_ROOT_PASSWORD: $MYSQL_PASS
   ELASTIC_URL: $ELASTIC_HOST/phpunit/result
