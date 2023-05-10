@@ -161,6 +161,7 @@ doctest:
   image: $CI_REGISTRY/kai/lggr:mkdocs
   rules:
     - if: '$DODOCKER != "yes"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
   before_script:
     - mkdir test
   script:
@@ -168,8 +169,6 @@ doctest:
   artifacts:
     paths:
     - test
-  except:
-  - master
 
 bom:
   stage: analysis
