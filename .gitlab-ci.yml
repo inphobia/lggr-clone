@@ -150,7 +150,7 @@ bom:
     DTRACK_NAME: "lggr"
   image: $CI_REGISTRY/kai/lggr:7.4
   script:
-    - composer make-bom
+    - composer CycloneDX:make-sbom
   after_script:
     - 'export DTRACK_VERSION=$(cut -d ":" -f 6 <VERSION.cpe)'
     - echo "projectName=${DTRACK_NAME}"
