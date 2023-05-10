@@ -4,6 +4,8 @@ MAINTAINER Kai Kretschmann
 RUN apt-get update && apt-get install -y \
 	mariadb-client curl wget git zip npm
 RUN pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug
+RUN pecl install -D 'enable-redis-igbinary="no" enable-redis-lzf="no" enable-redis-zstd="no"' redis
+RUN docker-php-ext-install redis
 RUN docker-php-ext-install mysqli
 
 RUN wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig \
