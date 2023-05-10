@@ -2,7 +2,7 @@ FROM php:7.4-apache
 MAINTAINER Kai Kretschmann
 
 RUN apt-get update && apt-get install -y \
-	mariadb-client curl wget git zip
+	mariadb-client curl wget git zip npm
 RUN pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug
 RUN docker-php-ext-install mysqli
 
