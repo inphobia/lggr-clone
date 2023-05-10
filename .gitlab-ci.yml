@@ -22,6 +22,8 @@ websetup:
   tags:
     - docker
   image: $CI_REGISTRY/kai/lggr:7.4
+  rules:
+    - if: '$DODOCKER != "yes"'
   script:
   - composer --no-interaction --quiet install
   - composer npm-install
@@ -42,6 +44,8 @@ dbsetup:
   tags:
     - docker
   image: $CI_REGISTRY/kai/lggr:7.4
+  rules:
+    - if: '$DODOCKER != "yes"'
   services:
   - name: mariadb:10.1
     alias: mysql
@@ -61,11 +65,34 @@ dbsetup:
     paths:
       - dump.sql
 
+dodocker:
+  stage: initialize
+  image: docker:20.10.17
+  rules:
+    - if: '$DODOCKER == "yes"'
+  parallel:
+    matrix:
+      - D: ['74']
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  services:
+    - docker:20-dind
+  tags:
+    - docker
+  before_script:
+    - mkdir -p $HOME/.docker
+    - echo $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
+  script:
+    - docker build -t registry.kretschmann.software/kai/lggr:$D . -f Dockerfile_$D
+    - docker push registry.kretschmann.software/kai/lggr:$D
+
 unittest:
   stage: test
   tags:
     - docker
   image: $CI_REGISTRY/kai/lggr:7.4
+  rules:
+    - if: '$DODOCKER != "yes"'
   services:
   - name: mariadb:10.1
     alias: mysql
@@ -99,6 +126,8 @@ webtest:
   tags:
     - docker
   image: $CI_REGISTRY/kai/lggr:7.4
+  rules:
+    - if: '$DODOCKER != "yes"'
   services:
   - name: mariadb:10.1
     alias: mysql
@@ -130,10 +159,12 @@ doctest:
   tags:
     - docker
   image: $CI_REGISTRY/kai/lggr:mkdocs
+  rules:
+    - if: '$DODOCKER != "yes"'
   before_script:
-  - mkdir test
+    - mkdir test
   script:
-  - mkdocs build --strict --verbose --site-dir test
+    - mkdocs build --strict --verbose --site-dir test
   artifacts:
     paths:
     - test
@@ -149,6 +180,8 @@ bom:
     DTRACK_API: ${DTRACK_API}
     DTRACK_NAME: "lggr"
   image: $CI_REGISTRY/kai/lggr:7.4
+  rules:
+    - if: '$DODOCKER != "yes"'
   script:
     - composer CycloneDX:make-sbom
   after_script:
@@ -168,6 +201,8 @@ sonarqube:
   image:
     name: sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
+  rules:
+    - if: '$DODOCKER != "yes"'
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
   before_script:
@@ -181,10 +216,12 @@ makedocs:
   tags:
     - docker
   image: $CI_REGISTRY/kai/lggr:mkdocs
+  rules:
+    - if: '$DODOCKER != "yes"'
   before_script:
-  - mkdir pub_mkdocs
+    - mkdir pub_mkdocs
   script:
-  - mkdocs build
+    - mkdocs build
   artifacts:
     paths:
     - pub_mkdocs
@@ -194,10 +231,12 @@ doxygen:
   tags:
     - docker
   image: $CI_REGISTRY/kai/lggr:doxygen
+  rules:
+    - if: '$DODOCKER != "yes"'
   before_script:
-  - mkdir -p pub_doxygen
+    - mkdir -p pub_doxygen
   script:
-  - doxygen Doxyfile
+    - doxygen Doxyfile
   artifacts:
     paths:
     - pub_doxygen
@@ -207,12 +246,14 @@ pages:
   tags:
     - docker
   image: alpine
+  rules:
+    - if: '$DODOCKER != "yes"'
   before_script:
-  - mkdir public
+    - mkdir public
   script:
-  - cp -a pub_mkdocs/* public/
-  - cp -a pub_doxygen/html/* public/doxygen/
-  - cp -a pub_phpunit/* public/phpunit/
+    - cp -a pub_mkdocs/* public/
+    - cp -a pub_doxygen/html/* public/doxygen/
+    - cp -a pub_phpunit/* public/phpunit/
   artifacts:
     paths:
     - public
@@ -222,6 +263,8 @@ deploy:
   tags:
     - docker
   image: curlimages/curl:latest
+  rules:
+    - if: '$DODOCKER != "yes"'
   variables:
     URL: "$CI_SERVER_PROTOCOL://$CI_SERVER_HOST:$CI_SERVER_PORT/api/v4/projects/$CI_PROJECT_ID/packages/composer?job_token=$CI_JOB_TOKEN"
   script:
