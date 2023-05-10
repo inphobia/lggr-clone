@@ -1,0 +1,4 @@
+FROM alpine
+MAINTAINER Kai Kretschmann
+
+RUN apk update && apk add doxygen graphviz ttf-freefont

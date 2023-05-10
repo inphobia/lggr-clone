@@ -73,7 +73,7 @@ dodocker:
     - if: '$DODOCKER == "yes"'
   parallel:
     matrix:
-      - D: ['74', '81', 'mkdocs']
+      - D: ['74', '81', 'mkdocs', 'doxygen']
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   services:
@@ -178,7 +178,7 @@ bom:
     DTRACK_URL: ${DTRACK_URL}
     DTRACK_API: ${DTRACK_API}
     DTRACK_NAME: "lggr"
-  image: $CI_REGISTRY/kai/lggr:7.4
+  image: $LGGR_IMAGE
   rules:
     - if: '$DODOCKER != "yes"'
   script:
