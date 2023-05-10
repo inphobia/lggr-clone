@@ -160,8 +160,7 @@ doctest:
     - docker
   image: $CI_REGISTRY/kai/lggr:mkdocs
   rules:
-    - if: '$DODOCKER != "yes"'
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$DODOCKER != "yes" && $CI_COMMIT_BRANCH == "master"'
   before_script:
     - mkdir test
   script:

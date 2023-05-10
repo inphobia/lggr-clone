@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:7.1-apache
 MAINTAINER Kai Kretschmann
 
 RUN apt-get update && apt-get install -y \
