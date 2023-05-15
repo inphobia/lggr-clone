@@ -4,7 +4,7 @@ namespace Lggr;
 /**
  * @brief Default configuration class for web UI.
  */
-class Config extends AbstractConfig
+class LocalConfig extends AbstractConfig
 {
 
     public function __construct()
@@ -12,7 +12,8 @@ class Config extends AbstractConfig
         $this->setDbUser('lggrweb');
         $this->setDbPwd('xxx');
         $this->setDbName('lggr');
-        $this->setDbHost('mysql');
+        $this->setDbHost('localhost');
+        $this->setCacheHost('localhost');
 
         // Set your preferred language en_US, de_DE, or pt_BR
         $this->setLocale('en_US');

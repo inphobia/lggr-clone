@@ -32,7 +32,7 @@ class Lggr
     {
         $this->config = $config;
         $this->state = $state;
-        $this->cache = new LggrCacheRedis(); // or use LggrCacheFile instead
+        $this->cache = new LggrCacheRedis($this->config); // or use LggrCacheFile instead
         $this->aPerf = array(); // of type LggrPerf objects
 
         $dbh = new \PDO(

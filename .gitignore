@@ -6,6 +6,7 @@ contrib/*
 vendor/*
 node_modules/*
 logs/*
+k8s/*
 public/
 pub_doxygen/
 pub_mkdocs/

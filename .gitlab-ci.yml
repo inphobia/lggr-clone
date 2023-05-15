@@ -11,10 +11,6 @@ variables:
   LGGR_IMAGE: $CI_REGISTRY/kai/lggr:74
   MYSQL_DATABASE: $MYSQL_DB
   MYSQL_ROOT_PASSWORD: $MYSQL_PASS
-  ELASTIC_URL: $ELASTIC_HOST/phpunit/result
-  ELASTIC_HEADER: 'Content-Type: application/json'
-  ELASTIC_USER: $ELK_USER
-  ELASTIC_PASSWD: $ELK_PASSWD
   DOCKER_AUTH_CONFIG: '{ "auths": { "https://index.docker.io/v1/": { "auth": "$DOCKER_AUTH" } }}'
   SELENIUM_URL: $SELENIUM_URL
 
@@ -99,14 +95,13 @@ unittest:
     alias: mysql
   - redis:latest
   before_script:
-  - ls -l dump.sql composer.lock
-  - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
-  - cat setup/3_user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
+    - ls -l dump.sql composer.lock
+    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
+    - cat setup/3_user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
   script:
-  - composer test
+    - composer test
   after_script:
     - php tests/x2j.php >logs/junit.json
-    - curl -X POST -H "${ELASTIC_HEADER}" -u "${ELASTIC_USER}:${ELASTIC_PASSWD}" -d @logs/junit.json "${ELASTIC_URL}"
   dependencies:
     - websetup
     - dbsetup

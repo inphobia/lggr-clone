@@ -15,6 +15,8 @@ abstract class AbstractConfig
 
     protected $DBHOST;
 
+    protected $CACHEHOST;
+
     protected $URLBOOTSTRAP;
 
     protected $URLJQUERY;
@@ -49,6 +51,11 @@ abstract class AbstractConfig
     final public function getDbHost()
     {
         return $this->DBHOST;
+    }
+
+    final public function getCacheHost()
+    {
+        return $this->CACHEHOST;
     }
 
     final public function getUrlBootstrap()
@@ -109,6 +116,11 @@ abstract class AbstractConfig
     protected function setDbHost($s)
     {
         $this->DBHOST = $s;
+    }
+
+    protected function setCacheHost($s)
+    {
+        $this->CACHEHOST = $s;
     }
 
     protected function setUrlBootstrap($s)
