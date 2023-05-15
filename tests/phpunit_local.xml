@@ -9,10 +9,11 @@
         </exclude>
     </coverage>
     <php>
-        <var name="CONFIGCLASS" value="CiConfig" />
+        <var name="CONFIGCLASS" value="LocalConfig" />
         <var name="DB_DSN" value="mysql:dbname=lggr;host=localhost" />
         <var name="DB_USER" value="logviewer" />
         <var name="DB_PASSWD" value="rl" />
-        <var name="DB_DBNAME" value="lggr" />
+	<var name="DB_DBNAME" value="lggr" />
+	<var name="CACHE_HOST" value="localhost" />
     </php>
 </phpunit>
