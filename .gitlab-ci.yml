@@ -73,7 +73,8 @@ dodocker:
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   services:
-    - docker:20-dind
+    - name: docker:20-dind
+      alias: docker
   tags:
     - docker
   before_script:
@@ -239,7 +240,7 @@ pages:
   stage: deploy
   tags:
     - docker
-  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:latest
+  image: alpine:latest
   rules:
     - if: '$DODOCKER != "yes"'
   before_script:
@@ -256,7 +257,7 @@ deploy:
   stage: deploy
   tags:
     - docker
-  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/curlimages/curl:latest
+  image: curlimages/curl:latest
   rules:
     - if: '$DODOCKER != "yes"'
   variables:
