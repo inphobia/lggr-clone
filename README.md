@@ -21,4 +21,4 @@
 
 ## Gitlab pages
 
-Automated documentation found [here](https://kai.kretschmann.fyi/lggr/)
+Automated documentation found [here](https://kgroup.kretschmann.fyi/lggr/)
