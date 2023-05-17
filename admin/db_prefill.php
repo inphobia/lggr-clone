@@ -48,7 +48,6 @@ function makeServers($faker, $db, $count=10)
     $a = array();
     for ($i=0; $i<$count; $i++) {
         $name = $faker->domainWord;
-        echo $name . ", ";
         $sql = "INSERT INTO servers (name) VALUES ('" . $name . "')";
         $db->query($sql);
         $id = $db->insert_id;
