@@ -8,7 +8,7 @@ stages:
 
 # Set any variables we need
 variables:
-  LGGR_IMAGE: $CI_REGISTRY/kai/lggr:74
+  LGGR_IMAGE: $CI_REGISTRY/kgroup/lggr:74
   MYSQL_DATABASE: $MYSQL_DB
   MYSQL_ROOT_PASSWORD: $MYSQL_PASS
   DOCKER_AUTH_CONFIG: '{ "auths": { "https://index.docker.io/v1/": { "auth": "$DOCKER_AUTH" } }}'
@@ -27,7 +27,7 @@ websetup:
   - php -i|grep PDO
   # link our project stuff
   - rm .htaccess
-  - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
+  - cd /var/www; mv html html_orig; ln -s /builds/kgroup/lggr html; ls -l
   artifacts:
     name: "web"
     paths:
@@ -44,9 +44,9 @@ dbsetup:
   rules:
     - if: '$DODOCKER != "yes"'
   services:
-  - name: mariadb:10.1
+  - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/mariadb:10.1
     alias: mysql
-  - redis:latest
+  - ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/redis:latest
   script:
   - sleep 60
   - echo Did wait for services
@@ -64,7 +64,7 @@ dbsetup:
 
 dodocker:
   stage: initialize
-  image: docker:20.10.17
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:20.10.17
   rules:
     - if: '$DODOCKER == "yes"'
   parallel:
@@ -73,7 +73,7 @@ dodocker:
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   services:
-    - name: docker:20-dind
+    - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:20-dind
       alias: docker
   tags:
     - docker
@@ -81,8 +81,8 @@ dodocker:
     - mkdir -p $HOME/.docker
     - echo $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
   script:
-    - docker build -t registry.kretschmann.software/kai/lggr:$D . -f Dockerfile_$D
-    - docker push registry.kretschmann.software/kai/lggr:$D
+    - docker build -t registry.kretschmann.software/kgroup/lggr:$D . -f Dockerfile_$D
+    - docker push registry.kretschmann.software/kgroup/lggr:$D
 
 unittest:
   stage: test
@@ -92,9 +92,9 @@ unittest:
   rules:
     - if: '$DODOCKER != "yes"'
   services:
-    - name: mariadb:10.1
+    - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/mariadb:10.1
       alias: mysql
-    - redis:latest
+    - ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/redis:latest
   before_script:
     - ls -l dump.sql composer.lock
     - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
@@ -126,20 +126,20 @@ webtest:
   rules:
     - if: '$DODOCKER != "yes"'
   services:
-    - name: mariadb:10.1
+    - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/mariadb:10.1
       alias: mysql
-    - name: selenium/standalone-chrome
+    - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/selenium/standalone-chrome
       alias: selenium
-    - redis:latest
+    - ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/redis:latest
   before_script:
     - ls -l dump.sql composer.lock
     - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
     - cat setup/3_user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
     - rm .htaccess
-    - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
+    - cd /var/www; mv html html_orig; ln -s /builds/kgroup/lggr html; ls -l
     - /etc/init.d/apache2 start
   script:
-    - cd /builds/kai/lggr
+    - cd /builds/kgroup/lggr
     - WEBIP=`hostname -i` composer webtest
   allow_failure: true
   dependencies:
@@ -155,7 +155,7 @@ doctest:
   stage: test
   tags:
     - docker
-  image: $CI_REGISTRY/kai/lggr:mkdocs
+  image: $CI_REGISTRY/kgroup/lggr:mkdocs
   rules:
     - if: '$DODOCKER != "yes" && $CI_COMMIT_BRANCH == "master"'
   before_script:
@@ -194,7 +194,7 @@ sonarqube:
   tags:
     - docker
   image:
-    name: sonarsource/sonar-scanner-cli:latest
+    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
   rules:
     - if: '$DODOCKER != "yes"'
@@ -210,7 +210,7 @@ makedocs:
   stage: document
   tags:
     - docker
-  image: $CI_REGISTRY/kai/lggr:mkdocs
+  image: $CI_REGISTRY/kgroup/lggr:mkdocs
   rules:
     - if: '$DODOCKER != "yes"'
   before_script:
@@ -225,7 +225,7 @@ doxygen:
   stage: document
   tags:
     - docker
-  image: $CI_REGISTRY/kai/lggr:doxygen
+  image: $CI_REGISTRY/kgroup/lggr:doxygen
   rules:
     - if: '$DODOCKER != "yes"'
   before_script:
@@ -240,7 +240,7 @@ pages:
   stage: deploy
   tags:
     - docker
-  image: alpine:latest
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:latest
   rules:
     - if: '$DODOCKER != "yes"'
   before_script:
@@ -257,7 +257,7 @@ deploy:
   stage: deploy
   tags:
     - docker
-  image: curlimages/curl:latest
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/curlimages/curl:latest
   rules:
     - if: '$DODOCKER != "yes"'
   variables:
