@@ -64,7 +64,7 @@ dbsetup:
 
 dodocker:
   stage: initialize
-  image: docker:20.10.17
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:20.10.17
   rules:
     - if: '$DODOCKER == "yes"'
   parallel:
@@ -73,7 +73,7 @@ dodocker:
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   services:
-    - docker:20-dind
+    - ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:20-dind
   tags:
     - docker
   before_script:
@@ -91,9 +91,9 @@ unittest:
   rules:
     - if: '$DODOCKER != "yes"'
   services:
-  - name: mariadb:10.1
+  - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/mariadb:10.1
     alias: mysql
-  - redis:latest
+  - ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/redis:latest
   before_script:
     - ls -l dump.sql composer.lock
     - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
@@ -125,11 +125,11 @@ webtest:
   rules:
     - if: '$DODOCKER != "yes"'
   services:
-  - name: mariadb:10.1
+  - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/mariadb:10.1
     alias: mysql
-  - name: selenium/standalone-chrome
+  - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/selenium/standalone-chrome
     alias: selenium
-  - redis:latest
+  - ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/redis:latest
   before_script:
   - ls -l dump.sql composer.lock
   - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
@@ -193,7 +193,7 @@ sonarqube:
   tags:
     - docker
   image:
-    name: sonarsource/sonar-scanner-cli:latest
+    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
   rules:
     - if: '$DODOCKER != "yes"'
@@ -239,7 +239,7 @@ pages:
   stage: deploy
   tags:
     - docker
-  image: alpine
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:latest
   rules:
     - if: '$DODOCKER != "yes"'
   before_script:
@@ -256,7 +256,7 @@ deploy:
   stage: deploy
   tags:
     - docker
-  image: curlimages/curl:latest
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/curlimages/curl:latest
   rules:
     - if: '$DODOCKER != "yes"'
   variables:
