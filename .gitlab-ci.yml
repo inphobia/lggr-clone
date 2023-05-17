@@ -64,7 +64,7 @@ dbsetup:
 
 dodocker:
   stage: initialize
-  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:20.10.17
+  image: docker:20.10.17
   rules:
     - if: '$DODOCKER == "yes"'
   parallel:
@@ -73,7 +73,7 @@ dodocker:
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   services:
-    - ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:20-dind
+    - docker:20-dind
   tags:
     - docker
   before_script:
@@ -91,9 +91,9 @@ unittest:
   rules:
     - if: '$DODOCKER != "yes"'
   services:
-  - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/mariadb:10.1
-    alias: mysql
-  - ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/redis:latest
+    - name: mariadb:10.1
+      alias: mysql
+    - redis:latest
   before_script:
     - ls -l dump.sql composer.lock
     - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
@@ -125,21 +125,21 @@ webtest:
   rules:
     - if: '$DODOCKER != "yes"'
   services:
-  - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/mariadb:10.1
-    alias: mysql
-  - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/selenium/standalone-chrome
-    alias: selenium
-  - ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/redis:latest
+    - name: mariadb:10.1
+      alias: mysql
+    - name: selenium/standalone-chrome
+      alias: selenium
+    - redis:latest
   before_script:
-  - ls -l dump.sql composer.lock
-  - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
-  - cat setup/3_user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
-  - rm .htaccess
-  - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
-  - /etc/init.d/apache2 start
+    - ls -l dump.sql composer.lock
+    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE" <dump.sql
+    - cat setup/3_user.sql | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql
+    - rm .htaccess
+    - cd /var/www; mv html html_orig; ln -s /builds/kai/lggr html; ls -l
+    - /etc/init.d/apache2 start
   script:
-  - cd /builds/kai/lggr
-  - WEBIP=`hostname -i` composer webtest
+    - cd /builds/kai/lggr
+    - WEBIP=`hostname -i` composer webtest
   allow_failure: true
   dependencies:
     - websetup
@@ -193,7 +193,7 @@ sonarqube:
   tags:
     - docker
   image:
-    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/sonarsource/sonar-scanner-cli:latest
+    name: sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
   rules:
     - if: '$DODOCKER != "yes"'
